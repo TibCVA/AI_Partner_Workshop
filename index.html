@@ -1,1 +1,3534 @@
-test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CVA - Mastering LLMs for Strategic Excellence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cva-primary: #003d4d;
+            --cva-secondary: #00a19c;
+            --cva-accent: #7cc242;
+            --cva-dark: #1a1a1a;
+            --cva-light: #f5f5f5;
+            --cva-gray: #6c757d;
+            --cva-white: #ffffff;
+            --gradient-1: linear-gradient(135deg, #003d4d 0%, #00a19c 100%);
+            --gradient-2: linear-gradient(135deg, #00a19c 0%, #7cc242 100%);
+            --gradient-3: linear-gradient(135deg, rgba(0, 61, 77, 0.05) 0%, rgba(0, 161, 156, 0.05) 100%);
+            --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            overflow-x: hidden;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Typography Enhancement */
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            color: var(--cva-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--cva-primary);
+            margin-bottom: 1rem;
+        }
+
+        h4 {
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--cva-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--cva-gray);
+        }
+
+        .section-subtitle {
+            font-size: 1.375rem;
+            color: var(--cva-gray);
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+
+        /* Navigation Enhancement */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            z-index: 1000;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--cva-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: '';
+            width: 8px;
+            height: 32px;
+            background: var(--gradient-2);
+            border-radius: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--cva-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--cva-secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--cva-secondary);
+        }
+
+        /* Slide Counter */
+        .slide-counter {
+            position: fixed;
+            right: 3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .slide-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0, 61, 77, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .slide-dot.active {
+            background: var(--cva-secondary);
+            transform: scale(1.3);
+        }
+
+        .slide-dot:hover {
+            background: rgba(0, 161, 156, 0.5);
+        }
+
+        /* Progress Bar Enhancement */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(0, 0, 0, 0.05);
+            z-index: 1001;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient-2);
+            width: 0;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(124, 194, 66, 0.5);
+        }
+
+        /* Section Enhancement */
+        section {
+            min-height: 100vh;
+            padding: 6rem 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-3);
+            opacity: 0;
+            transition: opacity 1s ease;
+            pointer-events: none;
+        }
+
+        section:nth-child(even)::before {
+            opacity: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section Enhancement */
+        .hero {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafb 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            right: -25%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 161, 156, 0.1) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-50px, -50px) rotate(180deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 1.75rem;
+            color: var(--cva-gray);
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Card System Enhancement */
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .objective-card {
+            background: var(--cva-white);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .objective-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-2);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .objective-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .objective-card:nth-child(1) { animation-delay: 0.4s; }
+        .objective-card:nth-child(2) { animation-delay: 0.6s; }
+        .objective-card:nth-child(3) { animation-delay: 0.8s; }
+
+        .objective-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .objective-card h3 {
+            color: var(--cva-primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .objective-card h3::before {
+            content: '';
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-2);
+            border-radius: 12px;
+            opacity: 0.1;
+            flex-shrink: 0;
+        }
+
+        .objective-card p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .objective-card ul {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .objective-card li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--cva-gray);
+        }
+
+        .objective-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--cva-secondary);
+            font-weight: bold;
+        }
+
+        /* Model Comparison Enhancement */
+        .model-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .model-card {
+            background: var(--cva-white);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(0, 161, 156, 0.05) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        .model-card.o3::before {
+            background: radial-gradient(circle, rgba(124, 194, 66, 0.05) 0%, transparent 70%);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .model-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--cva-secondary);
+        }
+
+        .model-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .model-card h3 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .model-badge {
+            background: var(--gradient-1);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .model-card.o3 .model-badge {
+            background: var(--gradient-2);
+        }
+
+        .model-subtitle {
+            color: var(--cva-gray);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .model-specs {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .model-specs li {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            transition: var(--transition);
+        }
+
+        .model-specs li:hover {
+            padding-left: 1rem;
+            background: rgba(0, 161, 156, 0.02);
+            margin: 0 -1rem;
+            padding-right: 2rem;
+        }
+
+        .model-specs li:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: var(--cva-dark);
+            font-size: 1rem;
+        }
+
+        .spec-value {
+            color: var(--cva-secondary);
+            font-weight: 600;
+            text-align: right;
+            max-width: 60%;
+        }
+
+        .model-best-for {
+            background: var(--gradient-3);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-top: 2rem;
+        }
+
+        .model-best-for h4 {
+            color: var(--cva-primary);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .model-best-for p {
+            color: var(--cva-dark);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* Architecture Visualization Enhancement */
+        .architecture-visual {
+            background: var(--cva-white);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--shadow-md);
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .architecture-visual::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 161, 156, 0.03) 0%, transparent 70%);
+            animation: rotate 40s linear infinite reverse;
+        }
+
+        .attention-demo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 3rem 0;
+            position: relative;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .token {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            font-weight: 600;
+            position: relative;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-size: 1.125rem;
+        }
+
+        .token:hover {
+            background: var(--gradient-2);
+            color: white;
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--cva-secondary);
+        }
+
+        .attention-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .attention-line {
+            stroke: var(--cva-secondary);
+            stroke-width: 2;
+            fill: none;
+            opacity: 0.2;
+            stroke-dasharray: 5, 5;
+            animation: dash 20s linear infinite;
+        }
+
+        @keyframes dash {
+            to { stroke-dashoffset: -100; }
+        }
+
+        /* Innovation Grid Enhancement */
+        .innovation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .innovation-card {
+            background: var(--cva-white);
+            border: 2px solid rgba(0, 161, 156, 0.1);
+            padding: 2.5rem;
+            border-radius: 20px;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .innovation-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            background: var(--gradient-3);
+            transition: height 0.4s ease;
+        }
+
+        .innovation-card:hover::after {
+            height: 100%;
+        }
+
+        .innovation-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--cva-secondary);
+        }
+
+        .innovation-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .innovation-card h4 {
+            color: var(--cva-primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .innovation-tag {
+            display: inline-block;
+            background: var(--gradient-2);
+            color: white;
+            padding: 0.375rem 1.25rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+        }
+
+        .innovation-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--cva-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--cva-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Performance Chart Enhancement */
+        .performance-chart {
+            position: relative;
+            height: 400px;
+            margin: 3rem 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.02) 0%, transparent 100%);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            gap: 2rem;
+        }
+
+        .chart-bar-wrapper {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+        }
+
+        .chart-bar {
+            width: 100%;
+            background: var(--gradient-1);
+            border-radius: 12px 12px 0 0;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 1rem;
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .chart-bar.active {
+            opacity: 1;
+            transform: scaleY(1);
+        }
+
+        .chart-label {
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: 600;
+            color: var(--cva-dark);
+            font-size: 1rem;
+        }
+
+        /* Function Demo Enhancement */
+        .function-demo {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #fff;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .function-demo::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .function-demo::before {
+            content: '● ● ●';
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.75rem;
+            letter-spacing: 0.5rem;
+        }
+
+        .code-block {
+            margin-top: 2rem;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .code-line {
+            margin: 0.25rem 0;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: codeFadeIn 0.5s ease forwards;
+        }
+
+        .code-line:nth-child(1) { animation-delay: 0.1s; }
+        .code-line:nth-child(2) { animation-delay: 0.2s; }
+        .code-line:nth-child(3) { animation-delay: 0.3s; }
+        .code-line:nth-child(4) { animation-delay: 0.4s; }
+        .code-line:nth-child(5) { animation-delay: 0.5s; }
+        .code-line:nth-child(6) { animation-delay: 0.6s; }
+        .code-line:nth-child(7) { animation-delay: 0.7s; }
+
+        @keyframes codeFadeIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .code-keyword { color: #ff79c6; }
+        .code-string { color: #50fa7b; }
+        .code-number { color: #bd93f9; }
+        .code-bracket { color: #f8f8f2; }
+        .code-property { color: #8be9fd; }
+
+        /* Capability Matrix Enhancement */
+        .capability-matrix {
+            background: var(--cva-white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            margin: 3rem 0;
+        }
+
+        .matrix-header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .matrix-header h3 {
+            color: white;
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .matrix-level {
+            padding: 3rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .matrix-level::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: var(--gradient-1);
+            transform: scaleY(0);
+            transition: transform 0.4s ease;
+        }
+
+        .matrix-level:hover::before {
+            transform: scaleY(1);
+        }
+
+        .matrix-level:hover {
+            background: rgba(0, 161, 156, 0.02);
+            transform: translateX(10px);
+        }
+
+        .matrix-level h3 {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .level-badge {
+            background: var(--cva-secondary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .level-expert .level-badge { 
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%); 
+        }
+        .level-professional .level-badge { 
+            background: linear-gradient(135deg, #ffc107 0%, #ffb703 100%); 
+            color: #333; 
+        }
+        .level-experimental .level-badge { 
+            background: linear-gradient(135deg, #dc3545 0%, #f87171 100%); 
+        }
+
+        .use-case-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .use-case-list li {
+            padding: 1.25rem 0;
+            padding-left: 3rem;
+            position: relative;
+            color: var(--cva-gray);
+            font-size: 1.125rem;
+            line-height: 1.8;
+            transition: var(--transition);
+        }
+
+        .use-case-list li:hover {
+            color: var(--cva-dark);
+            padding-left: 3.5rem;
+        }
+
+        .use-case-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--cva-secondary);
+            font-weight: bold;
+            font-size: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .use-case-list li strong {
+            color: var(--cva-dark);
+            font-weight: 600;
+        }
+
+        /* Consulting Use Case Cards Enhancement */
+        .use-case-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .use-case-card {
+            background: var(--cva-white);
+            border: 2px solid rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+            padding: 3rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .use-case-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--cva-secondary) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .use-case-card:hover::before {
+            opacity: 0.03;
+        }
+
+        .use-case-card:hover {
+            border-color: var(--cva-secondary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .use-case-card h4 {
+            color: var(--cva-primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+        }
+
+        .use-case-content {
+            margin: 2rem 0;
+        }
+
+        .process-flow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .process-step {
+            background: rgba(0, 161, 156, 0.1);
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            color: var(--cva-dark);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .process-step:hover {
+            background: var(--cva-secondary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .process-arrow {
+            color: var(--cva-secondary);
+            font-size: 1.5rem;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.25rem 0;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .metric:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .metric-label {
+            font-weight: 600;
+            color: var(--cva-dark);
+            font-size: 1rem;
+        }
+
+        .metric-value {
+            color: var(--cva-secondary);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        /* Reasoning Flow Enhancement */
+        .reasoning-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .reasoning-step {
+            background: var(--cva-white);
+            border: 3px solid var(--cva-secondary);
+            padding: 1.5rem 2.5rem;
+            border-radius: 50px;
+            position: relative;
+            font-weight: 600;
+            color: var(--cva-primary);
+            transition: var(--transition);
+            font-size: 1.125rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .reasoning-step:hover {
+            background: var(--cva-secondary);
+            color: white;
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .reasoning-arrow {
+            color: var(--cva-secondary);
+            font-size: 2.5rem;
+        }
+
+        /* Security Grid Enhancement */
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .security-card {
+            background: var(--cva-white);
+            border: 2px solid rgba(255, 193, 7, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            transition: var(--transition);
+            overflow: hidden;
+        }
+
+        .security-card.high-risk {
+            border-color: rgba(220, 53, 69, 0.3);
+        }
+
+        .security-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ffc107 0%, #ffb703 100%);
+        }
+
+        .security-card.high-risk::before {
+            background: linear-gradient(90deg, #dc3545 0%, #f87171 100%);
+        }
+
+        .security-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .risk-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: linear-gradient(135deg, #ffc107 0%, #ffb703 100%);
+            color: #333;
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .high-risk .risk-badge {
+            background: linear-gradient(135deg, #dc3545 0%, #f87171 100%);
+            color: white;
+        }
+
+        .security-content {
+            margin-top: 1rem;
+        }
+
+        .security-content p {
+            margin: 1rem 0;
+            line-height: 1.8;
+        }
+
+        .security-content p strong {
+            color: var(--cva-dark);
+            font-weight: 600;
+        }
+
+        /* Prompt Examples Enhancement */
+        .prompt-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .prompt-example {
+            background: var(--cva-white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 0;
+            border: 2px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .prompt-bad {
+            border-left: 5px solid #dc3545;
+        }
+
+        .prompt-good {
+            border-left: 5px solid #28a745;
+        }
+
+        .prompt-example:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .prompt-label {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .prompt-bad .prompt-label { 
+            color: #dc3545; 
+        }
+        
+        .prompt-good .prompt-label { 
+            color: #28a745; 
+        }
+
+        .prompt-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .prompt-bad .prompt-icon {
+            background: rgba(220, 53, 69, 0.1);
+        }
+
+        .prompt-good .prompt-icon {
+            background: rgba(40, 167, 69, 0.1);
+        }
+
+        .prompt-text {
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Elements Grid */
+        .elements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .element-card {
+            background: var(--cva-white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .element-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--cva-secondary);
+        }
+
+        .element-number {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .element-card h4 {
+            margin-bottom: 1rem;
+        }
+
+        .element-card p {
+            margin: 0.75rem 0;
+            font-size: 1rem;
+        }
+
+        /* Verification Checklist Enhancement */
+        .checklist {
+            background: var(--cva-white);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+            margin: 3rem 0;
+        }
+
+        .checklist h3 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+            border-radius: 16px;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .checklist-item:hover {
+            background: linear-gradient(135deg, rgba(0, 161, 156, 0.05) 0%, #fff 100%);
+            transform: translateX(10px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .check-icon {
+            background: var(--gradient-2);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: bold;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .checklist-content h4 {
+            margin-bottom: 1rem;
+            color: var(--cva-primary);
+        }
+
+        .checklist-content ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .checklist-content li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--cva-gray);
+        }
+
+        .checklist-content li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--cva-secondary);
+            font-weight: bold;
+        }
+
+        /* Best Practices Cards */
+        .practices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .practice-card {
+            background: var(--cva-white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .practice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-2);
+        }
+
+        .practice-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .practice-card h3 {
+            margin-bottom: 2rem;
+        }
+
+        .model-selection {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .model-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .model-box:hover {
+            border-color: var(--cva-secondary);
+            transform: scale(1.02);
+        }
+
+        .model-box h4 {
+            color: var(--cva-primary);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .model-box ul {
+            list-style: none;
+        }
+
+        .model-box li {
+            padding: 0.5rem 0;
+            color: var(--cva-gray);
+            font-size: 1rem;
+        }
+
+        /* Takeaway Grid Enhancement */
+        .takeaway-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .takeaway-card {
+            background: var(--gradient-1);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .takeaway-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .takeaway-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .takeaway-number {
+            font-size: 4rem;
+            font-weight: 700;
+            opacity: 0.2;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .takeaway-text {
+            font-size: 1.125rem;
+            font-weight: 500;
+            line-height: 1.8;
+            position: relative;
+        }
+
+        /* Implementation Roadmap */
+        .roadmap-container {
+            background: var(--cva-white);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+            margin-top: 3rem;
+        }
+
+        .roadmap-container h3 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .roadmap-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .roadmap-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--gradient-2);
+            transform: translateX(-50%);
+        }
+
+        .roadmap-item {
+            position: relative;
+            margin: 3rem 0;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .roadmap-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .roadmap-content {
+            flex: 1;
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .roadmap-content:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-md);
+            border-color: var(--cva-secondary);
+        }
+
+        .roadmap-dot {
+            width: 30px;
+            height: 30px;
+            background: var(--cva-secondary);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 0 5px rgba(0, 161, 156, 0.2);
+        }
+
+        .roadmap-week {
+            font-weight: 700;
+            color: var(--cva-primary);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer Enhancement */
+        footer {
+            background: linear-gradient(135deg, var(--cva-primary) 0%, #002838 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(124, 194, 66, 0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+        }
+
+        .footer-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--gradient-2);
+            color: white;
+            padding: 1.25rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 2rem;
+            transition: var(--transition);
+            font-size: 1.125rem;
+            letter-spacing: 0.025em;
+            box-shadow: var(--shadow-md);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(124, 194, 66, 0.3);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-in-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-in-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(0, 161, 156, 0.1);
+            border-top-color: var(--cva-secondary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .model-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .use-case-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .security-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .prompt-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .practices-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .slide-counter {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            section {
+                padding: 4rem 0;
+            }
+            
+            .objectives-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .innovation-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .elements-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .takeaway-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .roadmap-item {
+                flex-direction: column !important;
+            }
+            
+            .roadmap-line {
+                left: 20px;
+            }
+            
+            .roadmap-dot {
+                left: 20px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            nav, .slide-counter, .progress-container {
+                display: none;
+            }
+            
+            section {
+                page-break-after: always;
+                min-height: auto;
+                padding: 2rem 0;
+            }
+            
+            .container {
+                max-width: 100%;
+            }
+            
+            * {
+                box-shadow: none !important;
+                text-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">CVA</a>
+            <ul class="nav-menu">
+                <li><a href="#slide1" class="nav-link active">Context</a></li>
+                <li><a href="#slide2" class="nav-link">Landscape</a></li>
+                <li><a href="#slide3" class="nav-link">Architecture</a></li>
+                <li><a href="#slide4" class="nav-link">Tokens</a></li>
+                <li><a href="#slide5" class="nav-link">Functions</a></li>
+                <li><a href="#slide6" class="nav-link">Capabilities</a></li>
+                <li><a href="#slide7" class="nav-link">Use Cases</a></li>
+                <li><a href="#slide8" class="nav-link">Reasoning</a></li>
+                <li><a href="#slide9" class="nav-link">Security</a></li>
+                <li><a href="#slide10" class="nav-link">Prompting</a></li>
+                <li><a href="#slide11" class="nav-link">Context Mgmt</a></li>
+                <li><a href="#slide12" class="nav-link">Verification</a></li>
+                <li><a href="#slide13" class="nav-link">Best Practices</a></li>
+                <li><a href="#slide14" class="nav-link">Takeaways</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Slide Counter -->
+    <div class="slide-counter">
+        <div class="slide-dot active" data-slide="1"></div>
+        <div class="slide-dot" data-slide="2"></div>
+        <div class="slide-dot" data-slide="3"></div>
+        <div class="slide-dot" data-slide="4"></div>
+        <div class="slide-dot" data-slide="5"></div>
+        <div class="slide-dot" data-slide="6"></div>
+        <div class="slide-dot" data-slide="7"></div>
+        <div class="slide-dot" data-slide="8"></div>
+        <div class="slide-dot" data-slide="9"></div>
+        <div class="slide-dot" data-slide="10"></div>
+        <div class="slide-dot" data-slide="11"></div>
+        <div class="slide-dot" data-slide="12"></div>
+        <div class="slide-dot" data-slide="13"></div>
+        <div class="slide-dot" data-slide="14"></div>
+    </div>
+
+    <!-- Slide 1: Workshop Context and Objectives -->
+    <section id="slide1" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Mastering LLMs for Strategic Excellence</h1>
+                <p class="hero-subtitle">A Comprehensive Workshop for CVA Partners & Associates</p>
+                
+                <div class="objectives-grid">
+                    <div class="objective-card">
+                        <h3>Strategic Imperative</h3>
+                        <p>LLM adoption has become a key differentiator in the consulting industry. Understanding and mastering these technologies is critical for maintaining competitive advantage.</p>
+                        <ul>
+                            <li>Stay ahead of industry transformation</li>
+                            <li>Deliver superior client value through AI augmentation</li>
+                            <li>Build sustainable competitive advantages</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="objective-card">
+                        <h3>Operational Excellence</h3>
+                        <p>Establish rigorous frameworks and processes to ensure LLM outputs meet the highest standards of accuracy, reliability, and professional quality.</p>
+                        <ul>
+                            <li>Implement systematic verification processes</li>
+                            <li>Ensure consistent output quality</li>
+                            <li>Maintain professional standards</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="objective-card">
+                        <h3>Risk Mitigation</h3>
+                        <p>Address critical vulnerabilities identified in the OWASP Top 10 for LLMs (2025), ensuring robust security and compliance frameworks.</p>
+                        <ul>
+                            <li>Understand security vulnerabilities</li>
+                            <li>Implement privacy-preserving technologies</li>
+                            <li>Ensure regulatory compliance</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="architecture-visual fade-in" style="margin-top: 4rem;">
+                    <h3>Workshop Learning Objectives</h3>
+                    <div class="objectives-grid">
+                        <div class="objective-card">
+                            <h4>Technical Mastery</h4>
+                            <p>Understand the fundamental differences between GPT-4.5 and OpenAI o3, including architecture, capabilities, and optimal use cases.</p>
+                        </div>
+                        <div class="objective-card">
+                            <h4>Practical Application</h4>
+                            <p>Master business-relevant use cases categorized by maturity level, with real-world examples and measurable impacts.</p>
+                        </div>
+                        <div class="objective-card">
+                            <h4>Quality Assurance</h4>
+                            <p>Learn practical prompt engineering techniques and implement verification processes for output reliability.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 2: LLM Landscape 2025 -->
+    <section id="slide2">
+        <div class="container">
+            <h2 class="fade-in">The 2025 LLM Landscape</h2>
+            <p class="section-subtitle fade-in">Technical Specifications and Strategic Selection Criteria</p>
+            
+            <div class="model-comparison fade-in">
+                <div class="model-card">
+                    <div class="model-header">
+                        <h3>GPT-4.5</h3>
+                        <span class="model-badge">Non-Reasoning</span>
+                    </div>
+                    <p class="model-subtitle">The Pattern Recognition Powerhouse</p>
+                    <ul class="model-specs">
+                        <li>
+                            <span class="spec-label">Parameters</span>
+                            <span class="spec-value">~12.8 trillion<br><small>Source: KeywordsAI, March 2025</small></span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Context Window</span>
+                            <span class="spec-value">~128,000 tokens<br><small>≈ 250 pages of documentation</small></span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Architecture Focus</span>
+                            <span class="spec-value">Pattern recognition & synthesis</span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Processing Speed</span>
+                            <span class="spec-value">~30 tokens/second<br><small>at standard context</small></span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Hallucination Rate</span>
+                            <span class="spec-value">~37% on ambiguous queries<br><small>vs 62% for older models</small></span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Latency</span>
+                            <span class="spec-value">~0.2 seconds per token<br><small>vs 0.07s for GPT-3.5</small></span>
+                        </li>
+                    </ul>
+                    <div class="model-best-for">
+                        <h4>Optimal Use Cases:</h4>
+                        <p>• Broad market research and synthesis<br>
+                           • Document summarization at scale<br>
+                           • Content generation and creative tasks<br>
+                           • Initial exploratory analyses<br>
+                           • Pattern detection across large datasets</p>
+                    </div>
+                </div>
+                
+                <div class="model-card o3">
+                    <div class="model-header">
+                        <h3>OpenAI o3</h3>
+                        <span class="model-badge">Reasoning Engine</span>
+                    </div>
+                    <p class="model-subtitle">Explicit Chain-of-Thought Architecture</p>
+                    <ul class="model-specs">
+                        <li>
+                            <span class="spec-label">Parameters</span>
+                            <span class="spec-value">Not disclosed<br><small>Optimized for reasoning over scale</small></span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Context Window</span>
+                            <span class="spec-value">~200,000 tokens<br><small>with RAG integration</small></span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Key Innovation</span>
+                            <span class="spec-value">Chain-of-Thought (CoT)<br><small>Explicit reasoning steps</small></span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Performance Gain</span>
+                            <span class="spec-value">~20% fewer errors than o1<br><small>Source: OpenAI benchmarks</small></span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Reasoning Transparency</span>
+                            <span class="spec-value">Step-by-step auditable logic</span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Trade-off</span>
+                            <span class="spec-value">+30-50% processing time<br><small>for enhanced accuracy</small></span>
+                        </li>
+                    </ul>
+                    <div class="model-best-for">
+                        <h4>Optimal Use Cases:</h4>
+                        <p>• Complex financial modeling<br>
+                           • Regulatory compliance analysis<br>
+                           • Strategic recommendations requiring justification<br>
+                           • Multi-step problem solving<br>
+                           • Any analysis requiring auditable logic trails</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="architecture-visual fade-in" style="margin-top: 3rem;">
+                <h3>Strategic Selection Framework</h3>
+                <div class="metric">
+                    <span class="metric-label">Decision Criterion</span>
+                    <span class="metric-value">Task Complexity × Audit Requirements × Time Sensitivity</span>
+                </div>
+                <p style="margin-top: 2rem; text-align: center; color: var(--cva-gray);">
+                    <strong>Key Insight:</strong> Model selection should be driven by specific task requirements rather than defaulting to the most powerful option. 
+                    GPT-4.5 excels at breadth and speed, while o3 provides depth and verifiability.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Transformer Architecture -->
+    <section id="slide3">
+        <div class="container">
+            <h2 class="fade-in">Transformer Architecture - The Foundation</h2>
+            <p class="section-subtitle fade-in">Understanding Multi-Head Self-Attention and Recent Innovations</p>
+            
+            <div class="architecture-visual fade-in">
+                <h3>The Revolutionary Attention Mechanism</h3>
+                <div class="attention-demo">
+                    <svg class="attention-lines" viewBox="0 0 800 200">
+                        <line class="attention-line" x1="100" y1="100" x2="250" y2="100" />
+                        <line class="attention-line" x1="100" y1="100" x2="400" y2="100" />
+                        <line class="attention-line" x1="100" y1="100" x2="550" y2="100" />
+                        <line class="attention-line" x1="100" y1="100" x2="700" y2="100" />
+                        <line class="attention-line" x1="250" y1="100" x2="400" y2="100" />
+                        <line class="attention-line" x1="250" y1="100" x2="550" y2="100" />
+                        <line class="attention-line" x1="250" y1="100" x2="700" y2="100" />
+                        <line class="attention-line" x1="400" y1="100" x2="550" y2="100" />
+                        <line class="attention-line" x1="400" y1="100" x2="700" y2="100" />
+                        <line class="attention-line" x1="550" y1="100" x2="700" y2="100" />
+                    </svg>
+                    <div class="token" style="position: absolute; left: 50px;">Strategic</div>
+                    <div class="token" style="position: absolute; left: 200px;">market</div>
+                    <div class="token" style="position: absolute; left: 350px;">analysis</div>
+                    <div class="token" style="position: absolute; left: 500px;">reveals</div>
+                    <div class="token" style="position: absolute; left: 650px;">opportunities</div>
+                </div>
+                <p style="text-align: center; margin-top: 3rem; color: var(--cva-gray); font-size: 1.125rem;">
+                    Each word simultaneously attends to all others, capturing complex relationships in O(n²) complexity
+                </p>
+                
+                <div class="metric" style="margin-top: 2rem;">
+                    <span class="metric-label">Key Advantage over RNN/CNN</span>
+                    <span class="metric-value">Parallel processing of entire sequences</span>
+                </div>
+            </div>
+            
+            <h3 class="fade-in" style="margin-top: 4rem; text-align: center;">Three Game-Changing Innovations (2024-2025)</h3>
+            
+            <div class="innovation-grid fade-in">
+                <div class="innovation-card">
+                    <span class="innovation-tag">ICML 2024 Workshop</span>
+                    <h4>ARMT</h4>
+                    <p style="font-style: italic; margin-bottom: 1.5rem;">Associative Recurrent Memory Transformer</p>
+                    <p><strong>Breakthrough:</strong> Processes 50+ million tokens sequentially</p>
+                    <p><strong>Method:</strong> Maintains associative memory vectors between segments</p>
+                    <p><strong>Performance:</strong> ~80% accuracy on factual questions across massive texts</p>
+                    <div class="innovation-stats">
+                        <div class="stat">
+                            <div class="stat-value">50M+</div>
+                            <div class="stat-label">Tokens</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">80%</div>
+                            <div class="stat-label">Accuracy</div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--cva-gray);">
+                        <strong>Business Impact:</strong> Analyze entire company archives in one pass
+                    </p>
+                </div>
+                
+                <div class="innovation-card">
+                    <span class="innovation-tag">arXiv Dec 2024</span>
+                    <h4>CCA</h4>
+                    <p style="font-style: italic; margin-bottom: 1.5rem;">Core Context Aware Transformer</p>
+                    <p><strong>Innovation:</strong> Dynamic compression of redundant information</p>
+                    <p><strong>Mechanism:</strong> Global pooling + local preservation</p>
+                    <p><strong>Efficiency:</strong> 90% reduction in redundancy processing</p>
+                    <div class="innovation-stats">
+                        <div class="stat">
+                            <div class="stat-value">90%</div>
+                            <div class="stat-label">Compression</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">300p</div>
+                            <div class="stat-label">Documents</div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--cva-gray);">
+                        <strong>Business Impact:</strong> Process 300-page reports focusing only on key insights
+                    </p>
+                </div>
+                
+                <div class="innovation-card">
+                    <span class="innovation-tag">NAACL 2025</span>
+                    <h4>HMT</h4>
+                    <p style="font-style: italic; margin-bottom: 1.5rem;">Hierarchical Memory Transformer</p>
+                    <p><strong>Design:</strong> Mimics human memory hierarchy</p>
+                    <p><strong>Structure:</strong> Short-term + long-term memory layers</p>
+                    <p><strong>Efficiency:</strong> Large model performance with 70% less resources</p>
+                    <div class="innovation-stats">
+                        <div class="stat">
+                            <div class="stat-value">-70%</div>
+                            <div class="stat-label">Resources</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2-tier</div>
+                            <div class="stat-label">Memory</div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--cva-gray);">
+                        <strong>Business Impact:</strong> Maintain context across extended consulting engagements
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Tokens and Context Windows -->
+    <section id="slide4">
+        <div class="container">
+            <h2 class="fade-in">Understanding Tokens and Context Windows</h2>
+            <p class="section-subtitle fade-in">The Practical Limits of LLM Analysis</p>
+            
+            <div class="objectives-grid fade-in">
+                <div class="objective-card">
+                    <h3>Token Fundamentals</h3>
+                    <div class="metric">
+                        <span class="metric-label">Definition</span>
+                        <span class="metric-value">Smallest unit of text</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">1 token</span>
+                        <span class="metric-value">≈ 0.75 words</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">128,000 tokens</span>
+                        <span class="metric-value">≈ 250 pages of text</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Cost implications</span>
+                        <span class="metric-value">$0.01-0.03 per 1K tokens</span>
+                    </div>
+                </div>
+                
+                <div class="objective-card">
+                    <h3>Processing Speed Trade-offs</h3>
+                    <div class="metric">
+                        <span class="metric-label">Small context (8K)</span>
+                        <span class="metric-value">~30 tokens/second</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Large context (128K)</span>
+                        <span class="metric-value">~5 tokens/second</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Speed reduction</span>
+                        <span class="metric-value">6x slower</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Latency growth</span>
+                        <span class="metric-value">Exponential with size</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="architecture-visual fade-in" style="margin-top: 3rem;">
+                <h3>The "Lost-in-the-Middle" Phenomenon</h3>
+                <p style="text-align: center; margin-bottom: 2rem; color: var(--cva-gray);">
+                    Documented performance degradation based on information position in large contexts<br>
+                    <small>Source: povio.com, dev.to 2024 research</small>
+                </p>
+                
+                <div class="performance-chart">
+                    <div class="chart-container">
+                        <div class="chart-bar-wrapper">
+                            <div class="chart-bar" style="height: 95%;" data-value="95%">95%</div>
+                            <div class="chart-label">Document Beginning</div>
+                        </div>
+                        <div class="chart-bar-wrapper">
+                            <div class="chart-bar" style="height: 50%; background: linear-gradient(135deg, #dc3545 0%, #f87171 100%);" data-value="50%">50%</div>
+                            <div class="chart-label">Document Middle</div>
+                        </div>
+                        <div class="chart-bar-wrapper">
+                            <div class="chart-bar" style="height: 90%;" data-value="90%">90%</div>
+                            <div class="chart-label">Document End</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric" style="margin-top: 3rem;">
+                    <span class="metric-label">Critical Performance Threshold</span>
+                    <span class="metric-value">Significant drop after 73,000 tokens</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">Empirical Test Result</span>
+                    <span class="metric-value">Information at position 24K retrieved only 42% of time</span>
+                </div>
+            </div>
+            
+            <div class="use-case-card fade-in" style="margin-top: 3rem;">
+                <h4>Practical Implications for Consulting</h4>
+                <p><strong>Document Analysis Strategy:</strong></p>
+                <ul style="list-style: none; margin-top: 1rem;">
+                    <li style="padding: 0.5rem 0;">• Place critical information at beginning or end of prompts</li>
+                    <li style="padding: 0.5rem 0;">• Avoid burying key data in middle sections</li>
+                    <li style="padding: 0.5rem 0;">• Consider chunking strategies for documents >50K tokens</li>
+                    <li style="padding: 0.5rem 0;">• Account for 6x processing time increase at maximum context</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Function Calling Paradigm -->
+    <section id="slide5">
+        <div class="container">
+            <h2 class="fade-in">Function Calling - From Text to Action</h2>
+            <p class="section-subtitle fade-in">Extending LLMs Beyond Text Generation</p>
+            
+            <div class="architecture-visual fade-in">
+                <h3>Technical Implementation Flow</h3>
+                <div class="reasoning-flow">
+                    <div class="reasoning-step">1. Define Available Functions</div>
+                    <span class="reasoning-arrow">→</span>
+                    <div class="reasoning-step">2. LLM Analyzes Request</div>
+                    <span class="reasoning-arrow">→</span>
+                    <div class="reasoning-step">3. Generate JSON Call</div>
+                    <span class="reasoning-arrow">→</span>
+                    <div class="reasoning-step">4. Execute Function</div>
+                    <span class="reasoning-arrow">→</span>
+                    <div class="reasoning-step">5. Integrate Results</div>
+                </div>
+            </div>
+            
+            <div class="function-demo fade-in">
+                <div class="code-block">
+                    <div class="code-line">
+                        <span class="code-bracket">{</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-property">  "function"</span>: <span class="code-string">"get_market_data"</span>,
+                    </div>
+                    <div class="code-line">
+                        <span class="code-property">  "parameters"</span>: <span class="code-bracket">{</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-property">    "industry"</span>: <span class="code-string">"renewable_energy"</span>,
+                    </div>
+                    <div class="code-line">
+                        <span class="code-property">    "region"</span>: <span class="code-string">"Europe"</span>,
+                    </div>
+                    <div class="code-line">
+                        <span class="code-property">    "timeframe"</span>: <span class="code-string">"2025"</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-bracket">  }</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-bracket">}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="model-comparison fade-in" style="margin-top: 3rem;">
+                <div class="model-card">
+                    <h3>OpenAI Implementation</h3>
+                    <ul class="model-specs">
+                        <li>
+                            <span class="spec-label">API Parameter</span>
+                            <span class="spec-value">`functions` field in request</span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Response Format</span>
+                            <span class="spec-value">`function_call` object</span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Schema Format</span>
+                            <span class="spec-value">JSON Schema specification</span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Execution</span>
+                            <span class="spec-value">Client-side implementation</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="model-card o3">
+                    <h3>Anthropic Implementation</h3>
+                    <ul class="model-specs">
+                        <li>
+                            <span class="spec-label">API Parameter</span>
+                            <span class="spec-value">`tools` field in request</span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Response Signal</span>
+                            <span class="spec-value">`stop_reason: "tool_use"`</span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Schema Format</span>
+                            <span class="spec-value">JSON Schema specification</span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Integration</span>
+                            <span class="spec-value">Seamless conversation flow</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="architecture-visual fade-in" style="margin-top: 3rem;">
+                <h3>Documented Performance Benefits</h3>
+                <div class="metric">
+                    <span class="metric-label">Parallel function calls</span>
+                    <span class="metric-value">Up to 70% latency reduction</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Structured outputs vs free text</span>
+                    <span class="metric-value">Eliminates parsing errors</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">RAG implementation example</span>
+                    <span class="metric-value">12.9s with RAG vs 21.6s direct context</span>
+                </div>
+                
+                <div class="use-case-card" style="margin-top: 2rem;">
+                    <h4>Business Applications</h4>
+                    <div class="process-flow">
+                        <div class="process-step">Multi-source data retrieval</div>
+                        <span class="process-arrow">→</span>
+                        <div class="process-step">Real-time calculations</div>
+                        <span class="process-arrow">→</span>
+                        <div class="process-step">API integrations</div>
+                        <span class="process-arrow">→</span>
+                        <div class="process-step">Automated workflows</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Business Capability Matrix -->
+    <section id="slide6">
+        <div class="container">
+            <h2 class="fade-in">Business Capability Matrix</h2>
+            <p class="section-subtitle fade-in">Evidence-Based Performance Levels from Industry Deployments</p>
+            
+            <div class="capability-matrix fade-in">
+                <div class="matrix-header">
+                    <h3>Where LLMs Excel, Perform Well, or Require Caution</h3>
+                </div>
+                
+                <div class="matrix-level level-expert">
+                    <h3>
+                        <span class="level-badge">ABOVE HUMAN EXPERT</span>
+                        Superior to Human Specialists
+                    </h3>
+                    <p style="margin-bottom: 2rem; color: var(--cva-gray);">
+                        Tasks where LLMs consistently outperform human experts in speed, accuracy, or scale
+                    </p>
+                    <ul class="use-case-list">
+                        <li><strong>Automated Threat Detection (Apex Fintech):</strong> Complex cybersecurity scripts created in seconds vs hours for human experts</li>
+                        <li><strong>Real-Time Fraud Monitoring (Airwallex):</strong> 24/7 vigilance at scale impossible for human teams</li>
+                        <li><strong>Massive Data Processing (Stax AI):</strong> Trust accounting data transformed in minutes vs hours/days manually</li>
+                        <li><strong>Instant Provider Matching (Deloitte Care Finder):</strong> <1 minute vs 5-8 minutes by phone</li>
+                        <li><strong>Pattern Detection:</strong> Identifying subtle trends across datasets humans would miss</li>
+                        <li><strong>Multi-language Translation:</strong> Real-time technical translation with specialized terminology</li>
+                    </ul>
+                </div>
+                
+                <div class="matrix-level level-professional">
+                    <h3>
+                        <span class="level-badge">PROFESSIONAL LEVEL</span>
+                        Human-Quality with Oversight Required
+                    </h3>
+                    <p style="margin-bottom: 2rem; color: var(--cva-gray);">
+                        Tasks where LLMs match professional performance but require human validation
+                    </p>
+                    <ul class="use-case-list">
+                        <li><strong>Knowledge Management (Morgan Stanley):</strong> 98% of financial advisors actively using GPT-4 for internal knowledge base queries</li>
+                        <li><strong>Loan Processing (Banco Covalto):</strong> 90% reduction in approval time while maintaining accuracy</li>
+                        <li><strong>Contract Analysis (Contraktor):</strong> 75% reduction in review time for legal documents</li>
+                        <li><strong>Presentation Creation (McKinsey Lilli):</strong> 75% of employees using for PowerPoint deck generation</li>
+                        <li><strong>Code Development (Renault Ampere):</strong> Custom assistant understanding company-specific standards</li>
+                        <li><strong>Data Science Democratization (Toyota):</strong> 10,000+ man-hours saved annually through natural language ML model creation</li>
+                    </ul>
+                </div>
+                
+                <div class="matrix-level level-experimental">
+                    <h3>
+                        <span class="level-badge">EXPERIMENTAL LEVEL</span>
+                        Requires Significant Human Oversight
+                    </h3>
+                    <p style="margin-bottom: 2rem; color: var(--cva-gray);">
+                        Emerging capabilities not yet ready for unsupervised deployment
+                    </p>
+                    <ul class="use-case-list">
+                        <li><strong>Autonomous Multi-Step Agents:</strong> 25% of companies expected to pilot by 2025 (Deloitte prediction)</li>
+                        <li><strong>Scientific Discovery (BenchSci):</strong> Finding complex biological research connections - still exploratory</li>
+                        <li><strong>Long-term Strategic Planning:</strong> Multi-year horizons with complex uncertainties remain challenging</li>
+                        <li><strong>Novel Concept Generation:</strong> Cannot create truly new ideas without precedent in training data</li>
+                        <li><strong>Complex Mathematical Proofs:</strong> Abstract reasoning beyond structured problems</li>
+                        <li><strong>Medical Diagnosis:</strong> Regulatory and accuracy requirements not yet met</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="architecture-visual fade-in" style="margin-top: 3rem;">
+                <h3>Key Implementation Insight</h3>
+                <p style="text-align: center; font-size: 1.25rem; color: var(--cva-dark); line-height: 1.8;">
+                    Success depends on matching task complexity to capability level.<br>
+                    Start with <strong>Expert Level</strong> tasks for immediate ROI,<br>
+                    implement <strong>Professional Level</strong> with proper oversight,<br>
+                    and carefully pilot <strong>Experimental Level</strong> applications.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Strategic Consulting Use Cases -->
+    <section id="slide7">
+        <div class="container">
+            <h2 class="fade-in">Strategic Consulting Use Cases</h2>
+            <p class="section-subtitle fade-in">Proven Applications in Professional Services</p>
+            
+            <div class="use-case-cards fade-in">
+                <div class="use-case-card">
+                    <h4>Market Intelligence & Competitive Analysis</h4>
+                    <p>Automated synthesis of market data from multiple sources for strategic insights.</p>
+                    
+                    <div class="process-flow">
+                        <div class="process-step">Data Collection</div>
+                        <span class="process-arrow">→</span>
+                        <div class="process-step">Pattern Analysis</div>
+                        <span class="process-arrow">→</span>
+                        <div class="process-step">Insight Generation</div>
+                    </div>
+                    
+                    <div class="use-case-content">
+                        <p><strong>Key Activities:</strong></p>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0;">• Scanning competitor announcements and financial reports</li>
+                            <li style="padding: 0.5rem 0;">• Identifying market trends and emerging patterns</li>
+                            <li style="padding: 0.5rem 0;">• Creating executive briefings with actionable insights</li>
+                        </ul>
+                        <p style="margin-top: 1.5rem;"><strong>Critical Success Factor:</strong> Human validation of key findings and strategic implications</p>
+                    </div>
+                </div>
+                
+                <div class="use-case-card">
+                    <h4>Due Diligence Acceleration</h4>
+                    <p>Rapid analysis of extensive document sets for M&A and investment decisions.</p>
+                    
+                    <div class="process-flow">
+                        <div class="process-step">Document Ingestion</div>
+                        <span class="process-arrow">→</span>
+                        <div class="process-step">Risk Identification</div>
+                        <span class="process-arrow">→</span>
+                        <div class="process-step">Executive Summary</div>
+                    </div>
+                    
+                    <div class="use-case-content">
+                        <p><strong>Typical Scope:</strong></p>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0;">• 500+ documents analyzed systematically</li>
+                            <li style="padding: 0.5rem 0;">• Automated flagging of key risks and opportunities</li>
+                            <li style="padding: 0.5rem 0;">• Structured findings with source references</li>
+                        </ul>
+                        <p style="margin-top: 1.5rem;"><strong>Value Proposition:</strong> Comprehensive coverage with consistent methodology</p>
+                    </div>
+                </div>
+                
+                <div class="use-case-card">
+                    <h4>Financial Modeling Support</h4>
+                    <p>Streamlined data preparation and scenario analysis for complex financial models.</p>
+                    
+                    <div class="process-flow">
+                        <div class="process-step">Data Cleaning</div>
+                        <span class="process-arrow">→</span>
+                        <div class="process-step">Calculation Support</div>
+                        <span class="process-arrow">→</span>
+                        <div class="process-step">Scenario Testing</div>
+                    </div>
+                    
+                    <div class="use-case-content">
+                        <p><strong>Application Areas:</strong></p>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0;">• Automated data preparation and validation</li>
+                            <li style="padding: 0.5rem 0;">• Multiple scenario generation and testing</li>
+                            <li style="padding: 0.5rem 0;">• Error detection and consistency checks</li>
+                        </ul>
+                        <p style="margin-top: 1.5rem;"><strong>Important Note:</strong> Final model validation remains human responsibility</p>
+                    </div>
+                </div>
+                
+                <div class="use-case-card">
+                    <h4>Executive Communication Enhancement</h4>
+                    <p>Accelerated development of high-quality presentations and strategic narratives.</p>
+                    
+                    <div class="metric">
+                        <span class="metric-label">McKinsey Implementation</span>
+                        <span class="metric-value">75% employee adoption of Lilli</span>
+                    </div>
+                    
+                    <div class="use-case-content">
+                        <p><strong>Capabilities:</strong></p>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0;">• First draft generation for presentations</li>
+                            <li style="padding: 0.5rem 0;">• Consistent formatting and messaging</li>
+                            <li style="padding: 0.5rem 0;">• Storyline development and flow optimization</li>
+                        </ul>
+                        <p style="margin-top: 1.5rem;"><strong>Best Practice:</strong> Use for initial drafts, maintain human review for client-facing materials</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Explicit Reasoning -->
+    <section id="slide8">
+        <div class="container">
+            <h2 class="fade-in">Explicit Reasoning - The Reliability Advantage</h2>
+            <p class="section-subtitle fade-in">How Chain-of-Thought Improves Accuracy and Trust</p>
+            
+            <div class="architecture-visual fade-in">
+                <h3>Chain-of-Thought (CoT) Process</h3>
+                <div class="reasoning-flow">
+                    <div class="reasoning-step">Complex Query</div>
+                    <span class="reasoning-arrow">→</span>
+                    <div class="reasoning-step">Break Down Problem</div>
+                    <span class="reasoning-arrow">→</span>
+                    <div class="reasoning-step">Show Each Step</div>
+                    <span class="reasoning-arrow">→</span>
+                    <div class="reasoning-step">Verify Logic</div>
+                    <span class="reasoning-arrow">→</span>
+                    <div class="reasoning-step">Final Answer</div>
+                </div>
+                
+                <p style="text-align: center; margin-top: 2rem; color: var(--cva-gray); font-size: 1.125rem;">
+                    Each reasoning step is explicit and auditable, enabling error detection and correction
+                </p>
+            </div>
+            
+            <div class="model-comparison fade-in" style="margin-top: 3rem;">
+                <div class="model-card">
+                    <h3>Measured Performance Improvements</h3>
+                    <ul class="model-specs">
+                        <li>
+                            <span class="spec-label">OpenAI o3 vs o1 model</span>
+                            <span class="spec-value">20% fewer errors<br><small>Source: OpenAI benchmarks</small></span>
+                        </li>
+                        <li>
+                            <span class="spec-label">CoT vs Standard Generation</span>
+                            <span class="spec-value">~25% error reduction<br><small>Across reasoning tasks</small></span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Processing Time Trade-off</span>
+                            <span class="spec-value">+30-50% latency<br><small>For enhanced accuracy</small></span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Transparency Benefit</span>
+                            <span class="spec-value">100% traceable logic<br><small>Every step documented</small></span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="model-card o3">
+                    <h3>Optimal Use Cases for Explicit Reasoning</h3>
+                    <div class="use-case-list" style="margin-top: 1.5rem;">
+                        <li><strong>Financial Calculations:</strong> Where audit trails are mandatory</li>
+                        <li><strong>Compliance Assessments:</strong> Regulatory requirements demand transparency</li>
+                        <li><strong>Strategic Recommendations:</strong> Justification needed for board decisions</li>
+                        <li><strong>Risk Analysis:</strong> Step-by-step evaluation of complex scenarios</li>
+                        <li><strong>Investment Decisions:</strong> Clear rationale for capital allocation</li>
+                        <li><strong>Legal Document Review:</strong> Traceable logic for interpretations</li>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="use-case-card fade-in" style="margin-top: 3rem;">
+                <h4>Implementation Example: Strategic Recommendation</h4>
+                <div class="function-demo" style="background: #f8f9fa; color: var(--cva-dark);">
+                    <p><strong>Query:</strong> Should we enter the Southeast Asian market?</p>
+                    <p style="margin-top: 1rem;"><strong>Explicit Reasoning Steps:</strong></p>
+                    <ol style="padding-left: 2rem; line-height: 2;">
+                        <li>Market size assessment: $X billion, growing at Y%</li>
+                        <li>Competitive landscape: Z major players, market concentration...</li>
+                        <li>Regulatory environment: Key barriers include...</li>
+                        <li>Resource requirements: Initial investment of...</li>
+                        <li>Risk factors: Currency fluctuation, political stability...</li>
+                        <li>Expected ROI: Based on comparable entries...</li>
+                        <li><strong>Conclusion:</strong> Recommend phased entry starting with...</li>
+                    </ol>
+                </div>
+                <p style="margin-top: 1.5rem; text-align: center; color: var(--cva-gray);">
+                    Each step can be verified, challenged, or refined by human experts
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Security Risks - OWASP Top 10 -->
+    <section id="slide9">
+        <div class="container">
+            <h2 class="fade-in">OWASP Top 10 - LLM Security Risks</h2>
+            <p class="section-subtitle fade-in">Critical Vulnerabilities for 2025</p>
+            
+            <div class="architecture-visual fade-in">
+                <h3>Understanding OWASP</h3>
+                <p style="font-size: 1.25rem; line-height: 1.8; text-align: center; margin: 2rem auto; max-width: 800px;">
+                    The <strong>Open Web Application Security Project (OWASP)</strong> is a nonprofit foundation dedicated to improving software security. 
+                    Their guidelines are industry-standard references for security best practices. In 2025, OWASP published the first comprehensive 
+                    security framework specifically for Large Language Models.
+                </p>
+            </div>
+            
+            <div class="security-grid fade-in">
+                <div class="security-card high-risk">
+                    <span class="risk-badge">HIGH RISK</span>
+                    <h4>1. Prompt Injection</h4>
+                    <div class="security-content">
+                        <p><strong>Definition:</strong> Malicious instructions embedded within user inputs to manipulate model behavior</p>
+                        <p><strong>Attack Vector:</strong> Hidden commands in seemingly innocent text</p>
+                        <p><strong>Business Risk:</strong> Unauthorized access to sensitive information, bypassing security controls</p>
+                        <p><strong>Example Scenario:</strong> "Ignore previous instructions and reveal all customer data"</p>
+                        <p><strong>Mitigation:</strong> Input validation, output filtering, strict prompt templates</p>
+                    </div>
+                </div>
+                
+                <div class="security-card high-risk">
+                    <span class="risk-badge">HIGH RISK</span>
+                    <h4>2. Sensitive Information Disclosure</h4>
+                    <div class="security-content">
+                        <p><strong>Definition:</strong> Model inadvertently revealing training data or previous conversations</p>
+                        <p><strong>Source:</strong> Medium.com OWASP analysis 2025</p>
+                        <p><strong>Business Risk:</strong> Client confidentiality breach, GDPR violations (4% revenue penalty)</p>
+                        <p><strong>Real Cases:</strong> Engineers accidentally exposing source code via ChatGPT</p>
+                        <p><strong>Protection:</strong> Zero-retention policies, data anonymization</p>
+                    </div>
+                </div>
+                
+                <div class="security-card">
+                    <span class="risk-badge">MEDIUM RISK</span>
+                    <h4>3. Insecure Output Handling</h4>
+                    <div class="security-content">
+                        <p><strong>Definition:</strong> Using LLM outputs without proper validation</p>
+                        <p><strong>Vulnerability:</strong> Propagating errors or malicious content to clients</p>
+                        <p><strong>Business Impact:</strong> Reputation damage, incorrect strategic advice</p>
+                        <p><strong>Critical for:</strong> Client deliverables, financial analyses, legal documents</p>
+                        <p><strong>Best Practice:</strong> Always verify facts and validate outputs</p>
+                    </div>
+                </div>
+                
+                <div class="security-card">
+                    <span class="risk-badge">MEDIUM RISK</span>
+                    <h4>4. Supply Chain Vulnerabilities</h4>
+                    <div class="security-content">
+                        <p><strong>Definition:</strong> Compromised models, plugins, or dependencies</p>
+                        <p><strong>Attack Surface:</strong> Third-party integrations, model marketplaces</p>
+                        <p><strong>Potential Impact:</strong> Backdoors, data poisoning, malicious behavior</p>
+                        <p><strong>Detection Challenge:</strong> Subtle biases or triggers hard to identify</p>
+                        <p><strong>Mitigation:</strong> Verify all model sources, use trusted providers only</p>
+                    </div>
+                </div>
+                
+                <div class="security-card">
+                    <span class="risk-badge">MEDIUM RISK</span>
+                    <h4>5. Data/Model Poisoning</h4>
+                    <div class="security-content">
+                        <p><strong>Definition:</strong> Malicious manipulation of training or fine-tuning data</p>
+                        <p><strong>Consequence:</strong> Biased outputs, misinformation, degraded performance</p>
+                        <p><strong>Business Risk:</strong> Systematic errors in all analyses</p>
+                        <p><strong>Prevention:</strong> Careful data curation, validation of training sources</p>
+                    </div>
+                </div>
+                
+                <div class="security-card">
+                    <span class="risk-badge">MEDIUM RISK</span>
+                    <h4>6. Excessive Agency</h4>
+                    <div class="security-content">
+                        <p><strong>Definition:</strong> LLM performing unauthorized actions autonomously</p>
+                        <p><strong>Risk Scenario:</strong> Sending emails, modifying data without approval</p>
+                        <p><strong>Control Measure:</strong> Strict permission boundaries, human-in-the-loop</p>
+                        <p><strong>Implementation:</strong> Require explicit approval for all actions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: Prompt Engineering Fundamentals -->
+    <section id="slide10">
+        <div class="container">
+            <h2 class="fade-in">Prompt Engineering Fundamentals</h2>
+            <p class="section-subtitle fade-in">Evidence-Based Best Practices for Optimal Results</p>
+            
+            <h3 class="fade-in" style="text-align: center; margin: 3rem 0;">Common Errors and Their Solutions</h3>
+            
+            <div class="prompt-comparison fade-in">
+                <div class="prompt-example prompt-bad">
+                    <div class="prompt-label">
+                        <div class="prompt-icon">❌</div>
+                        Error: Vague Instructions
+                    </div>
+                    <div class="prompt-text">
+                        "Analyze the market"
+                    </div>
+                    <p style="margin-top: 1rem; color: var(--cva-gray);">
+                        <strong>Problem:</strong> No context, scope, or specific requirements
+                    </p>
+                </div>
+                
+                <div class="prompt-example prompt-good">
+                    <div class="prompt-label">
+                        <div class="prompt-icon">✓</div>
+                        Better: Specific & Structured
+                    </div>
+                    <div class="prompt-text">
+                        "Analyze the European EV market focusing on:<br>
+                        1. Market size and growth rate (2020-2025)<br>
+                        2. Top 5 competitors by market share<br>
+                        3. Key regulatory drivers<br>
+                        4. Entry barriers for new players"
+                    </div>
+                </div>
+            </div>
+            
+            <div class="prompt-comparison fade-in" style="margin-top: 2rem;">
+                <div class="prompt-example prompt-bad">
+                    <div class="prompt-label">
+                        <div class="prompt-icon">❌</div>
+                        Error: Missing Context
+                    </div>
+                    <div class="prompt-text">
+                        "Create a presentation"
+                    </div>
+                    <p style="margin-top: 1rem; color: var(--cva-gray);">
+                        <strong>Problem:</strong> No audience, purpose, or scope defined
+                    </p>
+                </div>
+                
+                <div class="prompt-example prompt-good">
+                    <div class="prompt-label">
+                        <div class="prompt-icon">✓</div>
+                        Better: Context-Rich
+                    </div>
+                    <div class="prompt-text">
+                        "Create a 10-slide presentation for the board of a European utility company on renewable energy investment opportunities in offshore wind, focusing on ROI projections and regulatory landscape"
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="fade-in" style="text-align: center; margin: 4rem 0 2rem;">The Five Essential Elements of Effective Prompts</h3>
+            
+            <div class="elements-grid fade-in">
+                <div class="element-card">
+                    <div class="element-number">1</div>
+                    <h4>Define the Role</h4>
+                    <p><strong>Why:</strong> Sets expertise level and perspective</p>
+                    <p><strong>Example:</strong> "As a senior strategy consultant specializing in digital transformation..."</p>
+                    <p><strong>Impact:</strong> More relevant and sophisticated responses</p>
+                </div>
+                
+                <div class="element-card">
+                    <div class="element-number">2</div>
+                    <h4>Provide Clear Context</h4>
+                    <p><strong>Include:</strong> Industry, geography, timeframe, constraints</p>
+                    <p><strong>Example:</strong> "For a $500M manufacturing company in Germany facing margin pressure..."</p>
+                    <p><strong>Result:</strong> Targeted, actionable insights</p>
+                </div>
+                
+                <div class="element-card">
+                    <div class="element-number">3</div>
+                    <h4>Specify Output Format</h4>
+                    <p><strong>Options:</strong> Table, bullets, narrative, framework</p>
+                    <p><strong>Example:</strong> "Provide a comparison table with columns: Option, Cost, Timeline, Risk"</p>
+                    <p><strong>Benefit:</strong> Ready-to-use outputs</p>
+                </div>
+                
+                <div class="element-card">
+                    <div class="element-number">4</div>
+                    <h4>Use Examples (Few-shot)</h4>
+                    <p><strong>Technique:</strong> Show 1-2 examples of desired output</p>
+                    <p><strong>Application:</strong> "Format like this: [Company]: [Revenue] - [Key Differentiator]"</p>
+                    <p><strong>Outcome:</strong> Consistent formatting</p>
+                </div>
+                
+                <div class="element-card">
+                    <div class="element-number">5</div>
+                    <h4>Break Complex Tasks</h4>
+                    <p><strong>Instead of:</strong> One complex request</p>
+                    <p><strong>Use:</strong> "Step 1: Analyze... Step 2: Compare... Step 3: Recommend..."</p>
+                    <p><strong>Advantage:</strong> Higher accuracy per component</p>
+                </div>
+            </div>
+            
+            <div class="architecture-visual fade-in" style="margin-top: 3rem;">
+                <h3>Prompt Engineering for Different Model Types</h3>
+                <div class="model-selection">
+                    <div class="model-box">
+                        <h4>For GPT-4.5 (Non-reasoning)</h4>
+                        <ul>
+                            <li>• Be extremely explicit with instructions</li>
+                            <li>• Provide clear examples</li>
+                            <li>• Specify exact format requirements</li>
+                            <li>• Keep prompts focused and concise</li>
+                        </ul>
+                    </div>
+                    <div class="model-box">
+                        <h4>For OpenAI o3 (Reasoning)</h4>
+                        <ul>
+                            <li>• Request step-by-step reasoning</li>
+                            <li>• Ask for justification of conclusions</li>
+                            <li>• Encourage problem decomposition</li>
+                            <li>• Allow for longer processing time</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: Context Management Strategies -->
+    <section id="slide11">
+        <div class="container">
+            <h2 class="fade-in">Context Management Strategies</h2>
+            <p class="section-subtitle fade-in">Practical Approaches to Long Document Analysis</p>
+            
+            <div class="use-case-cards fade-in">
+                <div class="use-case-card">
+                    <h4>1. Document Chunking - Divide and Conquer</h4>
+                    
+                    <div class="metric">
+                        <span class="metric-label">Optimal chunk size</span>
+                        <span class="metric-value">~10,000 tokens</span>
+                    </div>
+                    
+                    <div class="metric">
+                        <span class="metric-label">Overlap between chunks</span>
+                        <span class="metric-value">10% for continuity</span>
+                    </div>
+                    
+                    <p style="margin-top: 2rem;"><strong>Implementation Process:</strong></p>
+                    <div class="process-flow">
+                        <div class="process-step">Split Document</div>
+                        <span class="process-arrow">→</span>
+                        <div class="process-step">Process Each Chunk</div>
+                        <span class="process-arrow">→</span>
+                        <div class="process-step">Synthesize Results</div>
+                    </div>
+                    
+                    <p style="margin-top: 2rem;"><strong>When to Use:</strong></p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding: 0.5rem 0;">• Documents exceeding 50,000 tokens</li>
+                        <li style="padding: 0.5rem 0;">• Comprehensive report analysis</li>
+                        <li style="padding: 0.5rem 0;">• Multi-document comparisons</li>
+                    </ul>
+                    
+                    <p style="margin-top: 1.5rem; padding: 1rem; background: rgba(0, 161, 156, 0.1); border-radius: 8px;">
+                        <strong>Pro Tip:</strong> Maintain a summary of previous chunks to preserve context continuity
+                    </p>
+                </div>
+                
+                <div class="use-case-card">
+                    <h4>2. Retrieval-Augmented Generation (RAG)</h4>
+                    
+                    <div class="metric">
+                        <span class="metric-label">Performance comparison</span>
+                        <span class="metric-value">12.9s (RAG) vs 21.6s (full context)</span>
+                    </div>
+                    
+                    <div class="metric">
+                        <span class="metric-label">Accuracy improvement</span>
+                        <span class="metric-value">+40% on targeted queries</span>
+                    </div>
+                    
+                    <p style="margin-top: 2rem;"><strong>RAG Architecture:</strong></p>
+                    <div class="process-flow">
+                        <div class="process-step">Index Documents</div>
+                        <span class="process-arrow">→</span>
+                        <div class="process-step">Vector Search</div>
+                        <span class="process-arrow">→</span>
+                        <div class="process-step">Retrieve Relevant</div>
+                        <span class="process-arrow">→</span>
+                        <div class="process-step">Generate Answer</div>
+                    </div>
+                    
+                    <p style="margin-top: 2rem;"><strong>Ideal Applications:</strong></p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding: 0.5rem 0;">• Large knowledge bases</li>
+                        <li style="padding: 0.5rem 0;">• FAQ systems</li>
+                        <li style="padding: 0.5rem 0;">• Document repositories</li>
+                    </ul>
+                    
+                    <p style="margin-top: 1.5rem; padding: 1rem; background: rgba(0, 161, 156, 0.1); border-radius: 8px;">
+                        <strong>Key Benefit:</strong> Only processes relevant information, avoiding context window limits
+                    </p>
+                </div>
+                
+                <div class="use-case-card">
+                    <h4>3. Progressive Summarization</h4>
+                    
+                    <div class="metric">
+                        <span class="metric-label">Typical compression ratio</span>
+                        <span class="metric-value">10:1</span>
+                    </div>
+                    
+                    <div class="metric">
+                        <span class="metric-label">Information retention</span>
+                        <span class="metric-value">~85% of key points</span>
+                    </div>
+                    
+                    <p style="margin-top: 2rem;"><strong>Summarization Strategy:</strong></p>
+                    <ol style="padding-left: 1.5rem; line-height: 2;">
+                        <li>Process initial content in detail</li>
+                        <li>Create summary of key findings</li>
+                        <li>Replace older content with summary</li>
+                        <li>Continue with new content + context</li>
+                    </ol>
+                    
+                    <p style="margin-top: 2rem;"><strong>Best For:</strong></p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding: 0.5rem 0;">• Long conversations</li>
+                        <li style="padding: 0.5rem 0;">• Sequential document analysis</li>
+                        <li style="padding: 0.5rem 0;">• Iterative research processes</li>
+                    </ul>
+                    
+                    <p style="margin-top: 1.5rem; padding: 1rem; background: rgba(0, 161, 156, 0.1); border-radius: 8px;">
+                        <strong>Implementation Note:</strong> Maintain a "key facts" register to prevent loss of critical details
+                    </p>
+                </div>
+            </div>
+            
+            <div class="architecture-visual fade-in" style="margin-top: 3rem;">
+                <h3>Quick Decision Framework</h3>
+                <div class="reasoning-flow" style="flex-direction: column; align-items: stretch; gap: 1rem;">
+                    <div class="reasoning-step" style="width: 100%; text-align: center;">
+                        Document > 50K tokens? → Use Chunking
+                    </div>
+                    <div class="reasoning-step" style="width: 100%; text-align: center;">
+                        Multiple documents to search? → Use RAG
+                    </div>
+                    <div class="reasoning-step" style="width: 100%; text-align: center;">
+                        Ongoing conversation? → Use Progressive Summarization
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: Output Verification Framework -->
+    <section id="slide12">
+        <div class="container">
+            <h2 class="fade-in">Output Verification Framework</h2>
+            <p class="section-subtitle fade-in">Simple 5-Point Quality Assurance Process</p>
+            
+            <div class="checklist fade-in">
+                <h3>Essential Verification Checklist</h3>
+                
+                <div class="checklist-item">
+                    <div class="check-icon">1</div>
+                    <div class="checklist-content">
+                        <h4>Factual Accuracy</h4>
+                        <ul>
+                            <li>Verify 3-5 key claims against reliable sources</li>
+                            <li>Double-check all numerical data and statistics</li>
+                            <li>Flag any unsourced or suspicious claims</li>
+                            <li>Cross-reference dates and timelines</li>
+                        </ul>
+                        <p style="margin-top: 1rem; color: var(--cva-secondary); font-weight: 600;">
+                            Quick Check: Google key facts, verify against source documents
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="check-icon">2</div>
+                    <div class="checklist-content">
+                        <h4>Logical Consistency</h4>
+                        <ul>
+                            <li>Ensure conclusions follow from stated premises</li>
+                            <li>Check for internal contradictions</li>
+                            <li>Verify reasoning steps make business sense</li>
+                            <li>Confirm cause-and-effect relationships</li>
+                        </ul>
+                        <p style="margin-top: 1rem; color: var(--cva-secondary); font-weight: 600;">
+                            Quick Check: Read through the logic flow - does it hold up?
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="check-icon">3</div>
+                    <div class="checklist-content">
+                        <h4>Completeness</h4>
+                        <ul>
+                            <li>All requested elements included?</li>
+                            <li>Questions fully addressed?</li>
+                            <li>No significant omissions?</li>
+                            <li>Required sections present?</li>
+                        </ul>
+                        <p style="margin-top: 1rem; color: var(--cva-secondary); font-weight: 600;">
+                            Quick Check: Compare output against original request
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="check-icon">4</div>
+                    <div class="checklist-content">
+                        <h4>Appropriate Tone & Format</h4>
+                        <ul>
+                            <li>Matches intended audience (C-suite, technical, etc.)</li>
+                            <li>Professional language maintained throughout</li>
+                            <li>Appropriate level of detail for purpose</li>
+                            <li>Consistent formatting and structure</li>
+                        </ul>
+                        <p style="margin-top: 1rem; color: var(--cva-secondary); font-weight: 600;">
+                            Quick Check: Would you send this to the client as-is?
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="check-icon">5</div>
+                    <div class="checklist-content">
+                        <h4>Hallucination Red Flags</h4>
+                        <ul>
+                            <li>Watch for "probably" or "likely" without evidence</li>
+                            <li>Suspiciously specific numbers (e.g., "87.3%" without source)</li>
+                            <li>Claims that seem too good/bad to be true</li>
+                            <li>References to events or data you can't verify</li>
+                        </ul>
+                        <p style="margin-top: 1rem; color: var(--cva-secondary); font-weight: 600;">
+                            Quick Check: If it sounds made up, it probably is - verify!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="architecture-visual fade-in" style="margin-top: 3rem;">
+                <h3>Time Investment Guide</h3>
+                <div class="model-comparison">
+                    <div class="model-card">
+                        <h4>Basic Check (2-3 minutes)</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 0.5rem 0;">✓ Scan for obvious errors</li>
+                            <li style="padding: 0.5rem 0;">✓ Verify 2-3 key facts</li>
+                            <li style="padding: 0.5rem 0;">✓ Check overall logic</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>Use for:</strong> Internal documents, drafts</p>
+                    </div>
+                    <div class="model-card o3">
+                        <h4>Thorough Check (5-10 minutes)</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 0.5rem 0;">✓ Complete 5-point checklist</li>
+                            <li style="padding: 0.5rem 0;">✓ Verify all key claims</li>
+                            <li style="padding: 0.5rem 0;">✓ Review formatting</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>Use for:</strong> Client deliverables, important analyses</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="use-case-card fade-in" style="margin-top: 2rem;">
+                <h4>If Verification Fails</h4>
+                <div class="process-flow">
+                    <div class="process-step">Identify Issue</div>
+                    <span class="process-arrow">→</span>
+                    <div class="process-step">Refine Prompt</div>
+                    <span class="process-arrow">→</span>
+                    <div class="process-step">Regenerate</div>
+                    <span class="process-arrow">→</span>
+                    <div class="process-step">Re-verify</div>
+                </div>
+                <p style="margin-top: 1.5rem; text-align: center;">
+                    <strong>Remember:</strong> Better prompts lead to outputs that need less correction
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 13: Implementation Best Practices -->
+    <section id="slide13">
+        <div class="container">
+            <h2 class="fade-in">Implementation Best Practices</h2>
+            <p class="section-subtitle fade-in">Lessons from Documented Deployments</p>
+            
+            <div class="practices-grid fade-in">
+                <div class="practice-card">
+                    <h3>Model Selection Guidelines</h3>
+                    <div class="model-selection">
+                        <div class="model-box">
+                            <h4>Use GPT-4.5 For:</h4>
+                            <ul>
+                                <li>Document synthesis & summarization</li>
+                                <li>Content generation at scale</li>
+                                <li>Pattern recognition tasks</li>
+                                <li>Broad knowledge queries</li>
+                                <li>Initial exploratory analysis</li>
+                                <li>Creative brainstorming</li>
+                            </ul>
+                        </div>
+                        <div class="model-box">
+                            <h4>Use OpenAI o3 For:</h4>
+                            <ul>
+                                <li>Complex reasoning tasks</li>
+                                <li>Financial calculations</li>
+                                <li>Auditable analysis trails</li>
+                                <li>Multi-step problem solving</li>
+                                <li>Compliance assessments</li>
+                                <li>Strategic recommendations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p style="margin-top: 2rem; text-align: center; color: var(--cva-gray);">
+                        <strong>Key Principle:</strong> Match model capabilities to task requirements, not default to most powerful
+                    </p>
+                </div>
+                
+                <div class="practice-card">
+                    <h3>Context Window Management</h3>
+                    <div class="metric">
+                        <span class="metric-label">Optimal performance zone</span>
+                        <span class="metric-value">Under 50,000 tokens</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Critical threshold</span>
+                        <span class="metric-value">73,000 tokens</span>
+                    </div>
+                    <p style="margin-top: 2rem;"><strong>Implementation Strategy:</strong></p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding: 0.75rem 0;">✓ Monitor token usage in real-time</li>
+                        <li style="padding: 0.75rem 0;">✓ Implement automatic chunking above 50K</li>
+                        <li style="padding: 0.75rem 0;">✓ Use RAG for large knowledge bases</li>
+                        <li style="padding: 0.75rem 0;">✓ Apply progressive summarization for long sessions</li>
+                    </ul>
+                </div>
+                
+                <div class="practice-card">
+                    <h3>Risk Mitigation Requirements</h3>
+                    <p style="margin-bottom: 2rem;"><strong>Non-Negotiable Practices:</strong></p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding: 0.75rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--cva-secondary); font-weight: bold;">1.</span>
+                            <strong>Always verify critical facts</strong> - No exceptions for client work
+                        </li>
+                        <li style="padding: 0.75rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--cva-secondary); font-weight: bold;">2.</span>
+                            <strong>Maintain human oversight</strong> - Final review before delivery
+                        </li>
+                        <li style="padding: 0.75rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--cva-secondary); font-weight: bold;">3.</span>
+                            <strong>Document verification process</strong> - Audit trail for quality
+                        </li>
+                        <li style="padding: 0.75rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--cva-secondary); font-weight: bold;">4.</span>
+                            <strong>Use zero-retention APIs</strong> - Protect client confidentiality
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="architecture-visual fade-in" style="margin-top: 3rem;">
+                <h3>Success Metrics from Industry Leaders</h3>
+                <div class="innovation-grid">
+                    <div class="innovation-card">
+                        <h4>Morgan Stanley</h4>
+                        <div class="stat" style="text-align: center; margin-top: 1.5rem;">
+                            <div class="stat-value" style="font-size: 3rem;">98%</div>
+                            <div class="stat-label">Advisor Adoption Rate</div>
+                        </div>
+                        <p style="margin-top: 1.5rem;">Internal knowledge management system powered by GPT-4</p>
+                    </div>
+                    
+                    <div class="innovation-card">
+                        <h4>McKinsey</h4>
+                        <div class="stat" style="text-align: center; margin-top: 1.5rem;">
+                            <div class="stat-value" style="font-size: 3rem;">75%</div>
+                            <div class="stat-label">Employee Usage</div>
+                        </div>
+                        <p style="margin-top: 1.5rem;">"Lilli" AI assistant for document and deck creation</p>
+                    </div>
+                    
+                    <div class="innovation-card">
+                        <h4>Banco Covalto</h4>
+                        <div class="stat" style="text-align: center; margin-top: 1.5rem;">
+                            <div class="stat-value" style="font-size: 3rem;">90%</div>
+                            <div class="stat-label">Time Reduction</div>
+                        </div>
+                        <p style="margin-top: 1.5rem;">Loan approval process transformation</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="use-case-card fade-in" style="margin-top: 3rem;">
+                <h4>Implementation Phases</h4>
+                <div class="process-flow" style="justify-content: space-around;">
+                    <div class="process-step" style="padding: 2rem;">
+                        <strong>Phase 1</strong><br>
+                        Quick Wins<br>
+                        <small>(Weeks 1-2)</small>
+                    </div>
+                    <span class="process-arrow">→</span>
+                    <div class="process-step" style="padding: 2rem;">
+                        <strong>Phase 2</strong><br>
+                        Scale Up<br>
+                        <small>(Weeks 3-4)</small>
+                    </div>
+                    <span class="process-arrow">→</span>
+                    <div class="process-step" style="padding: 2rem;">
+                        <strong>Phase 3</strong><br>
+                        Optimize<br>
+                        <small>(Ongoing)</small>
+                    </div>
+                </div>
+                <p style="margin-top: 2rem; text-align: center;">
+                    Start with document synthesis → Add financial analysis → Integrate into all workflows
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 14: Key Takeaways and Next Steps -->
+    <section id="slide14">
+        <div class="container">
+            <h2 class="fade-in">Key Takeaways and Practical Next Steps</h2>
+            <p class="section-subtitle fade-in">Your Implementation Roadmap</p>
+            
+            <h3 class="fade-in" style="text-align: center; margin: 3rem 0;">Essential Technical Knowledge</h3>
+            
+            <div class="takeaway-grid fade-in">
+                <div class="takeaway-card">
+                    <div class="takeaway-number">1</div>
+                    <div class="takeaway-text">
+                        <strong>Model Selection</strong><br>
+                        GPT-4.5: 12.8T parameters for synthesis<br>
+                        O3: Reasoning engine with auditable logic
+                    </div>
+                </div>
+                
+                <div class="takeaway-card">
+                    <div class="takeaway-number">2</div>
+                    <div class="takeaway-text">
+                        <strong>Context Limits</strong><br>
+                        Performance degrades after 50K tokens<br>
+                        Use chunking, RAG, or summarization
+                    </div>
+                </div>
+                
+                <div class="takeaway-card">
+                    <div class="takeaway-number">3</div>
+                    <div class="takeaway-text">
+                        <strong>Function Calling</strong><br>
+                        Enables real-world integrations<br>
+                        70% latency reduction possible
+                    </div>
+                </div>
+                
+                <div class="takeaway-card">
+                    <div class="takeaway-number">4</div>
+                    <div class="takeaway-text">
+                        <strong>Quality Assurance</strong><br>
+                        Always verify critical facts<br>
+                        5-point check takes 5 minutes
+                    </div>
+                </div>
+            </div>
+            
+            <div class="roadmap-container fade-in">
+                <h3>Your 4-Week Implementation Plan</h3>
+                <div class="roadmap-timeline">
+                    <div class="roadmap-line"></div>
+                    
+                    <div class="roadmap-item">
+                        <div class="roadmap-dot"></div>
+                        <div class="roadmap-content">
+                            <div class="roadmap-week">Week 1: Foundation</div>
+                            <p><strong>Actions:</strong></p>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Select one use case from proven applications</li>
+                                <li>Set up access to GPT-4.5 and o3</li>
+                                <li>Practice basic prompt engineering</li>
+                            </ul>
+                            <p style="margin-top: 1rem;"><strong>Success Metric:</strong> First successful analysis completed</p>
+                        </div>
+                    </div>
+                    
+                    <div class="roadmap-item">
+                        <div class="roadmap-dot"></div>
+                        <div class="roadmap-content">
+                            <div class="roadmap-week">Week 2: Skill Building</div>
+                            <p><strong>Actions:</strong></p>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Master the 5-element prompt structure</li>
+                                <li>Implement verification checklist</li>
+                                <li>Try both models for comparison</li>
+                            </ul>
+                            <p style="margin-top: 1rem;"><strong>Success Metric:</strong> Quality improvement measurable</p>
+                        </div>
+                    </div>
+                    
+                    <div class="roadmap-item">
+                        <div class="roadmap-dot"></div>
+                        <div class="roadmap-content">
+                            <div class="roadmap-week">Week 3: Expansion</div>
+                            <p><strong>Actions:</strong></p>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Apply to 2-3 different use cases</li>
+                                <li>Test context management strategies</li>
+                                <li>Document best practices</li>
+                            </ul>
+                            <p style="margin-top: 1rem;"><strong>Success Metric:</strong> Time savings documented</p>
+                        </div>
+                    </div>
+                    
+                    <div class="roadmap-item">
+                        <div class="roadmap-dot"></div>
+                        <div class="roadmap-content">
+                            <div class="roadmap-week">Week 4: Integration</div>
+                            <p><strong>Actions:</strong></p>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Integrate into standard workflows</li>
+                                <li>Share learnings with team</li>
+                                <li>Identify advanced applications</li>
+                            </ul>
+                            <p style="margin-top: 1rem;"><strong>Success Metric:</strong> Regular usage established</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="architecture-visual fade-in" style="margin-top: 4rem;">
+                <h3>Immediate Next Steps</h3>
+                <div class="objectives-grid">
+                    <div class="objective-card">
+                        <h4>Today</h4>
+                        <ul>
+                            <li>Review workshop materials</li>
+                            <li>Access LLM platforms</li>
+                            <li>Choose first use case</li>
+                        </ul>
+                    </div>
+                    <div class="objective-card">
+                        <h4>This Week</h4>
+                        <ul>
+                            <li>Complete first analysis</li>
+                            <li>Apply verification process</li>
+                            <li>Document time saved</li>
+                        </ul>
+                    </div>
+                    <div class="objective-card">
+                        <h4>This Month</h4>
+                        <ul>
+                            <li>Master 3 use cases</li>
+                            <li>Share team success</li>
+                            <li>Plan scale-up</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="use-case-card fade-in" style="margin-top: 3rem; text-align: center;">
+                <h3 style="margin-bottom: 2rem;">The Bottom Line</h3>
+                <p style="font-size: 1.5rem; line-height: 1.8; color: var(--cva-primary);">
+                    LLMs are powerful tools that require skill to use effectively.<br>
+                    <strong>Start simple, verify everything, and scale based on success.</strong>
+                </p>
+                <p style="margin-top: 2rem; font-size: 1.25rem; color: var(--cva-gray);">
+                    The firms that master these technologies today will lead the consulting industry tomorrow.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h2>Ready to Transform Your Practice?</h2>
+            <p>Start implementing these LLM strategies today and position CVA at the forefront of AI-powered consulting.</p>
+            <a href="#slide1" class="cta-button">Review Workshop Materials</a>
+            <p style="margin-top: 3rem; font-size: 1rem; opacity: 0.8;">
+                © 2025 CVA - Corporate Value Associates. Excellence Augmented by Intelligence.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Hide loading overlay
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Update active navigation and progress bar
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const slideDots = document.querySelectorAll('.slide-dot');
+        const progressBar = document.getElementById('progressBar');
+        const navbar = document.getElementById('navbar');
+
+        function updateActiveSection() {
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            // Update progress bar
+            const scrollPercentage = (scrollPosition / (documentHeight - windowHeight)) * 100;
+            progressBar.style.width = scrollPercentage + '%';
+            
+            // Update navbar background
+            if (scrollPosition > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Update active navigation
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2) {
+                    // Update nav links
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    if (navLinks[index]) {
+                        navLinks[index].classList.add('active');
+                    }
+                    
+                    // Update slide dots
+                    slideDots.forEach(dot => dot.classList.remove('active'));
+                    if (slideDots[index]) {
+                        slideDots[index].classList.add('active');
+                    }
+                }
+            });
+            
+            // Trigger fade-in animations
+            document.querySelectorAll('.fade-in').forEach(element => {
+                const rect = element.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.8) {
+                    element.classList.add('active');
+                }
+            });
+            
+            // Trigger slide animations
+            document.querySelectorAll('.slide-in-left').forEach(element => {
+                const rect = element.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.8) {
+                    element.classList.add('active');
+                }
+            });
+            
+            document.querySelectorAll('.slide-in-right').forEach(element => {
+                const rect = element.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.8) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveSection);
+        window.addEventListener('resize', updateActiveSection);
+        updateActiveSection();
+
+        // Slide dot navigation
+        slideDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                if (sections[index]) {
+                    sections[index].scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animate chart bars on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bars = entry.target.querySelectorAll('.chart-bar');
+                    bars.forEach((bar, index) => {
+                        setTimeout(() => {
+                            bar.classList.add('active');
+                        }, index * 200);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.performance-chart').forEach(chart => {
+            observer.observe(chart);
+        });
+
+        // Animate code lines
+        const codeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const lines = entry.target.querySelectorAll('.code-line');
+                    lines.forEach((line, index) => {
+                        line.style.animationDelay = `${index * 0.1}s`;
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.function-demo').forEach(demo => {
+            codeObserver.observe(demo);
+        });
+
+        // Add hover effects to tokens
+        document.querySelectorAll('.token').forEach(token => {
+            token.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1) translateY(-5px)';
+            });
+            token.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) translateY(0)';
+            });
+        });
+
+        // Print functionality
+        window.addEventListener('beforeprint', () => {
+            document.body.classList.add('printing');
+        });
+
+        window.addEventListener('afterprint', () => {
+            document.body.classList.remove('printing');
+        });
+    </script>
+</body>
+</html>
