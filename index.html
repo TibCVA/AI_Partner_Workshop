@@ -2693,131 +2693,146 @@
         </div>
     </section>
 
-    <!-- Slide 10: Prompt Engineering Fundamentals -->
+    <!-- Slide 10: Prompt Engineering for o3 Models -->
     <section id="slide10">
         <div class="container">
-            <h2 class="fade-in">Prompt Engineering Fundamentals</h2>
-            <p class="section-subtitle fade-in">Evidence-Based Best Practices for Optimal Results</p>
+            <h2 class="fade-in">Prompt Engineering for o3 Models</h2>
+            <p class="section-subtitle fade-in">The Anatomy of an o3 Prompt - Optimized for Reasoning Models</p>
             
-            <h3 class="fade-in" style="text-align: center; margin: 3rem 0;">Common Errors and Their Solutions</h3>
+            <div class="architecture-visual fade-in" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; padding: 3rem; margin-top: 3rem;">
+                <h3 style="color: white; text-align: center; margin-bottom: 3rem;">The Anatomy of an <span style="color: #ff6b6b;">o3 Prompt</span></h3>
+                
+                <div style="display: flex; gap: 3rem; align-items: stretch;">
+                    <div style="flex: 1;">
+                        <div style="margin-bottom: 3rem; padding-left: 2rem; border-left: 4px solid #4ecdc4;">
+                            <h4 style="color: #4ecdc4; margin-bottom: 1rem;">Goal</h4>
+                            <p style="line-height: 1.8;">I want a list of the best medium-length hikes within two hours of San Francisco.</p>
+                            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Each hike should provide a cool and unique adventure, and be lesser known.</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 3rem; padding-left: 2rem; border-left: 4px solid #45b7d1;">
+                            <h4 style="color: #45b7d1; margin-bottom: 1rem;">Return Format</h4>
+                            <p style="line-height: 1.8;">For each hike, return the name of the hike as I'd find it on AllTrails, then provide the starting address of the hike, the ending address of the hike, distance, drive time, hike duration, and what makes it a cool and unique adventure.</p>
+                            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Return the top 3.</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 3rem; padding-left: 2rem; border-left: 4px solid #ff9f43;">
+                            <h4 style="color: #ff9f43; margin-bottom: 1rem;">Warnings</h4>
+                            <p style="line-height: 1.8;">Be careful to make sure that the name of trail is correct, that it actually exists, and that the time is correct.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="flex: 1;">
+                        <div style="margin-bottom: 3rem; padding-left: 2rem; border-left: 4px solid #f8f9fa;">
+                            <h4 style="color: #f8f9fa; margin-bottom: 1rem;">Context</h4>
+                            <p style="line-height: 1.8; opacity: 0.6; font-size: 0.85rem;">
+                                (Call transcripts, meeting notes, documents, data - everything the model needs to understand the specific situation)
+                            </p>
+                        </div>
+                        
+                        <div style="padding-left: 2rem; border-left: 4px solid #a29bfe;">
+                            <h4 style="color: #a29bfe; margin-bottom: 1rem;">Capabilities</h4>
+                            <p style="line-height: 1.8;">Smart models like o3-pro want to explore their environment.</p>
+                            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                                <div style="background: #6c5ce7; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600;">
+                                    MCP Connections
+                                </div>
+                                <div style="background: #6c5ce7; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600;">
+                                    Other Tool Calls
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="fade-in" style="text-align: center; margin: 4rem 0 2rem;">Applying the o3 Prompt Structure to Consulting</h3>
             
             <div class="prompt-comparison fade-in">
                 <div class="prompt-example prompt-bad">
                     <div class="prompt-label">
                         <div class="prompt-icon">❌</div>
-                        Error: Vague Instructions
+                        Traditional Prompt
                     </div>
                     <div class="prompt-text">
-                        "Analyze the market"
+                        "Analyze our M&A opportunities in Europe"
                     </div>
                     <p style="margin-top: 1rem; color: var(--cva-gray);">
-                        <strong>Problem:</strong> No context, scope, or specific requirements
+                        <strong>Problem:</strong> Lacks structure for o3's reasoning capabilities
                     </p>
                 </div>
                 
                 <div class="prompt-example prompt-good">
                     <div class="prompt-label">
                         <div class="prompt-icon">✓</div>
-                        Better: Specific & Structured
+                        o3-Optimized Prompt
                     </div>
-                    <div class="prompt-text">
-                        "Analyze the European EV market focusing on:<br>
-                        1. Market size and growth rate (2020-2025)<br>
-                        2. Top 5 competitors by market share<br>
-                        3. Key regulatory drivers<br>
-                        4. Entry barriers for new players"
-                    </div>
-                </div>
-            </div>
-            
-            <div class="prompt-comparison fade-in" style="margin-top: 2rem;">
-                <div class="prompt-example prompt-bad">
-                    <div class="prompt-label">
-                        <div class="prompt-icon">❌</div>
-                        Error: Missing Context
-                    </div>
-                    <div class="prompt-text">
-                        "Create a presentation"
-                    </div>
-                    <p style="margin-top: 1rem; color: var(--cva-gray);">
-                        <strong>Problem:</strong> No audience, purpose, or scope defined
-                    </p>
-                </div>
-                
-                <div class="prompt-example prompt-good">
-                    <div class="prompt-label">
-                        <div class="prompt-icon">✓</div>
-                        Better: Context-Rich
-                    </div>
-                    <div class="prompt-text">
-                        "Create a 10-slide presentation for the board of a European utility company on renewable energy investment opportunities in offshore wind, focusing on ROI projections and regulatory landscape"
+                    <div class="prompt-text" style="font-size: 0.95rem;">
+                        <strong style="color: #4ecdc4;">Goal:</strong> Identify top 3 M&A targets in European renewable energy sector<br><br>
+                        <strong style="color: #45b7d1;">Return Format:</strong> For each target: Company name, valuation range, strategic fit score (1-10), integration complexity, synergy potential<br><br>
+                        <strong style="color: #ff9f43;">Warnings:</strong> Verify all financial data is from 2024-2025, check for recent M&A activity that might affect availability<br><br>
+                        <strong style="color: #f8f9fa;">Context:</strong> [Client financial data, strategic priorities, previous acquisitions]<br><br>
+                        <strong style="color: #a29bfe;">Capabilities:</strong> Use market_data_api(), financial_analysis(), regulatory_check()
                     </div>
                 </div>
             </div>
             
-            <h3 class="fade-in" style="text-align: center; margin: 4rem 0 2rem;">The Five Essential Elements of Effective Prompts</h3>
-            
-            <div class="elements-grid fade-in">
-                <div class="element-card">
-                    <div class="element-number">1</div>
-                    <h4>Define the Role</h4>
-                    <p><strong>Why:</strong> Sets expertise level and perspective</p>
-                    <p><strong>Example:</strong> "As a senior strategy consultant specializing in digital transformation..."</p>
-                    <p><strong>Impact:</strong> More relevant and sophisticated responses</p>
+            <div class="elements-grid fade-in" style="margin-top: 3rem;">
+                <div class="element-card" style="border-top: 4px solid #4ecdc4;">
+                    <h4 style="color: #4ecdc4;">1. Clear Goal Definition</h4>
+                    <p><strong>Purpose:</strong> Focuses o3's reasoning on specific objectives</p>
+                    <p><strong>Example:</strong> "I need a competitive analysis of the top 5 players in the European EV charging infrastructure market"</p>
+                    <p><strong>Impact:</strong> Enables targeted chain-of-thought reasoning</p>
                 </div>
                 
-                <div class="element-card">
-                    <div class="element-number">2</div>
-                    <h4>Provide Clear Context</h4>
-                    <p><strong>Include:</strong> Industry, geography, timeframe, constraints</p>
-                    <p><strong>Example:</strong> "For a $500M manufacturing company in Germany facing margin pressure..."</p>
-                    <p><strong>Result:</strong> Targeted, actionable insights</p>
+                <div class="element-card" style="border-top: 4px solid #45b7d1;">
+                    <h4 style="color: #45b7d1;">2. Structured Return Format</h4>
+                    <p><strong>Purpose:</strong> Leverages o3's ability to organize complex outputs</p>
+                    <p><strong>Example:</strong> "Provide a comparison matrix with: Market Share | Technology Stack | Funding | Key Partnerships"</p>
+                    <p><strong>Impact:</strong> Consistent, actionable deliverables</p>
                 </div>
                 
-                <div class="element-card">
-                    <div class="element-number">3</div>
-                    <h4>Specify Output Format</h4>
-                    <p><strong>Options:</strong> Table, bullets, narrative, framework</p>
-                    <p><strong>Example:</strong> "Provide a comparison table with columns: Option, Cost, Timeline, Risk"</p>
-                    <p><strong>Benefit:</strong> Ready-to-use outputs</p>
+                <div class="element-card" style="border-top: 4px solid #ff9f43;">
+                    <h4 style="color: #ff9f43;">3. Explicit Warnings</h4>
+                    <p><strong>Purpose:</strong> Activates o3's verification mechanisms</p>
+                    <p><strong>Example:</strong> "Ensure all market data is post-Q3 2024 and verify regulatory compliance status"</p>
+                    <p><strong>Impact:</strong> Reduces hallucination risk by 25%+</p>
                 </div>
                 
-                <div class="element-card">
-                    <div class="element-number">4</div>
-                    <h4>Use Examples (Few-shot)</h4>
-                    <p><strong>Technique:</strong> Show 1-2 examples of desired output</p>
-                    <p><strong>Application:</strong> "Format like this: [Company]: [Revenue] - [Key Differentiator]"</p>
-                    <p><strong>Outcome:</strong> Consistent formatting</p>
+                <div class="element-card" style="border-top: 4px solid #f8f9fa;">
+                    <h4 style="color: #888;">4. Rich Context Provision</h4>
+                    <p><strong>Purpose:</strong> Feeds o3's reasoning engine with relevant data</p>
+                    <p><strong>Example:</strong> Include meeting transcripts, financial statements, strategic documents</p>
+                    <p><strong>Impact:</strong> More nuanced, accurate analysis</p>
                 </div>
                 
-                <div class="element-card">
-                    <div class="element-number">5</div>
-                    <h4>Break Complex Tasks</h4>
-                    <p><strong>Instead of:</strong> One complex request</p>
-                    <p><strong>Use:</strong> "Step 1: Analyze... Step 2: Compare... Step 3: Recommend..."</p>
-                    <p><strong>Advantage:</strong> Higher accuracy per component</p>
+                <div class="element-card" style="border-top: 4px solid #a29bfe;">
+                    <h4 style="color: #a29bfe;">5. Tool Integration</h4>
+                    <p><strong>Purpose:</strong> Enables o3 to gather real-time data</p>
+                    <p><strong>Example:</strong> Connect market databases, financial APIs, news feeds</p>
+                    <p><strong>Impact:</strong> Current, verified information</p>
                 </div>
             </div>
             
             <div class="architecture-visual fade-in" style="margin-top: 3rem;">
-                <h3>Prompt Engineering for Different Model Types</h3>
+                <h3>Key Insights for o3/o3-pro Prompting</h3>
                 <div class="model-selection">
-                    <div class="model-box">
-                        <h4>For GPT-4.5 (Non-reasoning)</h4>
+                    <div class="model-box" style="border: 2px solid #4ecdc4;">
+                        <h4>o3 Model Strengths</h4>
                         <ul>
-                            <li>• Be extremely explicit with instructions</li>
-                            <li>• Provide clear examples</li>
-                            <li>• Specify exact format requirements</li>
-                            <li>• Keep prompts focused and concise</li>
+                            <li>• Excels with structured, multi-component prompts</li>
+                            <li>• Shows reasoning steps when given clear goals</li>
+                            <li>• Self-verifies when warnings are explicit</li>
+                            <li>• Integrates multiple data sources effectively</li>
                         </ul>
                     </div>
-                    <div class="model-box">
-                        <h4>For OpenAI o3 (Reasoning)</h4>
+                    <div class="model-box" style="border: 2px solid #a29bfe;">
+                        <h4>o3-pro Additional Capabilities</h4>
                         <ul>
-                            <li>• Request step-by-step reasoning</li>
-                            <li>• Ask for justification of conclusions</li>
-                            <li>• Encourage problem decomposition</li>
-                            <li>• Allow for longer processing time</li>
+                            <li>• Handles more complex multi-step reasoning</li>
+                            <li>• Better at exploring solution spaces</li>
+                            <li>• More sophisticated tool orchestration</li>
+                            <li>• Enhanced verification and self-correction</li>
                         </ul>
                     </div>
                 </div>
