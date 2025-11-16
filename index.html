@@ -24,7 +24,7 @@
         }
         
         /* Tighter letter spacing for headers */
-        h1, h2, h3 {
+        h1, h2, h3, h4, h5 {
             letter-spacing: -0.02em;
         }
 
@@ -50,6 +50,13 @@
             content: '–';
             font-weight: 700;
         }
+        /* This is the new style to replace inline <strong> */
+        .cva-list .list-lead {
+            font-weight: 600; /* Semibold */
+            color: #111827; /* gray-900 */
+            display: block;
+            margin-bottom: 2px;
+        }
 
         /* 2. CVA Custom List Styling (Light, for dark backgrounds) */
         .cva-list-light li {
@@ -68,9 +75,6 @@
             font-size: 14px;
             color: #3B82F6; /* blue-500, brighter on dark */
         }
-        .cva-list-light strong {
-            color: #FFF;
-        }
 
         /* 3. Custom "Decision" List (The Ask) */
         .cva-decision-list {
@@ -86,6 +90,7 @@
             font-size: 1.125rem; /* 18px */
             font-weight: 500;
             line-height: 1.6;
+            color: #374151; /* Rigor Fix: Text color */
         }
         .cva-decision-list li::before {
             content: counter(decision-counter);
@@ -104,9 +109,10 @@
             font-weight: 700;
             font-size: 1.125rem;
         }
-        .cva-decision-list strong {
-            color: #0A2A4D; /* CVA-Blue */
+        .cva-decision-list-dark li {
+             color: #D1D5DB; /* gray-300 */
         }
+
 
         /* 4. Animation Classes (More subtle) */
         .animate-on-scroll {
@@ -244,11 +250,10 @@
         </div>
     </nav>
 
-    <!-- ==== SECTION 1: HERO (Slide 1) ==== -->
+    <!-- ==== SECTION 1: HERO (Slide 1) - RIGOROUSLY FIXED ==== -->
     <section class="bg-cva-blue text-white relative overflow-hidden min-h-screen flex flex-col justify-center">
-        <!-- Subtle Grid Pattern -->
-        <div class="absolute inset-0 bg-gradient-to-br from-cva-blue to-black opacity-90"></div>
-        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M 10 10 L 90 10 L 90 90 L 10 90" fill="none" stroke="%23FFFFFF" stroke-width="0.1" opacity="0.3" /></svg>'); background-size: 50px 50px; opacity: 0.2;"></div>
+        <!-- RIGOR FIX: Removed background-size attribute -->
+        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml;utf8,%3Csvg%20width%3D%27100%27%20height%3D%27100%27%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%3E%3Cpath%20d%3D%27M%2010%2010%20L%2090%2010%20L%2090%2090%20L%2010%2090%27%20fill%3D%27none%27%20stroke%3D%27%2523FFFFFF%27%20stroke-width%3D%270.1%27%20opacity%3D%270.3%27%20%2F%3E%3C%2Fsvg%3E'); opacity: 0.2;"></div>
         
         <div class="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 md:py-36 z-10">
             <div class="text-center">
@@ -277,8 +282,16 @@
             </div>
         </div>
         
+        <!-- RIGOR FIX: Replaced [Date] / [Participants] -->
+        <div class="animate-on-scroll fade-in absolute bottom-12 left-0 right-0" style="transition-delay: 1000ms;">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center text-gray-400">
+                <p class="text-sm">2025</p>
+                <p class="text-sm">INTERNAL & CONFIDENTIAL</p>
+            </div>
+        </div>
+        
         <!-- Animated Scroll Down Chevron -->
-        <div class="animate-on-scroll fade-in absolute bottom-10 left-1/2 -translate-x-1/2 z-10" style="transition-delay: 1000ms;">
+        <div class="animate-on-scroll fade-in absolute bottom-28 left-1/2 -translate-x-1/2 z-10" style="transition-delay: 1000ms;">
             <div class="scroll-chevron text-gray-400">
                 <i class="fa-solid fa-chevron-down text-2xl"></i>
             </div>
@@ -322,7 +335,7 @@
         </div>
     </section>
     
-    <!-- ==== SECTION 3: AMBITION (Slide 3) - UPDATED TEXT ==== -->
+    <!-- ==== SECTION 3: AMBITION (Slide 3) - RIGOR FIX ==== -->
     <section class="py-20 md:py-28 bg-cva-light-bg">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto">
@@ -333,7 +346,6 @@
                 <div class="animate-on-scroll slide-in-left">
                     <h3 class="text-2xl font-bold text-cva-blue mb-6">Ambition for the Practice</h3>
                     <ul class="cva-list">
-                        <!-- THIS LINE IS UPDATED PER YOUR RIGOROUS FEEDBACK -->
                         <li>Position the team as CVA's reference on the industrialisation of high-value AI use cases.</li>
                         <li>Build a clear offering to help clients select and industrialise a *limited number* of AI use cases in their core business.</li>
                         <li>Connect this offering to our growth areas: data centres, Energy to Compute, and networks.</li>
@@ -343,7 +355,7 @@
                     <h3 class="text-2xl font-bold text-cva-blue mb-6">Role of Thibaut (12-18 Months)</h3>
                     <ul class="cva-list">
                         <li>Thibaut to lead the offering, build the GTM, and coordinate with Carole (CORE) and Energy Partners.</li>
-                        <li><strong>12-18 Month Objectives:</strong>
+                        <li><span class="list-lead">12-18 Month Objectives:</span>
                             <ul>
                                 <li>One "CORE + AI" program sold and delivered to a major client.</li>
                                 <li>Reusable assets for 2-3 additional accounts (EU/ME).</li>
@@ -363,7 +375,7 @@
         </div>
     </section>
 
-    <!-- ==== SECTION 4: VALUE PROPOSITION (Slide 4) ==== -->
+    <!-- ==== SECTION 4: VALUE PROPOSITION (Slide 4) - RIGOR FIX ==== -->
     <section class="py-20 md:py-28 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto">
@@ -394,14 +406,21 @@
                         <i class="fa-solid fa-star text-2xl text-yellow-500"></i>
                     </div>
                     <h3 class="text-xl font-bold text-cva-blue mb-3">The Benefit</h3>
-                    <p><strong class="text-text-dark">For Clients:</strong> A focused, high-value set of use cases with a clear business case and a realistic roadmap steerable at the COMEX level.</p>
-                    <p class="mt-2"><strong class="text-text-dark">For CVA:</strong> A differentiating position, a new entry point, and a reusable asset base.</p>
+                    <!-- RIGOR FIX: Removed <strong> tags and used <h5> -->
+                    <h5 class="text-lg font-semibold text-text-dark">For Clients:</h5>
+                    <ul class="cva-list text-base mt-2">
+                        <li>A focused, high-value set of use cases with a clear business case and a realistic roadmap steerable at the COMEX level.</li>
+                    </ul>
+                    <h5 class="text-lg font-semibold text-text-dark mt-4">For CVA:</h5>
+                    <ul class="cva-list text-base mt-2">
+                        <li>A differentiating position, a new entry point, and a reusable asset base.</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ==== SECTION 5: OFFERING ARCHITECTURE (Slide 5) - REDESIGNED ==== -->
+    <!-- ==== SECTION 5: OFFERING ARCHITECTURE (Slide 5) ==== -->
     <section class="py-20 md:py-28 bg-cva-light-bg">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto">
@@ -507,7 +526,7 @@
             <!-- Conclusion Line -->
             <div class="animate-on-scroll fade-in mt-16 text-center max-w-4xl mx-auto">
                 <p class="text-lg font-semibold text-cva-blue p-6 bg-white rounded-lg shadow-md border-t-4 border-cva-accent">
-                    <strong>2026 Objective:</strong> Sell at least one Module 1+2 combination, then use this "lighthouse" to propose Module 3 and extend the offering to other accounts.
+                    <span class="font-bold">2026 Objective:</span> Sell at least one Module 1+2 combination, then use this "lighthouse" to propose Module 3 and extend the offering to other accounts.
                 </p>
             </div>
         </div>
@@ -528,7 +547,7 @@
                         <i class="fa-solid fa-industry text-2xl text-cva-accent"></i>
                     </div>
                     <h3 class="text-xl font-bold text-cva-blue mb-3">Utilities & Energy Services (Europe)</h3>
-                    <p>Large integrated utilities, DSOs, etc. They are interested in forecasting, customer ops, and predictive maintenance. A natural ground for Use Cases 1 & 3.</p>
+                    <p>Large integrated utilities, DSOs, energy service providers. They are interested in forecasting, customer ops, and predictive maintenance. A natural ground for Use Cases 1 & 3.</p>
                 </div>
                 <!-- Target 2 -->
                 <div class="animate-on-scroll slide-up bg-white p-8 rounded-xl shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5" style="transition-delay: 450ms;">
@@ -550,370 +569,438 @@
         </div>
     </section>
 
-    <!-- ==== SECTION 7: PRIORITISED AI USE CASE PORTFOLIO (NEW INTERACTIVE) ==== -->
+    <!-- ==== SECTION 7: NEW PORTFOLIO (Slide 7) - FULLY REDESIGNED ==== -->
     <section class="py-20 md:py-28 bg-cva-light-bg">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto">
                 <h2 class="animate-on-scroll slide-up text-4xl font-extrabold text-cva-blue mb-4">Prioritised AI Use Case Portfolio</h2>
+                <p class="animate-on-scroll slide-up text-xl text-text-medium" style="transition-delay: 150ms;">A focused portfolio anchored in white-space opportunities at our key Energy clients.</p>
             </div>
             
             <!-- Intro: How to Read -->
-            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <div class="animate-on-scroll slide-up" style="transition-delay: 150ms;">
-                    <h3 class="text-lg font-bold text-cva-blue mb-2">Axis 1: Client Value Potential</h3>
-                    <p class="text-text-medium">Impact on EBITDA and cash. Risk profile and capex/opex decisions. Customer experience and regulatory perception.</p>
-                </div>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <div class="animate-on-scroll slide-up" style="transition-delay: 300ms;">
-                    <h3 class="text-lg font-bold text-cva-blue mb-2">Axis 2: Technical & Data Maturity</h3>
-                    <p class="text-text-medium">Proven deployments in Energy. Availability and quality of data. Realistic industrialisation in 12-24 months.</p>
+                    <h3 class="text-lg font-bold text-cva-blue mb-2">Axis 1: Client Value Potential</h3>
+                    <p class="text-text-medium">Impact on EBITDA, risk, capex/opex decisions, strategic positioning, regulatory performance, and customer outcomes.</p>
                 </div>
                 <div class="animate-on-scroll slide-up" style="transition-delay: 450ms;">
-                    <h3 class="text-lg font-bold text-cva-blue mb-2">Our Principle: Focus & Incubate</h3>
-                    <p class="text-text-medium">Focus 2026 on high-value, high-maturity cases. In parallel, incubate a few strategic, high-potential bets.</p>
+                    <h3 class="text-lg font-bold text-cva-blue mb-2">Axis 2: Technical & Data Maturity</h3>
+                    <p class="text-text-medium">Existence of building blocks in the market and at peers. Realistic industrialisation in 12-24 months at our target clients.</p>
                 </div>
             </div>
 
-            <!-- "Portfolio Explorer" (Tabbed Interface) -->
-            <div class="animate-on-scroll fade-in mt-16 max-w-6xl mx-auto" style="transition-delay: 600ms;">
-                <!-- Tab Buttons -->
-                <div class="flex flex-wrap -mb-px" id="portfolio-tabs">
-                    <button class="portfolio-tab-btn active" data-tab-target="#wave1">
-                        <i class="fa-solid fa-star mr-2"></i> Wave 1 (Priority)
-                    </button>
-                    <button class="portfolio-tab-btn" data-tab-target="#wave1-5">
-                        <i class="fa-solid fa-rocket mr-2"></i> Wave 1.5 (Incubate)
-                    </button>
-                    <button class="portfolio-tab-btn" data-tab-target="#wave2">
-                        <i class="fa-solid fa-chess-knight mr-2"></i> Wave 2 (Strategic Bets)
-                    </button>
-                    <button class="portfolio-tab-btn" data-tab-target="#addon">
-                        <i class="fa-solid fa-plug mr-2"></i> Selective Add-on
-                    </button>
+            <!-- "Programme" Cards -->
+            <div class="mt-16 max-w-6xl mx-auto">
+                <!-- Wave 1 Header -->
+                <div class="animate-on-scroll slide-up" style="transition-delay: 300ms;">
+                    <h3 class="text-3xl font-bold text-cva-accent mb-6 pb-2 border-b-2 border-cva-accent/30">Wave 1: Industrialise (2026 Focus)</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Programme A -->
+                    <div class="animate-on-scroll slide-up bg-white p-8 rounded-xl shadow-xl border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5" style="transition-delay: 450ms;">
+                        <div class="flex items-center mb-4">
+                            <span class="text-2xl font-bold text-cva-accent">A</span>
+                            <h4 class="text-2xl font-bold text-cva-blue ml-4">Nuclear & Critical Asset Health Cockpit</h4>
+                        </div>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">Clients:</h5>
+                        <p class="mb-4 text-text-medium">EDF Nuclear, Framatome, Orano, Naval Group, TAQA, SEC</p>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">White-Space Idea:</h5>
+                        <p class="mb-4 text-text-medium">Move from equipment-level predictive maintenance to a fleet-level "Critical Asset Health Cockpit" that supports decisions on life extension, major capex, and outage scope.</p>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">Core Processes:</h5>
+                        <p class="mb-4 text-text-medium">Asset strategy, life extension programmes, outage planning, capex allocation at fleet level.</p>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">Why it is white space:</h5>
+                        <p class="mb-4 text-text-medium">Clients have local predictive maintenance and digital twins. They do not yet have a structured, cross-fleet AI-driven process for LTO and major capex decisions.</p>
+                        <div class="mt-auto bg-cva-light-bg p-3 rounded-md text-center font-semibold text-cva-blue">Very High Value | Medium-High Maturity</div>
+                    </div>
+
+                    <!-- Programme B -->
+                    <div class="animate-on-scroll slide-up bg-white p-8 rounded-xl shadow-xl border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5" style="transition-delay: 600ms;">
+                        <div class="flex items-center mb-4">
+                            <span class="text-2xl font-bold text-cva-accent">B</span>
+                            <h4 class="text-2xl font-bold text-cva-blue ml-4">Smart Gas & Power Network Intelligence</h4>
+                        </div>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">Clients:</h5>
+                        <p class="mb-4 text-text-medium">GRDF, SEC, EDF CST, TAQA</p>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">White-Space Idea:</h5>
+                        <p class="mb-4 text-text-medium">Use AI on smart meter/SCADA data to create a "Network Intelligence Office" that detects leaks/faults early, scores asset risk, and optimises renewal under budget constraints.</p>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">Core Processes:</h5>
+                        <p class="mb-4 text-text-medium">Network operations, safety management, renewal and reinforcement planning, dialogue with regulators.</p>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">Why it is white space:</h5>
+                        <p class="mb-4 text-text-medium">Smart meters and pilots exist. There is no end-to-end, AI-driven, risk-based process from anomaly detection to renewal decisions at COMEX level.</p>
+                        <div class="mt-auto bg-cva-light-bg p-3 rounded-md text-center font-semibold text-cva-blue">High Value | Medium-High Maturity</div>
+                    </div>
                 </div>
 
-                <!-- Tab Content Panes -->
-                <div class="bg-white rounded-b-xl rounded-r-xl shadow-xl border border-gray-100 overflow-hidden">
-                    
-                    <!-- Wave 1 Content -->
-                    <div class="portfolio-tab-pane" id="wave1">
-                        <div class="p-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            <!-- Use Case 1.1 -->
-                            <div class="flex flex-col p-6 bg-cva-light-bg rounded-lg border border-gray-200">
-                                <h4 class="text-lg font-bold text-cva-blue mb-2">AI demand and RES forecasting</h4>
-                                <p class="text-sm italic text-text-medium mb-4">Core process for portfolio steering, PPA sizing, and hedging.</p>
-                                <!-- Visual Data Bars -->
-                                <div class="mb-3">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Value</span><span>5 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 100%"></div></div>
-                                </div>
-                                <div class="mb-4">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Maturity</span><span>4 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 80%"></div></div>
-                                </div>
-                                <!-- Why Priority -->
-                                <h5 class="font-semibold text-text-dark mb-1">Why it's a priority:</h5>
-                                <ul class="cva-list text-sm">
-                                    <li>Natural anchor for COMEX conversations.</li>
-                                    <li>Easy to link to clear KPIs (forecast accuracy, balancing cost).</li>
-                                </ul>
-                            </div>
-                            <!-- Use Case 1.2 -->
-                            <div class="flex flex-col p-6 bg-cva-light-bg rounded-lg border border-gray-200">
-                                <h4 class="text-lg font-bold text-cva-blue mb-2">AI predictive maintenance</h4>
-                                <p class="text-sm italic text-text-medium mb-4">Core process for asset O&M on wind, solar, CCGT, and critical network equipment.</p>
-                                <!-- Visual Data Bars -->
-                                <div class="mb-3">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Value</span><span>4 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 80%"></div></div>
-                                </div>
-                                <div class="mb-4">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Maturity</span><span>4 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 80%"></div></div>
-                                </div>
-                                <!-- Why Priority -->
-                                <h5 class="font-semibold text-text-dark mb-1">Why it's a priority:</h5>
-                                <ul class="cva-list text-sm">
-                                    <li>Strong fit with our asset and nuclear work.</li>
-                                    <li>Clear link to availability, LCOE, and risk indicators.</li>
-                                </ul>
-                            </div>
-                            <!-- Use Case 1.3 -->
-                            <div class="flex flex-col p-6 bg-cva-light-bg rounded-lg border border-gray-200">
-                                <h4 class="text-lg font-bold text-cva-blue mb-2">AI customer ops & collections</h4>
-                                <p class="text-sm italic text-text-medium mb-4">Core processes for customer service, billing queries, complaints, and credit.</p>
-                                <!-- Visual Data Bars -->
-                                <div class="mb-3">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Value</span><span>3 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 60%"></div></div>
-                                </div>
-                                <div class="mb-4">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Maturity</span><span>4 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 80%"></div></div>
-                                </div>
-                                <!-- Why Priority -->
-                                <h5 class="font-semibold text-text-dark mb-1">Why it's a priority:</h5>
-                                <ul class="cva-list text-sm">
-                                    <li>Quick wins on cost-to-serve and credit risk.</li>
-                                    <li>Very tangible for COMEX and Chief Customer Officers.</li>
-                                </ul>
-                            </div>
+                <!-- Wave 2 Header -->
+                <div class="animate-on-scroll slide-up mt-16" style="transition-delay: 300ms;">
+                    <h3 class="text-3xl font-bold text-cva-accent mb-6 pb-2 border-b-2 border-cva-accent/30">Wave 2: Prepare & Incubate</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Programme C -->
+                    <div class="animate-on-scroll slide-up bg-white p-8 rounded-xl shadow-xl border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5" style="transition-delay: 450ms;">
+                        <div class="flex items-center mb-4">
+                            <span class="text-2xl font-bold text-cva-accent">C</span>
+                            <h4 class="text-2xl font-bold text-cva-blue ml-4">City & Multi-Utility Performance Cockpit</h4>
                         </div>
-                    </div>
-                    
-                    <!-- Wave 1.5 Content (Hidden by default) -->
-                    <div class="portfolio-tab-pane hidden" id="wave1-5">
-                        <div class="p-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            <!-- Use Case 1.5.1 -->
-                            <div class="flex flex-col p-6 bg-cva-light-bg rounded-lg border border-gray-200">
-                                <h4 class="text-lg font-bold text-cva-blue mb-2">AI for storage & flexibility (Supply)</h4>
-                                <p class="text-sm italic text-text-medium mb-4">Core process for storage assets and Virtual Power Plants.</p>
-                                <div class="mb-3">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Value</span><span>4 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 80%"></div></div>
-                                </div>
-                                <div class="mb-4">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Maturity</span><span>3 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 60%"></div></div>
-                                </div>
-                                <h5 class="font-semibold text-text-dark mb-1">Why now:</h5>
-                                <ul class="cva-list text-sm">
-                                    <li>Fits our work on RES portfolios.</li>
-                                    <li>Can be an extension of forecasting work with lighthouse clients.</li>
-                                </ul>
-                            </div>
-                            <!-- Use Case 1.5.2 -->
-                            <div class="flex flex-col p-6 bg-cva-light-bg rounded-lg border border-gray-200">
-                                <h4 class="text-lg font-bold text-cva-blue mb-2">AI for demand side flexibility</h4>
-                                <p class="text-sm italic text-text-medium mb-4">Core energy management process for campuses, buildings, and data centers.</p>
-                                <div class="mb-3">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Value</span><span>4 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 80%"></div></div>
-                                </div>
-                                <div class="mb-4">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Maturity</span><span>3 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 60%"></div></div>
-                                </div>
-                                <h5 class="font-semibold text-text-dark mb-1">Why now:</h5>
-                                <ul class="cva-list text-sm">
-                                    <li>Direct link with our DC and energy services work.</li>
-                                    <li>Good area for joint offers with ESCOs.</li>
-                                </ul>
-                            </div>
-                            <!-- Use Case 1.5.3 -->
-                            <div class="flex flex-col p-6 bg-cva-light-bg rounded-lg border border-gray-200">
-                                <h4 class="text-lg font-bold text-cva-blue mb-2">AI for data center planning</h4>
-                                <p class="text-sm italic text-text-medium mb-4">Core planning and sourcing processes for data center operators.</p>
-                                <div class="mb-3">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Value</span><span>4 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 80%"></div></div>
-                                </div>
-                                <div class="mb-4">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Maturity</span><span>3 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 60%"></div></div>
-                                </div>
-                                <h5 class="font-semibold text-text-dark mb-1">Why now:</h5>
-                                <ul class="cva-list text-sm">
-                                    <li>Strong strategic fit with our DC positioning.</li>
-                                    <li>Address with a combined "Energy to Compute" and AI angle.</li>
-                                </ul>
-                            </div>
-                        </div>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">Clients:</h5>
+                        <p class="mb-4 text-text-medium">Veolia, Engie, Masdar, EDF CST</p>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">White-Space Idea:</h5>
+                        <p class="mb-4 text-text-medium">Build an AI-driven "City Cockpit" that aggregates water, energy, and waste data with contract KPIs, and proposes integrated optimisation scenarios.</p>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">Core Processes:</h5>
+                        <p class="mb-4 text-text-medium">Concession management, renegotiations with cities, capex planning across water, energy and waste.</p>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">Why it is white space:</h5>
+                        <p class="mb-4 text-text-medium">Clients have local digital twins. They rarely optimise at the integrated city or concession portfolio level with a single AI-assisted decision process.</p>
+                        <div class="mt-auto bg-gray-100 p-3 rounded-md text-center font-semibold text-text-medium">High Value | Medium Maturity</div>
                     </div>
 
-                    <!-- Wave 2 Content (Hidden by default) -->
-                    <div class="portfolio-tab-pane hidden" id="wave2">
-                        <div class="p-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            <!-- Use Case 2.1 -->
-                            <div class="flex flex-col p-6 bg-cva-light-bg rounded-lg border border-gray-200">
-                                <h4 class="text-lg font-bold text-cva-blue mb-2">AI-assisted network planning</h4>
-                                <p class="text-sm italic text-text-medium mb-4">Core strategic planning at TSOs/DSOs, linked to renewable integration.</p>
-                                <div class="mb-3">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Value</span><span>5 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 100%"></div></div>
-                                </div>
-                                <div class="mb-4">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Maturity</span><span>2 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 40%"></div></div>
-                                </div>
-                                <h5 class="font-semibold text-text-dark mb-1">Role in portfolio:</h5>
-                                <ul class="cva-list text-sm">
-                                    <li>Build thought leadership and pilots with a small number of grid operators.</li>
-                                    <li>Prepare assets and methodology for a second wave.</li>
-                                </ul>
-                            </div>
-                            <!-- Use Case 2.2 -->
-                            <div class="flex flex-col p-6 bg-cva-light-bg rounded-lg border border-gray-200">
-                                <h4 class="text-lg font-bold text-cva-blue mb-2">AI-enabled dispatch & trading</h4>
-                                <p class="text-sm italic text-text-medium mb-4">Core operational and trading processes for diversified generation fleets.</p>
-                                <div class="mb-3">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Value</span><span>5 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 100%"></div></div>
-                                </div>
-                                <div class="mb-4">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Maturity</span><span>2 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 40%"></div></div>
-                                </div>
-                                <h5 class="font-semibold text-text-dark mb-1">Role in portfolio:</h5>
-                                <ul class="cva-list text-sm">
-                                    <li>Treat as a strategic option with selected innovative clients.</li>
-                                    <li>Link to our work on portfolios, markets, and risk.</li>
-                                </ul>
-                            </div>
+                    <!-- Programme D -->
+                    <div class="animate-on-scroll slide-up bg-white p-8 rounded-xl shadow-xl border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5" style="transition-delay: 600ms;">
+                        <div class="flex items-center mb-4">
+                            <span class="text-2xl font-bold text-cva-accent">D</span>
+                            <h4 class="text-2xl font-bold text-cva-blue ml-4">Energy-to-Compute & Flexibility Planning</h4>
                         </div>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">Clients:</h5>
+                        <p class="mb-4 text-text-medium">Schneider, TAQA, SEC, Masdar, EDF CST (via DC ecosystem)</p>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">White-Space Idea:</h5>
+                        <p class="mb-4 text-text-medium">An AI planning engine that forecasts DC/campus demand, designs the optimal energy mix, and orchestrates demand flexibility to support the grid.</p>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">Core Processes:</h5>
+                        <p class="mb-4 text-text-medium">Capacity planning, site selection, energy procurement, flexibility programme design with large off-takers.</p>
+                        <h5 class="text-lg font-semibold text-text-dark mb-2">Why it is white space:</h5>
+                        <p class="mb-4 text-text-medium">Hyperscalers do this. Most utilities and equipment players do not yet have a structured, AI-backed planning and flexibility offer for DC clients.</p>
+                        <div class="mt-auto bg-gray-100 p-3 rounded-md text-center font-semibold text-text-medium">High Value | Medium Maturity</div>
                     </div>
-
-                    <!-- Add-on Content (Hidden by default) -->
-                    <div class="portfolio-tab-pane hidden" id="addon">
-                        <div class="p-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            <div class="flex flex-col p-6 bg-cva-light-bg rounded-lg border border-gray-200">
-                                <h4 class="text-lg font-bold text-cva-blue mb-2">AI for pricing & offer design (B2B)</h4>
-                                <p class="text-sm italic text-text-medium mb-4">Supporting processes for sales and product teams in competitive retail.</p>
-                                <div class="mb-3">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Value</span><span>2 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 40%"></div></div>
-                                </div>
-                                <div class="mb-4">
-                                    <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Maturity</span><span>2 / 5</span></div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 40%"></div></div>
-                                </div>
-                                <h5 class="font-semibold text-text-dark mb-1">Role in portfolio:</h5>
-                                <ul class="cva-list text-sm">
-                                    <li>Not a lead use case for the initiative.</li>
-                                    <li>To be activated opportunistically when a retail client project already exists.</li>
-                                </ul>
-                            </div>
-                            <div class="flex items-center justify-center p-6">
-                                <p class="text-text-medium italic">This is a tactical, supporting use case, not a primary driver of the initiative.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
                 </div>
             </div>
             
             <!-- Implications / Conclusion Line -->
-            <div class="animate-on-scroll fade-in mt-12 text-center max-w-4xl mx-auto">
+            <div class="animate-on-scroll fade-in mt-16 text-center max-w-4xl mx-auto">
                 <p class="text-lg font-semibold text-cva-blue p-6 bg-white rounded-lg shadow-md border-t-4 border-cva-accent">
-                    <strong>Implications:</strong> 2026 focus should be on <strong>Wave 1 use cases</strong>, with selected <strong>Wave 1.5 co-designs</strong>. Wave 2 and add-ons feed the medium-term pipeline but must not dilute our initial effort.
+                    <span class="font-bold">Underlying Logic:</span> Each programme is a cross-client white space where clients have pieces of AI, but no structured COMEX-level process. That is where we can bring CVA-grade value.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- ==== SECTION 8: FOCUS USE CASE 1 (Slide 8) - REDESIGNED ==== -->
+    <!-- ==== SECTION 8: FOCUS PROGRAMME A (Slide 8) - NEW ==== -->
     <section class="py-20 md:py-28 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 <!-- Left Column (At a Glance) -->
                 <div class="lg:col-span-1">
                     <div class="sticky top-24">
-                        <p class="animate-on-scroll slide-in-left text-lg font-semibold text-cva-accent uppercase tracking-wider">Focus Use Case 1</p>
-                        <h2 class="animate-on-scroll slide-in-left text-4xl font-extrabold text-cva-blue" style="transition-delay: 100ms;">AI Demand & RES Forecasting</h2>
+                        <p class="animate-on-scroll slide-in-left text-lg font-semibold text-cva-accent uppercase tracking-wider">Focus Programme A</p>
+                        <h2 class="animate-on-scroll slide-in-left text-4xl font-extrabold text-cva-blue" style="transition-delay: 100ms;">Nuclear & Critical Asset Health Cockpit</h2>
                         
                         <div class="animate-on-scroll fade-in bg-cva-light-bg p-6 rounded-xl mt-8 border border-gray-200" style="transition-delay: 200ms;">
                             <h3 class="text-xl font-bold text-cva-blue mb-4">At a Glance</h3>
-                            <p class="text-sm italic text-text-medium mb-4">Core process for portfolio steering, PPA sizing, and hedging.</p>
-                            <div class="mb-3">
-                                <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Value</span><span>5 / 5</span></div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 100%"></div></div>
-                            </div>
-                            <div class="mb-2">
-                                <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Maturity</span><span>4 / 5</span></div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 80%"></div></div>
-                            </div>
+                            <h5 class="text-base font-semibold text-text-dark mb-1">Clients:</h5>
+                            <p class="text-sm italic text-text-medium mb-4">EDF Nuclear, Framatome, Orano, Naval Group, TAQA, SEC</p>
+                            <h5 class="text-base font-semibold text-text-dark mb-1">Core Processes:</h5>
+                            <p class="text-sm italic text-text-medium">Asset strategy, life extension programmes, outage planning, capex allocation at fleet level.</p>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Right Column (Details) -->
-                <div class="lg:col-span-2 space-y-8">
+                <div class="lg:col-span-2 space-y-10">
                     <div class="animate-on-scroll slide-up" style="transition-delay: 300ms;">
-                        <h3 class="text-2xl font-bold text-cva-blue mb-4">01. Client Stakes & Maturity</h3>
+                        <h4 class="text-2xl font-bold text-cva-blue mb-4">01. Business problem to solve</h4>
                         <ul class="cva-list">
-                            <li>For utilities, IPPs and some funds, the ability to forecast demand and renewable generation directly conditions investment, PPA and flexibility decisions.</li>
-                            <li>Forecast errors translate into curtailment, balancing costs, under-utilisation of assets or poorly calibrated contracts.</li>
-                            <li>On the technical side, robust AI models already exist for load and wind or solar forecasting, supported by rapid progress in AI weather forecasting and computing power.</li>
+                            <li>Ageing nuclear and conventional fleets create a structural tension between maximising availability, ensuring safety, and controlling maintenance/capex.</li>
+                            <li>Each client has local AI and digital twin initiatives, but no integrated asset health view that drives *fleet-level* decisions on life extension (LTO), major capex, and outage scope.</li>
+                            <li>Boards and regulators increasingly expect a transparent, risk-based, data-driven justification of these decisions.</li>
                         </ul>
                     </div>
                     <div class="animate-on-scroll slide-up" style="transition-delay: 450ms;">
-                        <h3 class="text-2xl font-bold text-cva-blue mb-4">02. Typical CVA Proposition</h3>
+                        <h4 class="text-2xl font-bold text-cva-blue mb-4">02. What the “Cockpit” would do</h4>
                         <ul class="cva-list">
-                            <li>Build with the client a single forecasting backbone combining demand, weather and renewable output, connected to portfolio and PPA decision models.</li>
-                            <li>Use CORE to map the current data, models, decisions and actions end-to-end and identify breaks that prevent effective use of forecasts.</li>
-                            <li>Propose a Module 1 diagnostic based on CORE and value sizing, followed by a Module 2 on detailed design and AI governance, then a lighthouse implementation.</li>
+                            <li><span class="list-lead">Consolidate asset health:</span> Create a standard health index and risk score per asset/fleet, using sensor data, inspection results, and digital twins.</li>
+                            <li><span class="list-lead">Support LTO/capex decisions:</span> Simulate the impact of LTO options and upgrade packages on risk, availability, and cost.</li>
+                            <li><span class="list-lead">Structure outage scope:</span> Propose optimised outage scopes and timings that balance risk and lost generation, at fleet level.</li>
+                            <li><span class="list-lead">Provide a COMEX-ready view:</span> Allow senior decision-makers to compare scenarios and document decisions for regulators.</li>
                         </ul>
                     </div>
                     <div class="animate-on-scroll slide-up" style="transition-delay: 600ms;">
-                        <h3 class="text-2xl font-bold text-cva-blue mb-4">03. Interest for the Energy Practice</h3>
+                        <h4 class="text-2xl font-bold text-cva-blue mb-4">03. CORE & SmartPMO Programme Structure</h4>
                         <ul class="cva-list">
-                            <li>This is a very COMEX-friendly use case with a clear link to portfolio, PPA, storage and flexibility decisions.</li>
-                            <li>It is strongly differentiating for CVA because it brings together investment strategy, risk management, markets and AI.</li>
-                            <li>Replication potential is high across multiple accounts in Europe and the Middle East, with a natural link to our work on networks, data centres and Energy to Compute.</li>
+                            <li><span class="list-lead">Phase 1 – CORE Diagnostic (at one client):</span> Map current asset health and LTO decision processes. Identify where existing AI/twins do not feed high-level decisions. Quantify value.</li>
+                            <li><span class="list-lead">Phase 2 – Target Operating Model:</span> Design the standard health index, decision rules, and governance. Define interfaces between engineering, ops, finance, risk, and digital.</li>
+                            <li><span class="list-lead">Phase 3 – Lighthouse & Replication:</span> Run a lighthouse on one fleet segment. Use SmartPMO to track benefits. Prepare a replication plan to other units and clients (TAQA, SEC).</li>
                         </ul>
+                    </div>
+                     <div class="animate-on-scroll slide-up" style="transition-delay: 750ms;">
+                        <div class="p-6 bg-cva-light-bg rounded-lg shadow-md border-t-4 border-cva-accent">
+                            <h4 class="text-2xl font-bold text-cva-blue mb-4">Why this is a Wave 1 Priority</h4>
+                             <ul class="cva-list">
+                                <li>It is directly portable across the EDF ecosystem, Naval’s fleets, and large fleet owners like TAQA and SEC.</li>
+                                <li>It positions CVA on a board-level, safety-critical agenda where AI is an enabler, not the core story.</li>
+                                <li>It leverages existing AI investments by focusing on decision design and governance, which is *notre cœur de métier*.</li>
+                             </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- ==== SECTION 9: FOCUS USE CASE 3 (Slide 9) - REDESIGNED ==== -->
+    <!-- ==== SECTION 9: FOCUS PROGRAMME B (Slide 9) - NEW & TRANSLATED ==== -->
     <section class="py-20 md:py-28 bg-cva-light-bg">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 <!-- Left Column (At a Glance) -->
                 <div class="lg:col-span-1">
                     <div class="sticky top-24">
-                        <p class="animate-on-scroll slide-in-left text-lg font-semibold text-cva-accent uppercase tracking-wider">Focus Use Case 3</p>
-                        <h2 class="animate-on-scroll slide-in-left text-4xl font-extrabold text-cva-blue" style="transition-delay: 100ms;">AI in Customer Operations & Collections</h2>
+                        <p class="animate-on-scroll slide-in-left text-lg font-semibold text-cva-accent uppercase tracking-wider">Focus Programme B</p>
+                        <h2 class="animate-on-scroll slide-in-left text-4xl font-extrabold text-cva-blue" style="transition-delay: 100ms;">Smart Gas & Power Network Intelligence</h2>
                         
                         <div class="animate-on-scroll fade-in bg-white p-6 rounded-xl mt-8 border border-gray-200 shadow-sm" style="transition-delay: 200ms;">
                             <h3 class="text-xl font-bold text-cva-blue mb-4">At a Glance</h3>
-                            <p class="text-sm italic text-text-medium mb-4">Core processes for customer service, billing queries, complaints, and credit or collections.</p>
-                            <div class="mb-3">
-                                <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Value</span><span>3 / 5</span></div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 60%"></div></div>
-                            </div>
-                            <div class="mb-2">
-                                <div class="flex justify-between text-sm font-semibold text-cva-blue mb-1"><span>Maturity</span><span>4 / 5</span></div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-cva-accent h-2.5 rounded-full" style="width: 80%"></div></div>
-                            </div>
+                            <h5 class="text-base font-semibold text-text-dark mb-1">Clients:</h5>
+                            <p class="text-sm italic text-text-medium mb-4">GRDF, SEC, EDF CST, TAQA</p>
+                            <h5 class="text-base font-semibold text-text-dark mb-1">Core Processes:</h5>
+                            <p class="text-sm italic text-text-medium">Network operations, safety management, renewal and reinforcement planning, dialogue with regulators.</p>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Right Column (Details) -->
-                <div class="lg:col-span-2 space-y-8">
+                <!-- Right Column (Details) - Translated from French -->
+                <div class="lg:col-span-2 space-y-10">
                     <div class="animate-on-scroll slide-up" style="transition-delay: 300ms;">
-                        <h3 class="text-2xl font-bold text-cva-blue mb-4">01. Client Stakes & Maturity</h3>
+                        <h4 class="text-2xl font-bold text-cva-blue mb-4">01. Business problem to solve</h4>
                         <ul class="cva-list">
-                            <li>Energy suppliers handle large volumes of calls and emails on billing, contracts, complaints and payment difficulties, under strong cost and customer satisfaction pressure.</li>
-                            <li>Customer functions have started to test chatbots and AI assistants, but often struggle to define a clear industrialisation path and to articulate AI and human work.</li>
-                            <li>Technical maturity is relatively high, with public examples in Energy where AI already handles a significant share of interactions.</li>
+                            <li>Networks are under pressure with growing demand and integration of new sources (biomethane, PV, EV, massive A/C).</li>
+                            <li>High safety and service continuity requirements, with capex envelopes under constraint and high expectations from regulators.</li>
+                            <li>They have deployed smart meters and sensors, trialled AI in specific areas, but still lack a complete end-to-end chain from anomaly detection to renewal and reinforcement decisions.</li>
                         </ul>
                     </div>
                     <div class="animate-on-scroll slide-up" style="transition-delay: 450ms;">
-                        <h3 class="text-2xl font-bold text-cva-blue mb-4">02. Typical CVA Proposition</h3>
+                        <h4 class="text-2xl font-bold text-cva-blue mb-4">02. What a “Network Intelligence Office” would do</h4>
                         <ul class="cva-list">
-                            <li>Run a CORE diagnostic of customer journeys and collections to quantify volumes, pain points, costs, satisfaction and value leakage.</li>
-                            <li>Redesign target journeys that combine AI and human agents, with automated and AI-assisted steps, and clear rules for handover and supervision.</li>
-                            <li>Structure a two-step programme: a lighthouse on one or two journeys, followed by a roadmap to extend to other journeys and more advanced AI use cases.</li>
+                            <li><span class="list-lead">Advanced continuous monitoring:</span> Use AI to detect (in near real-time) anomalies in flow, pressure, current, or voltage that indicate leaks, losses, or faults.</li>
+                            <li><span class="list-lead">Risk scoring on assets:</span> Build probability and criticality scores for network sections or key equipment.</li>
+                            <li><span class="list-lead">Risk-based renewal planning:</span> Prioritise replacements and reinforcements under budget constraints to maximise risk and loss reduction.</li>
+                            <li><span class="list-lead">Steering & regulator dialogue:</span> Provide a cockpit that links decisions to metrics understandable by regulators and territories.</li>
                         </ul>
                     </div>
                     <div class="animate-on-scroll slide-up" style="transition-delay: 600ms;">
-                        <h3 class="text-2xl font-bold text-cva-blue mb-4">03. Interest for the Energy Practice</h3>
+                        <h4 class="text-2xl font-bold text-cva-blue mb-4">03. CORE & SmartPMO Programme Structure</h4>
                         <ul class="cva-list">
-                            <li>This use case is immediately understandable for customer, finance and regulatory functions, with typically faster ROI.</li>
-                            <li>CORE-based approaches and assets can be reused across countries, which makes it a strong candidate for a repeatable CVA “product”.</li>
-                            <li>It creates natural synergies with other commercial and digital transformation projects we already run, which makes upsell easier.</li>
+                            <li><span class="list-lead">Phase 1 – "From data to decisions" Diagnostic:</span> For an anchor client (GRDF or SEC), map how smart meter/SCADA data is used today. Identify breaks in the chain (detection -> intervention -> capex). Quantify value at stake.</li>
+                            <li><span class="list-lead">Phase 2 – Network Intelligence Office Design:</span> Define the organisation, processes, and decision rituals. Define KPIs, alert thresholds, and interactions with field teams and regulators. Write functional specs for AI tools.</li>
+                            <li><span class="list-lead">Phase 3 – Geographical Lighthouse & Scale-up:</span> Launch a lighthouse on a limited perimeter (e.g., one urban region). Install light SmartPMO governance to track results and prepare for large-scale deployment.</li>
                         </ul>
+                    </div>
+                     <div class="animate-on-scroll slide-up" style="transition-delay: 750ms;">
+                        <div class="p-6 bg-white rounded-lg shadow-md border-t-4 border-cva-accent">
+                            <h4 class="text-2xl font-bold text-cva-blue mb-4">Why this is a Wave 1 Priority</h4>
+                             <ul class="cva-list">
+                                <li>It responds to a core business and regulatory challenge for GRDF and SEC, directly linked to their license to operate.</li>
+                                <li>It allows leveraging existing smart meter and IoT investments by creating a structured decision process that is still missing.</li>
+                                <li>It is replicable across network clients and opens the door to extensions (e.g., connection request triage).</li>
+                             </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ==== SECTION 10: ORGANISATION (Slide 10) - UPDATED DESIGN ==== -->
+    <!-- ==== SECTION 10: CASE STUDY (NEW SECTION) ==== -->
     <section class="py-20 md:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <!-- Left Column (At a Glance) -->
+                <div class="lg:col-span-1">
+                    <div class="sticky top-24">
+                        <p class="animate-on-scroll slide-in-left text-lg font-semibold text-cva-accent uppercase tracking-wider">Proof Point for Programme B</p>
+                        <h2 class="animate-on-scroll slide-in-left text-4xl font-extrabold text-cva-blue" style="transition-delay: 100ms;">Case Study: Large European DSO</h2>
+                        
+                        <div class="animate-on-scroll fade-in bg-cva-light-bg p-6 rounded-xl mt-8 border border-gray-200" style="transition-delay: 200ms;">
+                            <h3 class="text-xl font-bold text-cva-blue mb-4">Pilot Context</h3>
+                            <h5 class="text-base font-semibold text-text-dark mb-1">Objective:</h5>
+                            <p class="text-sm italic text-text-medium mb-4">Test CORE® + AI on a critical grid connection journey, complementing existing ExOp and process mining initiatives.</p>
+                            <h5 class="text-base font-semibold text-text-dark mb-1">Key Challenges:</h5>
+                            <ul class="cva-list text-sm">
+                                <li>High stakeholder dissatisfaction on connection process.</li>
+                                <li>Long lead times and large backlogs.</li>
+                            </ul>
+                            <h5 class="text-base font-semibold text-text-dark mb-1 mt-4">Pilot Scope:</h5>
+                            <p class="text-sm italic text-text-medium">10-week POC on “Large Producers > 36 kVA” connection journey.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column (Details) -->
+                <div class="lg:col-span-2 space-y-10">
+                    <div class="animate-on-scroll slide-up" style="transition-delay: 300ms;">
+                        <h4 class="text-2xl font-bold text-cva-blue mb-4">Ambition of the POC</h4>
+                        <ul class="cva-list">
+                            <li>Test a complementary approach to ExOp/process mining to improve both customer experience and operational efficiency.</li>
+                            <li>Use CORE® to perform an integrated redesign at three levels: Customer/user journey, Information flows (data/AI), and Internal processes.</li>
+                            <li>Apply CORE® progressively and provide a clear execution path staged with measurable “base camps”.</li>
+                        </ul>
+                    </div>
+                    <div class="animate-on-scroll slide-up" style="transition-delay: 450ms;">
+                        <h4 class="text-2xl font-bold text-cva-blue mb-4">Lot 1: End-to-end Diagnostic (M1)</h4>
+                        <ul class="cva-list">
+                            <li>Exploited existing data and process mining tools.</li>
+                            <li>Conducted interviews with Operations, DSI, and AI teams.</li>
+                            <li><span class="list-lead">Key Outputs:</span> End-to-end process mapping, baselines of customer satisfaction, KPIs (delays, backlogs), and FTEs mobilised.</li>
+                        </ul>
+                    </div>
+                    <div class="animate-on-scroll slide-up" style="transition-delay: 600ms;">
+                        <h4 class="text-2xl font-bold text-cva-blue mb-4">Lot 2: Target Design (M2-M3)</h4>
+                        <ul class="cva-list">
+                            <li><span class="list-lead">M2 (Target Journey):</span> Two ideation workshops based on VoC analytics and benchmarks. Delivered a target "ideal" connection journey.</li>
+                            <li><span class="list-lead">M3 (DIDA® Flows):</span> Three technical workshops using the DIDA® protocol. Delivered target data flows, high-level specs for AI POCs, and data foundation requirements.</li>
+                        </ul>
+                    </div>
+                    <div class="animate-on-scroll slide-up" style="transition-delay: 750ms;">
+                        <h4 class="text-2xl font-bold text-cva-blue mb-4">Lot 3: Gap Analysis & Roadmap (M4-M5)</h4>
+                        <ul class="cva-list">
+                            <li><span class="list-lead">M4 (Impacts):</span> Gap analysis (ops, IT, data, org). Estimated efficiency gains (>20%) and customer benefits. Macro-costing of investments.</li>
+                            <li><span class="list-lead">M5 (Trajectory):</span> Co-construction of the execution plan. Defined "base camps" including quick wins and a roadmap for AI POCs.</li>
+                        </ul>
+                    </div>
+                    <div class="animate-on-scroll slide-up" style="transition-delay: 900ms;">
+                        <h4 class="text-2xl font-bold text-cva-blue mb-4">Outcome Beyond the Pilot</h4>
+                        <ul class="cva-list">
+                            <li>A fully documented CORE® / DIDA®-based redesign of the Large Producers journey with quantified value.</li>
+                            <li>A reusable methodology and skill set on the client side to apply the same approach to other journeys.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Strategic Leverage Box -->
+            <div class="animate-on-scroll fade-in mt-16 text-center max-w-4xl mx-auto">
+                <p class="text-lg font-semibold text-cva-blue p-6 bg-cva-light-bg rounded-lg shadow-md border-t-4 border-cva-accent">
+                    <span class="font-bold">Strategic Value:</span> This POC on a critical DSO process is a major asset. A core objective for 2026 is to leverage this battle-tested methodology to engage other DSOs and grid operators across Europe.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==== SECTION 11: GTM STRATEGY (Slides 10, 11) ==== -->
+    <section class="py-20 md:py-28 bg-cva-light-bg">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="animate-on-scroll slide-up text-4xl font-extrabold text-cva-blue mb-4">GTM Strategy: How We Win</h2>
+                <p class="animate-on-scroll slide-up text-xl text-text-medium" style="transition-delay: 150ms;">Winning by selling programmes and governance, not algorithms.</p>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="animate-on-scroll slide-in-left" style="transition-delay: 300ms;">
+                    <h3 class="text-2xl font-bold text-cva-blue mb-6">Where to Play in 2026: Anchor Accounts</h3>
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                             <h4 class="text-xl font-bold text-cva-blue mb-3">Programme A: Critical Asset Health Cockpit</h4>
+                             <ul class="cva-list">
+                                <li><span class="list-lead">Anchor Clients:</span> EDF Nuclear ecosystem, Framatome, Orano, Naval Group, TAQA, SEC.</li>
+                                <li><span class="list-lead">Initial Focus:</span> One lighthouse on EDF Nuclear or Framatome.</li>
+                             </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                             <h4 class="text-xl font-bold text-cva-blue mb-3">Programme B: Network Intelligence Office</h4>
+                             <ul class="cva-list">
+                                <li><span class="list-lead">Anchor Clients:</span> GRDF and SEC as primary targets; EDF CST and TAQA as pipeline.</li>
+                                <li><span class="list-lead">Initial Focus:</span> One lighthouse on GRDF or SEC on a specific network scope.</li>
+                             </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="animate-on-scroll slide-in-right" style="transition-delay: 450ms;">
+                    <h3 class="text-2xl font-bold text-cva-blue mb-6">How to Win: Our Differentiation</h3>
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                             <h4 class="text-xl font-bold text-cva-blue mb-3">Our Differentiation vs. Tech-First Offers</h4>
+                             <ul class="cva-list">
+                                <li>We start from core decisions (LTO, capex, safety) and design how AI supports them.</li>
+                                <li>We speak the language of COMEX and regulators, tying AI to risk and value.</li>
+                                <li>We leverage CORE and SmartPMO to give structure and credibility to programmes.</li>
+                             </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                             <h4 class="text-xl font-bold text-cva-blue mb-3">How We Package and Sell</h4>
+                             <ul class="cva-list">
+                                <li>We propose a 2-step approach: Module 1 (Diagnostic) and Module 2 (Target Operating Model).</li>
+                                <li>We articulate the "white space" we address vs. what clients already do, and remain technology-neutral.</li>
+                             </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ==== SECTION 12: ROADMAP (Slide 12) ==== -->
+    <section class="py-20 md:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="animate-on-scroll slide-up text-4xl font-extrabold text-cva-blue mb-4">GTM Strategy: 2026 Roadmap</h2>
+                <p class="animate-on-scroll slide-up text-xl text-text-medium" style="transition-delay: 150ms;">A 2026 roadmap built around one nuclear lighthouse and one network lighthouse.</p>
+            </div>
+
+            <!-- New Timeline -->
+            <div class="mt-24 max-w-3xl mx-auto">
+                <div class="relative">
+                    <!-- The connecting line -->
+                    <div class="timeline-connector hidden md:block" style="background-color: #E5E7EB;"></div>
+                    
+                    <div class="space-y-16">
+                        <!-- H1 2026 -->
+                        <div class="animate-on-scroll fade-in relative">
+                            <div class="timeline-dot timeline-dot-animated hidden md:block" style="top: 0; border-color: #FFF;"></div>
+                            <div class="md:flex md:items-center">
+                                <div class="md:w-1/2 md:pr-16 md:text-right">
+                                    <h3 class="text-2xl font-bold text-cva-accent">H1 2026</h3>
+                                    <p class="text-lg font-semibold text-cva-blue">From Concept to First Signatures</p>
+                                </div>
+                                <div class="md:w-1/2 md:pl-16 mt-4 md:mt-0">
+                                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                                        <ul class="cva-list text-base">
+                                            <li><span class="list-lead">Programme A:</span> Align internally on the value story for EDF/Framatome. Aim to secure one Module 1 diagnostic.</li>
+                                            <li><span class="list-lead">Programme B:</span> Prepare a joint GRDF/SEC pitch. Identify one region/asset class. Aim to secure one Module 1 diagnostic.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- H2 2026 -->
+                        <div class="animate-on-scroll fade-in relative">
+                            <div class="timeline-dot timeline-dot-animated hidden md:block" style="top: 0; border-color: #FFF;"></div>
+                             <div class="md:flex md:flex-row-reverse md:items-center">
+                                <div class="md:w-1/2 md:pl-16 md:text-left">
+                                    <h3 class="text-2xl font-bold text-cva-accent">H2 2026</h3>
+                                    <p class="text-lg font-semibold text-cva-blue">Delivery, Capitalisation & Wave 2 Seeds</p>
+                                </div>
+                                <div class="md:w-1/2 md:pr-16 mt-4 md:mt-0">
+                                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                                        <ul class="cva-list text-base">
+                                            <li>Deliver Module 1 & 2 on at least one lighthouse with a disciplined CORE/SmartPMO approach.</li>
+                                            <li>Document decision changes and value indicators in a reusable way.</li>
+                                            <li>Use the lighthouse to open Wave 2 conversations (Naval, TAQA, Veolia, Engie, etc.).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- Conclusion Line -->
+            <div class="animate-on-scroll fade-in mt-16 text-center max-w-4xl mx-auto">
+                <p class="text-lg font-semibold text-cva-blue p-6 bg-cva-light-bg rounded-lg shadow-md border-t-4 border-cva-accent">
+                    <span class="font-bold">End-2026 Success Markers:</span> One nuclear & one network lighthouse delivered. A robust library of CORE maps and case stories. A shared understanding that "AI for Energy" is a clear, cross-client offer.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ==== SECTION 13: ORGANISATION (Slide 10) - NEW POSITION ==== -->
+    <section class="py-20 md:py-28 bg-cva-light-bg">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto">
                 <h2 class="animate-on-scroll slide-up text-4xl font-extrabold text-cva-blue mb-4">Proposed Internal Organisation</h2>
@@ -921,7 +1008,7 @@
             </div>
             
             <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div class="animate-on-scroll slide-in-left bg-white p-8 rounded-xl shadow-xl border border-gray-100" style="transition-delay: 300ms;">
+                <div class="animate-on-scroll slide-in-left bg-white p-8 rounded-xl shadow-xl border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5" style="transition-delay: 300ms;">
                     <div class="flex items-center mb-5">
                         <div class="w-12 h-12 bg-cva-light-bg rounded-full flex items-center justify-center">
                             <i class="fa-solid fa-users-gear text-2xl text-cva-accent"></i>
@@ -929,12 +1016,12 @@
                         <h3 class="text-2xl font-bold text-cva-blue ml-4">Governance & Roles</h3>
                     </div>
                     <ul class="cva-list">
-                        <li><strong>Senior Sponsor:</strong> One Energy Partner to sponsor the initiative and arbitrate priorities.</li>
-                        <li><strong>Operational Lead:</strong> Thibaut is responsible for structuring the offering, coordinating the pipeline, and driving capitalisation.</li>
-                        <li><strong>Responsibilities:</strong> Thibaut drives GTM; Energy Partners/APs own accounts and integrate the offering.</li>
+                        <li><span class="list-lead">Senior Sponsor:</span> One Energy Partner to sponsor the initiative and arbitrate priorities.</li>
+                        <li><span class="list-lead">Operational Lead:</span> Thibaut is responsible for structuring the offering, coordinating the pipeline, and driving capitalisation.</li>
+                        <li><span class="list-lead">Responsibilities:</span> Thibaut drives GTM; Energy Partners/APs own accounts and integrate the offering.</li>
                     </ul>
                 </div>
-                <div class="animate-on-scroll slide-in-right bg-white p-8 rounded-xl shadow-xl border border-gray-100" style="transition-delay: 450ms;">
+                <div class="animate-on-scroll slide-in-right bg-white p-8 rounded-xl shadow-xl border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5" style="transition-delay: 450ms;">
                     <div class="flex items-center mb-5">
                         <div class="w-12 h-12 bg-cva-light-bg rounded-full flex items-center justify-center">
                             <i class="fa-solid fa-link text-2xl text-cva-accent"></i>
@@ -942,96 +1029,16 @@
                         <h3 class="text-2xl font-bold text-cva-blue ml-4">Links & Resources</h3>
                     </div>
                     <ul class="cva-list">
-                        <li><strong>Link with CORE:</strong> Carole acts as methodological lead. Early diagnostics are *systematically* co-built (Energy + CORE).</li>
-                        <li><strong>Project Resources:</strong> A small group of Energy managers/consultants identified as contributors. Data/AI profiles mobilised on demand.</li>
-                        <li><strong>Ways of Working:</strong> Functions as a transverse "stream" within the Energy practice.</li>
+                        <li><span class="list-lead">Link with CORE:</span> Carole acts as methodological lead. Early diagnostics are *systematically* co-built (Energy + CORE).</li>
+                        <li><span class="list-lead">Project Resources:</span> A small group of Energy managers/consultants identified as contributors. Data/AI profiles mobilised on demand.</li>
+                        <li><span class="list-lead">Ways of Working:</span> Functions as a transverse "stream" within the Energy practice.</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
-    
-    <!-- ==== SECTION 11: ROADMAP (Slide 11) ==== -->
-    <section class="py-20 md:py-28 bg-cva-light-bg">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto">
-                <h2 class="animate-on-scroll slide-up text-4xl font-extrabold text-cva-blue mb-4">Pragmatic 2026 Roadmap</h2>
-                <p class="animate-on-scroll slide-up text-xl text-text-medium" style="transition-delay: 150ms;">Focus on one lighthouse project and building reusable assets.</p>
-            </div>
 
-            <!-- New Timeline -->
-            <div class="mt-24 max-w-3xl mx-auto">
-                <div class="relative">
-                    <!-- The connecting line -->
-                    <div class="timeline-connector hidden md:block"></div>
-                    
-                    <div class="space-y-16">
-                        <!-- Q1 2026 -->
-                        <div class="animate-on-scroll fade-in relative">
-                            <div class="timeline-dot timeline-dot-animated hidden md:block" style="top: 0;"></div>
-                            <div class="md:flex md:items-center">
-                                <div class="md:w-1/2 md:pr-16 md:text-right">
-                                    <h3 class="text-2xl font-bold text-cva-accent">Q1 2026</h3>
-                                    <p class="text-lg font-semibold text-cva-blue">Structure & Test</p>
-                                </div>
-                                <div class="md:w-1/2 md:pl-16 mt-4 md:mt-0">
-                                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-                                        <ul class="cva-list text-base">
-                                            <li>Finalise pitch and commercial materials.</li>
-                                            <li>Align senior team (Energy + Carole).</li>
-                                            <li>Identify 2-3 target accounts (EU/ME) and run exploratory meetings.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Q2 2026 -->
-                        <div class="animate-on-scroll fade-in relative">
-                            <div class="timeline-dot timeline-dot-animated hidden md:block" style="top: 0;"></div>
-                             <div class="md:flex md:flex-row-reverse md:items-center">
-                                <div class="md:w-1/2 md:pl-16 md:text-left">
-                                    <h3 class="text-2xl font-bold text-cva-accent">Q2 2026</h3>
-                                    <p class="text-lg font-semibold text-cva-blue">Secure Diagnostic Mandate</p>
-                                </div>
-                                <div class="md:w-1/2 md:pr-16 mt-4 md:mt-0">
-                                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-                                        <ul class="cva-list text-base">
-                                            <li>Select one priority client for Module 1.</li>
-                                            <li>Prepare structured "CORE + AI" proposal.</li>
-                                            <li>Secure diagnostic with named business sponsor.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Q3-Q4 2026 -->
-                        <div class="animate-on-scroll fade-in relative">
-                            <div class="timeline-dot timeline-dot-animated hidden md:block" style="top: 0;"></div>
-                            <div class="md:flex md:items-center">
-                                <div class="md:w-1/2 md:pr-16 md:text-right">
-                                    <h3 class="text-2xl font-bold text-cva-accent">Q3-Q4 2026</h3>
-                                    <p class="text-lg font-semibold text-cva-blue">Design, Launch & Capitalise</p>
-                                </div>
-                                <div class="md:w-1/2 md:pl-16 mt-4 md:mt-0">
-                                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-                                        <ul class="cva-list text-base">
-                                            <li>Deliver Module 2 (detailed design, governance).</li>
-                                            <li>Support early "Run" with light SmartPMO.</li>
-                                            <li>Measure results and build reusable assets.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==== SECTION 12: THE "ASK" (Slide 12) ==== -->
+    <!-- ==== SECTION 14: THE "ASK" (Slide 12) - NEW POSITION & RIGOR FIX ==== -->
     <section id="ask" class="py-20 md:py-32 bg-cva-blue text-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto">
@@ -1064,26 +1071,264 @@
                     </div>
                 </div>
                 
-                <!-- "Decisions" Card -->
+                <!-- "Decisions" Card - RIGOR FIX (no <strong>) -->
                 <div class="animate-on-scroll slide-in-right" style="transition-delay: 400ms;">
                     <div class="bg-white text-text-dark p-10 rounded-xl shadow-2xl">
                         <h3 class="text-3xl font-bold text-cva-accent mb-8">Decisions Expected Today</h3>
                         <ol class="cva-decision-list">
                             <li>
-                                <strong>Approve</strong> the launch of the "AI for Energy" initiative as a 2026 practice priority.
+                                Approve the launch of the "AI for Energy" initiative as a 2026 practice priority.
                             </li>
                             <li>
-                                <strong>Confirm</strong> Thibaut as owner with a named Partner sponsor and a clear mandate to work with CORE.
+                                Confirm Thibaut as owner with a named Partner sponsor and a clear mandate to work with CORE.
                             </li>
                             <li>
-                                <strong>Endorse</strong> the two priority use cases (Forecasting, Customer Ops) and agree to concentrate efforts.
+                                Endorse the two priority use cases (Nuclear Health, Network Intelligence) and agree to concentrate efforts.
                             </li>
                             <li>
-                                <strong>Identify</strong> 2-3 target accounts to approach first and agree on the internal teams to mobilise.
+                                Identify 2-3 target accounts to approach first (EDF, GRDF, SEC) and agree on internal teams.
                             </li>
                         </ol>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ==== SECTION 15: CORE & DIDA (Slide X) - REDUNDANCY REMOVED ==== -->
+    <section class="py-20 md:py-28 bg-cva-light-bg">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="animate-on-scroll slide-up text-4xl font-extrabold text-cva-blue mb-4">CORE® and DIDA®</h2>
+                <p class="animate-on-scroll slide-up text-xl text-text-medium" style="transition-delay: 150ms;">Our reference framework for AI-enabled process redesign.</p>
+            </div>
+
+            <!-- What CORE is -->
+            <div class="mt-16">
+                <h3 class="animate-on-scroll slide-up text-3xl font-bold text-cva-blue mb-6">What CORE® is: A Proven Methodology</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="animate-on-scroll slide-up bg-white p-8 rounded-xl shadow-xl border border-gray-100" style="transition-delay: 300ms;">
+                        <h4 class="text-xl font-bold text-cva-blue mb-3">An integrated methodology on three levels</h4>
+                        <ul class="cva-list">
+                            <li><span class="list-lead">User / client journeys:</span> Design target journeys from the user’s point of view (VoC, service standards).</li>
+                            <li><span class="list-lead">Data flows:</span> Optimise the data model needed to steer satisfaction, cost and carbon end-to-end.</li>
+                            <li><span class="list-lead">Processes:</span> Rebuild processes in a “data-native” way, rethinking decisions and embedding AI where it creates value.</li>
+                        </ul>
+                    </div>
+                    <div class="animate-on-scroll slide-up bg-white p-8 rounded-xl shadow-xl border border-gray-100" style="transition-delay: 450ms;">
+                        <h4 class="text-xl font-bold text-cva-blue mb-3">Organised in 2 Lots and 5 Modules</h4>
+                        <ul class="cva-list">
+                            <li><span class="list-lead">Lot 1 – Baseline and redesign (data-native):</span>
+                                <ul>
+                                    <li>M1 – E2E diagnostic and baselines (satisfaction, efficiency, carbon).</li>
+                                    <li>M2 – Target journeys.</li>
+                                    <li>M3 – Target DIDA® flows.</li>
+                                </ul>
+                            </li>
+                            <li><span class="list-lead">Lot 2 – Gap analysis and transformation path:</span>
+                                <ul>
+                                    <li>M4 – Process impacts and levers.</li>
+                                    <li>M5 – Transformation trajectory and “base camps”.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What DIDA is (Visual Process) -->
+            <div class="mt-16">
+                <h3 class="animate-on-scroll slide-up text-3xl font-bold text-cva-blue mb-6">What DIDA® is: The Bridge Between Business and AI</h3>
+                <p class="animate-on-scroll slide-up text-lg text-text-medium max-w-4xl mb-8">DIDA® is the core protocol that connects journeys, data, and processes. It decomposes each journey step into four elements, forcing clarity on how AI changes decisions and actions.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+                    <!-- Connectors -->
+                    <div class="hidden md:block absolute top-1/2 -translate-y-1/2 left-0 w-full h-full z-0">
+                        <div class="flex justify-around items-center h-full w-full px-16">
+                            <i class="fa-solid fa-chevron-right text-3xl text-gray-300"></i>
+                            <i class="fa-solid fa-chevron-right text-3xl text-gray-300"></i>
+                            <i class="fa-solid fa-chevron-right text-3xl text-gray-300"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- D card -->
+                    <div class="animate-on-scroll slide-up bg-white p-6 rounded-xl shadow-xl border border-gray-100 z-10" style="transition-delay: 300ms;">
+                        <h4 class="text-2xl font-extrabold text-cva-accent mb-2">D – Data</h4>
+                        <p>List the data needed to monitor and deliver the journey step; identify and collect all accessible sources automatically.</p>
+                    </div>
+                    <!-- I card -->
+                    <div class="animate-on-scroll slide-up bg-white p-6 rounded-xl shadow-xl border border-gray-100 z-10" style="transition-delay: 450ms;">
+                        <h4 class="text-2xl font-extrabold text-cva-accent mb-2">I – Insights</h4>
+                        <p>Use analytics and AI to transform raw data into insights that are truly useful for decision-making.</p>
+                    </div>
+                    <!-- D card -->
+                    <div class="animate-on-scroll slide-up bg-white p-6 rounded-xl shadow-xl border border-gray-100 z-10" style="transition-delay: 600ms;">
+                        <h4 class="text-2xl font-extrabold text-cva-accent mb-2">D – Decision</h4>
+                        <p>Define how decisions will be taken (rules, models, exceptions) based on these insights.</p>
+                    </div>
+                    <!-- A card -->
+                    <div class="animate-on-scroll slide-up bg-white p-6 rounded-xl shadow-xl border border-gray-100 z-10" style="transition-delay: 750ms;">
+                        <h4 class="text-2xl font-extrabold text-cva-accent mb-2">A – Action</h4>
+                        <p>Build a process and, where relevant, automation that executes the decision or augments an employee to act effectively.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Why it matters -->
+            <div class="animate-on-scroll fade-in mt-16 text-center max-w-4xl mx-auto">
+                <p class="text-lg font-semibold text-cva-blue p-6 bg-white rounded-lg shadow-md border-t-4 border-cva-accent">
+                    <span class="font-bold">Why this matters for an AI for Energy programme:</span> The two AI programmes (networks, asset health) are process-heavy. CORE® and DIDA® bring a rigorous, battle-tested way to map these processes, identify the exact roles of data and AI, and design target, AI-enabled processes that teams can implement.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==== SECTION 16: SMARTPMO (Slide Y) - NEW DESIGN & CONTENT ==== -->
+    <section class="py-20 md:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <!-- Left Column (At a Glance) -->
+                <div class="lg:col-span-1">
+                    <div class="sticky top-24">
+                        <p class="animate-on-scroll slide-in-left text-lg font-semibold text-cva-accent uppercase tracking-wider">Programme Steering</p>
+                        <h2 class="animate-on-scroll slide-in-left text-4xl font-extrabold text-cva-blue" style="transition-delay: 100ms;">SmartPMO®</h2>
+                        
+                        <div class="animate-on-scroll fade-in bg-cva-light-bg p-6 rounded-xl mt-8 border border-gray-200" style="transition-delay: 200ms;">
+                            <h3 class="text-xl font-bold text-cva-blue mb-4">A Control Tower, Not Just a PMO</h3>
+                            <p class="text-text-medium mb-4">SmartPMO® is designed for complex, multi-use case AI programmes. It has three distinct roles:</p>
+                            <ul class="cva-list text-base">
+                                <li><span class="list-lead">Classic PMO:</span> Steering, animation, reporting, risk monitoring.</li>
+                                <li><span class="list-lead">PMO Challenge:</span> Challenging content, execution speed, and ensuring alignment with ambition.</li>
+                                <li><span class="list-lead">PMO Support:</span> Providing CORE® toolkits, benchmarks, and expert support.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column (Details) -->
+                <div class="lg:col-span-2 space-y-10">
+                    <div class="animate-on-scroll slide-up" style="transition-delay: 300ms;">
+                        <h4 class="text-2xl font-bold text-cva-blue mb-4">How SmartPMO® Has Been Used</h4>
+                        <div class="space-y-4">
+                            <div class="bg-cva-light-bg p-6 rounded-lg border border-gray-200">
+                                <h5 class="text-lg font-semibold text-text-dark mb-1">Large insurance group in France</h5>
+                                <p>Support to the CEO to define the transformation vision. Design and implementation of a plan focusing on digital transformation of distribution networks and customer journeys, with SmartPMO® support.</p>
+                            </div>
+                            <div class="bg-cva-light-bg p-6 rounded-lg border border-gray-200">
+                                <h5 class="text-lg font-semibold text-text-dark mb-1">Large European financial group</h5>
+                                <p>Central support to a Group AI Office to track and support AI initiatives, using the 5-stage maturity model. SmartPMO® used to coordinate, manage dependencies, and mutualise solutions.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="animate-on-scroll slide-up" style="transition-delay: 450ms;">
+                        <h4 class="text-2xl font-bold text-cva-blue mb-4">A Common Framework for AI Use Case Maturity</h4>
+                        <ul class="cva-list">
+                            <li><span class="list-lead">Stage 1:</span> Baseline and AI use case catalogue</li>
+                            <li><span class="list-lead">Stage 2:</span> Target design</li>
+                            <li><span class="list-lead">Stage 3:</span> Execution roadmap</li>
+                            <li><span class="list-lead">Stage 4:</span> Build and initial deployment</li>
+                            <li><span class="list-lead">Stage 5:</span> Run, extension and continuous improvement</li>
+                        </ul>
+                    </div>
+                    <div class="animate-on-scroll slide-up" style="transition-delay: 600ms;">
+                        <h4 class="text-2xl font-bold text-cva-blue mb-4">A 360° View of AI Transformation</h4>
+                        <p class="text-lg mb-4">SmartPMO® explicitly aligns three dimensions:</p>
+                        <ul class="cva-list">
+                            <li>Technology / IT and data foundations</li>
+                            <li>Business and process redesign (including AI integration)</li>
+                            <li>HR and workforce evolution (skills, staffing)</li>
+                        </ul>
+                    </div>
+                    <div class="animate-on-scroll slide-up" style="transition-delay: 750ms;">
+                        <div class="p-6 bg-cva-light-bg rounded-lg shadow-md border-t-4 border-cva-accent">
+                            <h4 class="text-2xl font-bold text-cva-blue mb-4">Why SmartPMO® is relevant</h4>
+                             <p>An AI for Energy programme will have multiple use cases at different maturities, sharing assets (digital twins, platforms) and dependencies. SmartPMO® provides a tested way to manage this complexity, ensuring initiatives are sequenced, common components are leveraged, and the programme delivers measurable impact.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==== SECTION 17: CREDENTIALS (Slide Z) - REDUNDANCY REMOVED ==== -->
+    <section class="py-20 md:py-28 bg-cva-light-bg">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="animate-on-scroll slide-up text-4xl font-extrabold text-cva-blue mb-4">Our AI & CORE® Credentials</h2>
+                <p class="animate-on-scroll slide-up text-xl text-text-medium" style="transition-delay: 150ms;">CVA brings a combination of CORE®/AI expertise and deep Energy & Services experience.</p>
+            </div>
+            
+            <!-- Track Record -->
+            <div class="mt-16">
+                <h3 class="animate-on-scroll slide-up text-3xl font-bold text-cva-blue mb-6 text-center">A Unique CORE® and AI Track Record</h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="animate-on-scroll slide-up bg-white p-6 rounded-xl text-center shadow-lg border border-gray-100" style="transition-delay: 300ms;">
+                        <span class="text-5xl font-extrabold text-cva-blue">+30 pts</span>
+                        <p class="mt-2 font-semibold">NPS improvements on redesigned journeys.</p>
+                    </div>
+                    <div class="animate-on-scroll slide-up bg-white p-6 rounded-xl text-center shadow-lg border border-gray-100" style="transition-delay: 400ms;">
+                        <span class="text-5xl font-extrabold text-cva-blue">40-50%</span>
+                        <p class="mt-2 font-semibold">End-to-end efficiency gains on targeted processes.</p>
+                    </div>
+                    <div class="animate-on-scroll slide-up bg-white p-6 rounded-xl text-center shadow-lg border border-gray-100" style="transition-delay: 500ms;">
+                        <span class="text-5xl font-extrabold text-cva-blue">Risk <i class="fa-solid fa-arrow-down"></i></span>
+                        <p class="mt-2 font-semibold">Reduction of risk and fraud, with staff refocused.</p>
+                    </div>
+                    <div class="animate-on-scroll slide-up bg-white p-6 rounded-xl text-center shadow-lg border border-gray-100" style="transition-delay: 600ms;">
+                        <span class="text-5xl font-extrabold text-cva-blue">20-35%</span>
+                        <p class="mt-2 font-semibold">Of investments redirected to target-state solutions.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- References -->
+            <div class="mt-16">
+                <h3 class="animate-on-scroll slide-up text-3xl font-bold text-cva-blue mb-6 text-center">Relevant AI Transformation References</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="animate-on-scroll slide-up bg-white p-8 rounded-xl shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5" style="transition-delay: 300ms;">
+                        <h4 class="text-xl font-bold text-cva-blue mb-3">Large insurance group – digital and AI transformation</h4>
+                        <p>CVA supported the CEO and France management in designing and steering a major transformation of distribution networks, including new digital products and AI-assisted customer journeys and pricing.</p>
+                    </div>
+                    <div class="animate-on-scroll slide-up bg-white p-8 rounded-xl shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5" style="transition-delay: 450ms;">
+                        <h4 class="text-xl font-bold text-cva-blue mb-3">Large European group – AI programme and Group AI Office</h4>
+                        <p>CVA supported a Group AI Office with SmartPMO® and CORE®, providing a common maturity framework for AI use cases, programme-level governance, and support to initiative leaders to mutualise solutions.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team -->
+            <div class="mt-16">
+                <h3 class="animate-on-scroll slide-up text-3xl font-bold text-cva-blue mb-6 text-center">A Senior Team Combining Energy, CORE® & AI</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="animate-on-scroll slide-up bg-white p-8 rounded-xl shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5" style="transition-delay: 300ms;">
+                        <div class="flex items-center mb-4">
+                            <i class="fa-solid fa-user-tie text-3xl text-cva-accent"></i>
+                            <h4 class="text-xl font-bold text-cva-blue ml-4">Partner – Head of New Services Models</h4>
+                        </div>
+                        <p>Leads CORE®-based programmes in services industries (banking, insurance, telco, energy). Expert in AI strategy and digital transformation.</p>
+                    </div>
+                    <div class="animate-on-scroll slide-up bg-white p-8 rounded-xl shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5" style="transition-delay: 450ms;">
+                        <div class="flex items-center mb-4">
+                            <i class="fa-solid fa-user-tie text-3xl text-cva-accent"></i>
+                            <h4 class="text-xl font-bold text-cva-blue ml-4">Partner – Head of Energy & Circular Transition</h4>
+                        </div>
+                        <p>20+ years in Energy & Utilities: renewables, nuclear, energy services, smart grids. Has led numerous projects involving AI applied to asset management and operations.</p>
+                    </div>
+                    <div class="animate-on-scroll slide-up bg-white p-8 rounded-xl shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5" style="transition-delay: 600ms;">
+                        <div class="flex items-center mb-4">
+                            <i class="fa-solid fa-user-tie text-3xl text-cva-accent"></i>
+                            <h4 class="text-xl font-bold text-cva-blue ml-4">Associate Partner – Energy & AI Lead</h4>
+                        </div>
+                        <p>12+ years in energy consulting (utilities, DSOs, ESCOs). CVA EMEA AI Lead, in charge of internal AI programmes and multiple AI missions for energy clients.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- What this gives you -->
+            <div class="animate-on-scroll fade-in mt-16 text-center max-w-4xl mx-auto">
+                <p class="text-lg font-semibold text-cva-blue p-6 bg-white rounded-lg shadow-md border-t-4 border-cva-accent">
+                    <span class="font-bold">What this gives you:</span> A team that understands energy infrastructures, services, and AI at a granular level; masters CORE® and SmartPMO® as transformation tools; and has already supported large, multi-use case AI programmes.
+                </p>
             </div>
         </div>
     </section>
@@ -1097,8 +1342,6 @@
 
     <!-- 
       7. JAVASCRIPT for "Impressive Effects"
-      This script finds all elements with .animate-on-scroll and adds the
-      .is-visible class when they enter the viewport.
     -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -1147,3 +1390,5 @@
 
 </body>
 </html>
+
+
