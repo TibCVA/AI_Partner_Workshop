@@ -1,27 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CVA | AI for Energy — AI maturity self-check</title>
-    <meta name="description" content="A 6-minute AI maturity self-check for energy companies: adoption & impact, data readiness, delivery & monitoring, governance & risk, people & partners.">
-    
-    <!-- OpenGraph / Social -->
-    <meta property="og:title" content="CVA | AI for Energy — AI maturity self-check">
-    <meta property="og:description" content="A 6-minute AI maturity self-check for energy companies. Evidence-friendly questions, transparent scoring, instant results.">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="en_GB">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="CVA | AI for Energy — AI maturity self-check">
-    <meta name="twitter:description" content="A 6-minute AI maturity self-check for energy companies.">
-    
-    <link rel="canonical" href="https://cva.com/ai-for-energy">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-    
-    <style>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CVA | AI maturity self-check — AI for Energy</title>
+<meta content="A 6-minute self-check to assess AI maturity across portfolio, data, governance and delivery in energy organisations." name="description"/>
+<!-- OpenGraph / Social -->
+<meta content="CVA | AI for Energy" property="og:title"/>
+<meta content="From pilots to P&amp;L impact in core energy processes. COMEX-grade AI industrialisation." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="en_GB" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="CVA | AI for Energy" name="twitter:title"/>
+<meta content="From pilots to P&amp;L impact in core energy processes." name="twitter:description"/>
+<link href="https://cva.com/ai-for-energy/ai-maturity-self-check" rel="canonical"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet"/>
+<style>
         :root {
             --navy: #1F2B4F;
             --navy-deep: #172759;
@@ -2681,180 +2677,31 @@
             }
         }
     
-    
-        /* Lightweight CTA row for the self-check entry point */
-        .maturity-cta-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-
-        .maturity-cta-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 10px;
-        }
-
-        .maturity-cta-note {
-            font-size: 12px;
-            color: var(--gray-500);
-            font-weight: 600;
-            text-align: right;
-        }
-
-        /* Proof tags (lighter than bullet lists) */
-        .proof-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 12px;
-        }
-
-        .proof-tag {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--navy);
-            background: white;
-            border: 1px solid var(--gray-300);
-            padding: 6px 10px;
-            border-radius: 999px;
-        }
-
-        /* Single-column contact block */
-        .cta-single {
-            max-width: 720px;
-            margin: 0 auto;
-        }
-
-        .cta-single .cta-form-card {
-            margin: 0 auto;
-        }
-
-        @media (max-width: 768px) {
-            .maturity-cta-actions {
-                align-items: stretch;
-                width: 100%;
-            }
-
-            .maturity-cta-actions .btn-primary {
-                width: 100%;
-            }
-
-            .maturity-cta-note {
-                text-align: left;
-            }
-        }
-
-    
-        /* Standalone maturity page hero (keeps nav readable on load) */
-        .maturity-hero {
-            padding: 140px 32px 72px;
-            background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 55%, var(--blue) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .maturity-hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at 18% 20%, rgba(0, 198, 198, 0.28), transparent 55%),
-                radial-gradient(circle at 82% 10%, rgba(0, 161, 191, 0.18), transparent 55%),
-                radial-gradient(circle at 70% 85%, rgba(255, 255, 255, 0.06), transparent 55%);
-            pointer-events: none;
-        }
-
-        .maturity-hero-inner {
-            max-width: 1280px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .maturity-hero-inner .hero-title {
-            margin-bottom: 16px;
-        }
-
-        .maturity-hero-inner .hero-subtitle {
-            margin-bottom: 24px;
-            max-width: 720px;
-        }
-
-    
-        /* Page-specific spacing for the standalone assessment */
-        .maturity-page .maturity-section {
-            padding-top: 90px;
-        }
-
-        @media (max-width: 768px) {
-            .maturity-page .maturity-section {
-                padding-top: 78px;
-            }
-        }
-
     </style>
-</head>
-<body class="maturity-page">
-    <!-- Progress Bar -->
-    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-
-    <!-- Navigation -->
-    <nav id="nav" role="navigation" aria-label="Main navigation">
-        <div class="nav-content">
-            <a href="index.html" class="logo" aria-label="Back to CVA AI for Energy">CVA <span class="logo-sub">AI for Energy</span></a>
-            <div class="nav-links">
-                <a href="index.html#offer" class="nav-link">Offer</a>
-                <a href="index.html#portfolio" class="nav-link">Use cases</a>
-                <a href="index.html#references" class="nav-link">References</a>
-                <a href="#maturity" class="nav-link">Self-check</a>
-                <a href="index.html#start"><button class="btn-primary btn-small">Request a Brick 1 diagnostic</button></a>
-            </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
-                ☰
-            </button>
-        </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
-        <a href="index.html#offer">Offer</a>
-        <a href="index.html#portfolio">Use cases</a>
-        <a href="index.html#references">References</a>
-        <a href="#maturity">Self-check</a>
-        <a href="index.html#start"><button class="btn-primary" style="width: 100%;">Request a Brick 1 diagnostic</button></a>
-    </div>
-
-    <section class="maturity-hero" aria-label="AI maturity self-check">
-        <div class="maturity-hero-inner">
-            <div class="hero-tag">
-                <span class="hero-tag-dot"></span>
-                AI maturity self-check
-            </div>
-            <h1 class="hero-title">Benchmark your AI maturity in energy</h1>
-            <p class="hero-subtitle">
-                6 minutes • Plain-English questions • Transparent scoring • Instant results.
-            </p>
-            <div class="hero-ctas">
-                <a href="#maturity"><button class="btn-primary">Start the self-check →</button></a>
-                <a href="index.html"><button class="btn-secondary">Back to the offer</button></a>
-            </div>
-            <div class="hero-segments" aria-label="Assessment coverage">
-                <span class="segment-tag">Use cases</span>
-                <span class="segment-tag">Data foundations</span>
-                <span class="segment-tag">Industrialisation</span>
-                <span class="segment-tag">Governance & risk</span>
-                <span class="segment-tag">People & partners</span>
-            </div>
-        </div>
-    </section>
-
-    <section class="maturity-section" id="maturity">
+</head><body><div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="progress-bar" id="progressBar" role="progressbar"></div>
+<nav aria-label="Main navigation" class="scrolled" id="nav" role="navigation">
+<div class="nav-content">
+<a aria-label="CVA AI for Energy website" class="logo" href="cva-ai-energy-vnext.html">
+      CVA <span class="logo-sub">AI for Energy</span>
+</a>
+<div class="nav-links">
+<a class="nav-link" href="cva-ai-energy-vnext.html">← Back to the offer</a>
+<a href="cva-ai-energy-vnext.html#start"><button class="btn-primary btn-small">Request a Brick 1 diagnostic</button></a>
+</div>
+<button aria-expanded="false" aria-label="Open menu" class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+</div>
+</nav>
+<div aria-label="Mobile navigation" class="mobile-menu" id="mobileMenu" role="navigation">
+<a href="cva-ai-energy-vnext.html">← Back to the offer</a>
+<a href="cva-ai-energy-vnext.html#start"><button class="btn-primary" style="width: 100%;">Request a Brick 1 diagnostic</button></a>
+</div>
+<section class="maturity-section" id="maturity">
 <div class="section-container">
-
+<div class="section-header">
+<div class="section-tag">AI maturity self-check</div>
+<h2 class="section-title">Where do you stand on AI maturity — vs. energy players and peers?</h2>
+<p class="section-subtitle">A short, evidence-friendly self-assessment covering portfolio, data foundation, governance, delivery and operating model.</p>
+</div>
 <div class="maturity-grid">
 <div aria-labelledby="maturityTitle" class="maturity-tool-card">
 <div class="maturity-tool-header">
@@ -2877,107 +2724,103 @@
 <button class="btn-secondary" disabled="" id="maturityBackBtn" type="button">Back</button>
 <button class="btn-primary" id="maturityNextBtn" type="button">Next →</button>
 </div>
-<div class="maturity-footnote" id="maturityFootnote">
-                        This tool avoids subjective claims (“we are advanced”). Each question maps to tangible artefacts or operating facts that can be evidenced (policies, inventories, governance bodies, logs, monitoring, KPIs).
-                    </div>
+<div class="maturity-footnote" id="maturityFootnote">Runs locally in your browser — no data sent.</div>
 </div>
 <div class="maturity-side-card">
 <h3 class="maturity-side-title">What you get</h3>
-<ul class="content-list">
-<li>
-<span class="list-lead">A maturity level (1–5) and dimension scores</span>
-                            aligned to what it takes to industrialise AI in core energy processes.
-                        </li>
-<li>
-<span class="list-lead">Positioning vs. reference points</span>
-                            from public surveys (energy/utility when available; otherwise cross-industry governance baselines).
-                        </li>
-<li>
-<span class="list-lead">An archetype + clear priorities</span>
-                            mapped to the CVA “AI for Energy” bricks.
-                        </li>
-</ul>
-<div class="maturity-methodology">
-<div class="maturity-methodology-title">Methodology transparency</div>
-<p class="maturity-methodology-text">
-                            Scoring rules and benchmark sources are shown in the results screen (with links). This is a client-side self-check — it does not use or claim any proprietary benchmark dataset.
-                        </p>
-</div>
-<div class="maturity-side-cta">
-<div class="maturity-side-cta-title">Want an executive‑grade benchmark?</div>
-<p class="maturity-side-cta-text">
-                            This self-check is a good first filter. Brick 1 adds a structured portfolio review on your core processes and a peer benchmark grounded in CVA delivery experience.
-                        </p>
-<a href="index.html#start"><button class="btn-primary btn-small" style="width: 100%;">Book Brick 1 diagnostic →</button></a>
-</div>
+<ul class="content-list"><li><span class="list-lead">A maturity level (1–5)</span>
+                            plus dimension scores across portfolio, data, delivery and governance.
+                        </li><li><span class="list-lead">An archetype</span>
+                            to clarify what typically blocks industrialisation at your stage.
+                        </li><li><span class="list-lead">A short set of priorities</span>
+                            to focus the next 90 days on what will unlock scale.
+                        </li></ul>
+
 </div>
 </div>
 <div class="maturity-results" hidden="" id="maturityResults"></div>
 </div>
-</section>
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div>
-                <a href="https://www.corporate-value.com" target="_blank" rel="noopener" style="text-decoration: none; color: white;">
-                    <div class="footer-brand">CVA</div>
-                </a>
-                <div class="footer-sub">AI for Energy offering</div>
+</section><footer>
+<div class="footer-content">
+<div>
+<a href="https://www.corporate-value.com" rel="noopener" style="text-decoration: none; color: white;" target="_blank">
+<div class="footer-brand">CVA</div>
+</a>
+<div class="footer-sub">AI for Energy offering</div>
+</div>
+<div class="footer-disclaimer">
+<strong>Disclaimer:</strong> Market benchmarks and peer references cited on this site are based on publicly communicated initiatives and CVA synthesis. They do not imply existing client relationships for this specific AI industrialisation offer.
             </div>
-            <div class="footer-disclaimer">
-                <strong>Disclaimer:</strong> Market benchmarks and peer references cited on this site are based on publicly communicated initiatives and CVA synthesis. They do not imply existing client relationships for this specific AI industrialisation offer.
-            </div>
-            <div style="text-align: right;">
-                <a href="https://www.corporate-value.com" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; display: block; margin-bottom: 8px;">www.corporate-value.com</a>
-                <div class="footer-note">© 2026 Corporate Value Associates</div>
-            </div>
-        </div>
-    </footer>
-    <script>
-        // Scroll effects (progress bar + nav)
-        const progressBar = document.getElementById('progressBar');
-        const nav = document.getElementById('nav');
+<div style="text-align: right;">
+<a href="https://www.corporate-value.com" rel="noopener" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; display: block; margin-bottom: 8px;" target="_blank">www.corporate-value.com</a>
+<div class="footer-note">© 2026 Corporate Value Associates</div>
+</div>
+</div>
+</footer><script>
+// --- Compatibility helpers (mobile / Safari) ---
+(function () {
+    // CSS.escape polyfill (older Safari)
+    if (!window.CSS) window.CSS = {};
+    if (typeof window.CSS.escape !== 'function') {
+        window.CSS.escape = function (value) {
+            return String(value).replace(/[^a-zA-Z0-9_\-]/g, function (ch) {
+                const hex = ch.charCodeAt(0).toString(16);
+                return '\\' + hex + ' ';
+            });
+        };
+    }
+})();
 
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+function safeScrollIntoView(el, options) {
+    if (!el) return;
+    try {
+        el.scrollIntoView(options || { behavior: 'smooth', block: 'start' });
+    } catch (e) {
+        try { el.scrollIntoView(true); } catch (_) {}
+    }
+}
 
-            if (progressBar) {
-                progressBar.style.width = progress + '%';
-                progressBar.setAttribute('aria-valuenow', Math.round(progress));
-            }
+// Scroll effects
+const progressBar = document.getElementById('progressBar');
+const nav = document.getElementById('nav');
 
-            if (nav) {
-                nav.classList.toggle('scrolled', scrollTop > 50);
-            }
-        });
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
 
-        // Mobile menu
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
+    if (progressBar) {
+        progressBar.style.width = progress + '%';
+        progressBar.setAttribute('aria-valuenow', Math.round(progress));
+    }
+    if (nav) nav.classList.add('scrolled');
+});
 
-        function handleMobileMenu(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const isOpen = mobileMenu.classList.toggle('open');
-            mobileMenuBtn.setAttribute('aria-expanded', isOpen);
-            mobileMenuBtn.textContent = isOpen ? '✕' : '☰';
-        }
+// Mobile menu
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
 
-        mobileMenuBtn?.addEventListener('click', handleMobileMenu);
-        mobileMenuBtn?.addEventListener('touchend', handleMobileMenu);
+function handleMobileMenu(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const isOpen = mobileMenu.classList.toggle('open');
+    mobileMenuBtn.setAttribute('aria-expanded', isOpen);
+    mobileMenuBtn.textContent = isOpen ? '✕' : '☰';
+}
 
-        // Close mobile menu when clicking links
-        mobileMenu?.querySelectorAll('a').forEach(link => {
-            const closeMenu = () => {
-                mobileMenu.classList.remove('open');
-                mobileMenuBtn?.setAttribute('aria-expanded', 'false');
-                if (mobileMenuBtn) mobileMenuBtn.textContent = '☰';
-            };
-            link.addEventListener('click', closeMenu);
-            link.addEventListener('touchend', closeMenu);
-        });
+mobileMenuBtn.addEventListener('click', handleMobileMenu);
+mobileMenuBtn.addEventListener('touchend', handleMobileMenu);
+
+mobileMenu.querySelectorAll('a').forEach(link => {
+    const closeMenu = () => {
+        mobileMenu.classList.remove('open');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        mobileMenuBtn.textContent = '☰';
+    };
+    link.addEventListener('click', closeMenu);
+    link.addEventListener('touchend', closeMenu);
+});
+
 
 // --- AI maturity self-check (client-side) ---
         // Transparent, evidence-friendly scoring. Runs fully in the browser (no server calls).
@@ -4222,7 +4065,7 @@
                                         Brick 1 benchmarks current initiatives and selects 1–2 programme‑grade priorities. Brick 2 designs governance and the operating model. Brick 3 industrialises delivery. Brick 4 scales.
                                     </div>
                                     <div style="margin-top: 12px;">
-                                        <a href="index.html#start"><button class="btn-primary btn-small" style="width: 100%;">Book a Brick 1 diagnostic →</button></a>
+                                        <a href="#start"><button class="btn-primary btn-small" style="width: 100%;">Book a Brick 1 diagnostic →</button></a>
                                     </div>
                                 </div>
 
@@ -4234,26 +4077,7 @@
                             <div class="maturity-export">
                                 <button class="btn-secondary" id="maturityResetBtn" type="button">Reset assessment</button>
                             </div>
-
-                            <div class="maturity-details">
-                                <details>
-                                    <summary>Sources, definitions & scoring</summary>
-                                    <p style="margin-top: 10px; font-size: 12px; color: var(--gray-600); line-height: 1.7;">
-                                        “Reference points” are based on public surveys with their own scopes and samples — treat them as directional, not as a certified percentile.
-                                    </p>
-                                    <ul class="maturity-source-list">
-                                        ${sourcesList}
-                                    </ul>
-                                    <p style="margin-top: 14px; font-weight: 800; color: var(--navy);">Scoring rules (transparent)</p>
-                                    <ul class="maturity-source-list">
-                                        ${scoringList}
-                                    </ul>
-                                    <p style="margin-top: 10px; font-size: 12px; color: var(--gray-500); line-height: 1.7;">
-                                        Notes: This tool runs locally in your browser. It does not send your answers to CVA. This is not legal advice.
-                                    </p>
-                                </details>
-                            </div>
-                        </div>
+</div>
                     `;
 
                     resultsEl.hidden = false;
@@ -4267,67 +4091,6 @@
                             span.style.width = '0%';
                             requestAnimationFrame(() => span.style.width = w);
                         });
-                    });
-
-                    // Results actions
-const promptFallback = () => {
-                            // Last resort: show a native prompt so users can manually copy (works on iOS too)
-                            window.prompt('Copy the text below:', text);
-                        };
-
-                        try {
-                            if (navigator.clipboard && navigator.clipboard.writeText) {
-                                await navigator.clipboard.writeText(text);
-                                notify();
-                                return;
-                            }
-                            throw new Error('Clipboard API not available');
-                        } catch (err) {
-                            try {
-                                const ta = document.createElement('textarea');
-                                ta.value = text;
-                                ta.setAttribute('readonly', '');
-                                ta.style.position = 'fixed';
-                                ta.style.top = '0';
-                                ta.style.left = '0';
-                                ta.style.opacity = '0';
-                                document.body.appendChild(ta);
-                                ta.focus();
-                                ta.select();
-
-                                const ok = document.execCommand('copy');
-                                document.body.removeChild(ta);
-
-                                if (ok) {
-                                    notify();
-                                    return;
-                                }
-                            } catch (e) {
-                                // ignore
-                            }
-                            promptFallback();
-                        }
-                    });
-const blob = new Blob([json], { type: 'application/json' });
-                        const url = URL.createObjectURL(blob);
-                        const filename = `cva-ai-energy-maturity-${new Date().toISOString().slice(0,10)}.json`;
-
-                        // iOS Safari: download attribute is not consistently honoured.
-                        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-                        if (isIOS) {
-                            window.open(url, '_blank');
-                            setTimeout(() => URL.revokeObjectURL(url), 4000);
-                            return;
-                        }
-
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = filename;
-                        document.body.appendChild(a);
-                        a.click();
-                        document.body.removeChild(a);
-                        setTimeout(() => URL.revokeObjectURL(url), 4000);
                     });
 
                     resultsEl.querySelector('#maturityResetBtn')?.addEventListener('click', () => {
@@ -4393,38 +4156,63 @@ function validateCurrentStep() {
                 return missing;
             }
 
-            backBtn.addEventListener('click', () => {
-                if (state.stepIndex > 0) {
-                    state.stepIndex -= 1;
-                    saveState();
-                    renderStepper();
-                    renderStep();
-                }
-            });
+            // Mobile-friendly tap binding (reliable on iOS Safari)
+let lastTouchTs = 0;
+function bindTap(el, fn) {
+    if (!el) return;
+    el.addEventListener('touchend', (e) => {
+        lastTouchTs = Date.now();
+        e.preventDefault();
+        fn();
+    }, { passive: false });
+    el.addEventListener('click', (e) => {
+        if (Date.now() - lastTouchTs < 700) {
+            e.preventDefault();
+            return;
+        }
+        fn();
+    });
+}
 
-            nextBtn.addEventListener('click', () => {
-                const missing = validateCurrentStep();
-                if (missing.length > 0) {
-                    alert('Please answer the following before continuing:\n\n• ' + missing.join('\n• '));
-                    return;
-                }
+function scrollToStepTop() {
+    const anchor = document.getElementById('maturityTitle') || document.getElementById('maturity');
+    safeScrollIntoView(anchor, { behavior: 'smooth', block: 'start' });
+}
 
-                if (state.stepIndex < maturityConfig.steps.length - 1) {
-                    state.stepIndex += 1;
-                    saveState();
-                    renderStepper();
-                    renderStep();
-                } else {
-                    renderResults();
-                }
-            });
+bindTap(backBtn, () => {
+    if (state.stepIndex > 0) {
+        state.stepIndex -= 1;
+        saveState();
+        renderStepper();
+        renderStep();
+        scrollToStepTop();
+    }
+});
 
-            // First load
+bindTap(nextBtn, () => {
+    const missing = validateCurrentStep();
+    if (missing.length > 0) {
+        alert('Please answer the following before continuing:
+
+• ' + missing.join('
+• '));
+        return;
+    }
+
+    if (state.stepIndex < maturityConfig.steps.length - 1) {
+        state.stepIndex += 1;
+        saveState();
+        renderStepper();
+        renderStep();
+        scrollToStepTop();
+    } else {
+        renderResults();
+    }
+});
+
+// First load
             loadSaved();
             renderStepper();
             renderStep();
         })();
-
-    </script>
-</body>
-</html>
+</script></body></html>
