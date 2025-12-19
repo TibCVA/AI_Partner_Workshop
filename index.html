@@ -561,6 +561,64 @@
             color: rgba(255, 255, 255, 0.8);
         }
 
+
+/* Hero positioning compare */
+.hero-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+
+.hero-compare-col {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 14px;
+    padding: 16px 16px;
+}
+
+.hero-compare-title {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.70);
+    margin-bottom: 10px;
+}
+
+.hero-compare-list {
+    list-style: none;
+}
+
+.hero-compare-list li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.5;
+}
+
+.hero-compare-list li:last-child {
+    margin-bottom: 0;
+}
+
+.hero-compare-list li::before {
+    content: '■';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    color: var(--accent-light);
+    font-size: 8px;
+}
+
+@media (max-width: 768px) {
+    .hero-compare {
+        grid-template-columns: 1fr;
+    }
+}
+
         /* Scroll Indicator */
         .scroll-indicator {
             position: absolute;
@@ -914,7 +972,6 @@
             grid-template-columns: 1.8fr 1fr;
             gap: 40px;
             margin-top: 48px;
-            align-items: start;
         }
 
         .matrix-wrap {
@@ -922,6 +979,8 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 20px;
             padding: 28px;
+            display: flex;
+            flex-direction: column;
         }
 
         .matrix-header {
@@ -944,9 +1003,14 @@
         .matrix-svg {
             width: 100%;
             height: auto;
-            display: block;
-            margin-top: 10px;
         }
+
+        @media (min-width: 1024px) {
+            .matrix-svg {
+                margin-top: auto;
+            }
+        }
+
 
         .play-dot {
             cursor: pointer;
@@ -1172,21 +1236,6 @@
             gap: 20px;
         }
 
-        .proof-layout {
-            display: grid;
-            gap: 28px;
-        }
-
-        .proof-cards.proof-cards-3 {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        @media (max-width: 1024px) {
-            .proof-cards.proof-cards-3 {
-                grid-template-columns: 1fr;
-            }
-        }
-
         .proof-card {
             background: var(--gray-100);
             border: 1px solid var(--gray-300);
@@ -1278,8 +1327,8 @@
     grid-template-columns: 1.05fr 1.45fr;
     gap: 40px;
     margin-top: 48px;
-    align-items: start;
-}
+    align-items: stretch;
+            }
 
 .references-left {
     display: flex;
@@ -1444,30 +1493,6 @@
     padding: 24px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
     transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
-    cursor: pointer;
-}
-
-.ref-snapshot-details {
-    display: none;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid var(--gray-300);
-}
-
-.ref-snapshot.active .ref-snapshot-details {
-    display: block;
-    animation: fadeIn 0.25s ease;
-}
-
-.ref-snapshot-footer {
-    margin-top: 18px;
-    padding-top: 16px;
-    border-top: 1px solid var(--gray-200);
-    text-align: center;
-}
-
-.references-outcomes {
-    margin-top: 28px;
 }
 
 .ref-snapshot:hover {
@@ -1603,8 +1628,8 @@
             display: grid;
             grid-template-columns: 1.3fr 1fr;
             gap: 40px;
+            align-items: stretch;
             margin-top: 48px;
-            align-items: start;
         }
 
         .modes-card {
@@ -1876,7 +1901,6 @@
         }
 
 
-
         /* AI Maturity Self-Check */
         .maturity-section {
             padding: 120px 32px;
@@ -1885,7 +1909,40 @@
             overflow: hidden;
         }
 
-        .maturity-section::before {
+        
+
+.maturity-title {
+    font-size: clamp(40px, 4.8vw, 58px);
+}
+
+.maturity-cta-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    text-align: center;
+}
+
+.maturity-btn {
+    padding: 20px 46px;
+    font-size: 16px;
+    border-radius: 16px;
+}
+
+.maturity-cta-note {
+    font-size: 14px;
+    color: var(--gray-600);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+    .maturity-btn {
+        width: 100%;
+        max-width: 420px;
+    }
+}.maturity-section::before {
             content: '';
             position: absolute;
             inset: 0;
@@ -2725,27 +2782,27 @@
         }
     
     
-        /* AI maturity entry point (homepage) */
-        .maturity-cta-center {
+        /* Lightweight CTA row for the self-check entry point */
+        .maturity-cta-row {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 14px;
-            text-align: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
         }
 
-        .btn-xl {
-            padding: 18px 38px;
-            font-size: 16px;
-            border-radius: 14px;
+        .maturity-cta-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
         }
 
         .maturity-cta-note {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--gray-500);
             font-weight: 600;
-            text-align: center;
+            text-align: right;
         }
 
         /* Proof tags (lighter than bullet lists) */
@@ -2777,13 +2834,17 @@
         }
 
         @media (max-width: 768px) {
-            .maturity-cta-center a {
+            .maturity-cta-actions {
+                align-items: stretch;
                 width: 100%;
-                max-width: 420px;
             }
 
-            .maturity-cta-center .btn-primary {
+            .maturity-cta-actions .btn-primary {
                 width: 100%;
+            }
+
+            .maturity-cta-note {
+                text-align: left;
             }
         }
 
@@ -2805,7 +2866,7 @@
                 <a href="#proof" class="nav-link">Proof</a>
                 <a href="#references" class="nav-link">References</a>
                 <a href="#ecosystem" class="nav-link">Ecosystem</a>
-                <a href="#start"><button class="btn-primary btn-small">Request a Brick 1 diagnostic</button></a>
+                <a href="#start"><button class="btn-primary btn-small">Request a Scoping call</button></a>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
                 ☰
@@ -2822,7 +2883,7 @@
         <a href="#proof">Proof</a>
         <a href="#references">References</a>
         <a href="#ecosystem">Ecosystem</a>
-        <a href="#start"><button class="btn-primary" style="width: 100%;">Request a Brick 1 diagnostic</button></a>
+        <a href="#start"><button class="btn-primary" style="width: 100%;">Request a Scoping call</button></a>
     </div>
 
     <!-- Hero Section -->
@@ -2870,7 +2931,7 @@
                     CVA helps utilities, network operators, IPPs and energy services players industrialise a limited number of AI use cases that are embedded in critical business processes and steerable at COMEX level.
                 </p>
                 <div class="hero-ctas">
-                    <a href="#start"><button class="btn-primary">Request a Brick 1 diagnostic →</button></a>
+                    <a href="#start"><button class="btn-primary">Request a Scoping call →</button></a>
                     <a href="ai-maturity.html"><button class="btn-secondary">Take the AI maturity self-check (6 min) →</button></a>
                 </div>
                 <a href="#offer" class="hero-link">Explore the modular offer →</a>
@@ -2886,31 +2947,24 @@
             <div class="hero-card">
                 <div class="hero-card-header">
                     <div class="hero-card-icon">◆</div>
-                    <div>
-                        <div class="hero-card-title">CVA positioning</div>
-                        <div class="hero-card-sub">We sell governance, value tracking and decision redesign, not models</div>
-                    </div>
-                </div>
-                
-                <div class="hero-card-box">
-                    <div class="hero-card-box-title">What clients typically have</div>
-                    <ul class="hero-card-list">
-                        <li>Many pilots, scattered across functions and BUs</li>
-                        <li>Vendors pushing platforms and "AI at scale" narratives</li>
-                        <li>Limited end-to-end ownership, weak value tracking</li>
-                    </ul>
-                </div>
-                
-                <div class="hero-card-box">
-                    <div class="hero-card-box-title">What we create</div>
-                    <ul class="hero-card-list">
-                        <li>A prioritised use case portfolio anchored in core processes</li>
-                        <li>A COMEX-steerable programme architecture and governance</li>
-                        <li>Industrialisation playbooks with execution partners when relevant</li>
-                    </ul>
-                </div>
-                
-                <div class="hero-card-footer">
+                    
+
+<div class="hero-compare">
+    <div class="hero-compare-col">
+        <div class="hero-compare-title">Typical situation</div>
+        <ul class="hero-compare-list">
+            <li>Pilots scattered across functions and BUs</li>
+            <li>Unclear end-to-end ownership and weak value tracking</li>
+        </ul>
+    </div>
+    <div class="hero-compare-col">
+        <div class="hero-compare-title">What we create</div>
+        <ul class="hero-compare-list">
+            <li>A prioritised portfolio anchored in core processes</li>
+            <li>A COMEX-steerable programme architecture with controls and KPIs</li>
+        </ul>
+    </div>
+</div><div class="hero-card-footer">
                     <span class="gloss" tabindex="0">CORE<span class="tooltip-text">CORE is CVA's proven five-step approach to redesign end-to-end processes and embed data and AI into decision making.</span></span> and 
                     <span class="gloss" tabindex="0">SmartPMO<span class="tooltip-text">SmartPMO is CVA's programme steering toolbox to manage multi-workstream transformations, dependencies and value tracking.</span></span> are the backbone of the offer.
                 </div>
@@ -2927,22 +2981,23 @@
 
     
 
-<!-- AI Maturity Section -->
-    <section id="maturity" class="maturity-section">
-        <div class="section-container">
-            <div class="section-header" style="margin-bottom: 46px;">
-                <div class="section-tag">AI maturity self-check</div>
-                <h2 class="section-title">Take the Energy AI maturity test</h2>
-            </div>
 
-            <div class="maturity-cta-center">
-                <a href="ai-maturity.html" aria-label="Start the Energy AI maturity self-check">
-                    <button class="btn-primary btn-xl">Start the self-check →</button>
-                </a>
-                <div class="maturity-cta-note">6 minutes • runs locally • no data sent</div>
-            </div>
+<!-- AI Maturity Section -->
+<section id="maturity" class="maturity-section">
+    <div class="section-container">
+        <div class="section-header" style="margin-bottom: 44px;">
+            <div class="section-tag">AI maturity self-check</div>
+            <h2 class="section-title maturity-title">Take the Energy AI maturity test</h2>
         </div>
-    </section>
+
+        <div class="maturity-cta-center">
+            <a href="ai-maturity.html" aria-label="Open the Energy AI maturity self-check">
+                <button class="btn-primary maturity-btn">Start the self-check →</button>
+            </a>
+            <div class="maturity-cta-note">6 minutes • runs locally • no data sent</div>
+        </div>
+    </div>
+</section>
 
 
     
@@ -3044,6 +3099,7 @@
                                 <strong>What it enables:</strong> Create alignment across Business, Data, IT and Risk on what to industrialise first. De‑risk investments by focusing on mature, value‑creating, process‑embedded use cases.
                             </p>
                         </div>
+</div>
                     </div>
                     <div class="brick-footer">
                         <span class="expand-hint">Tap to expand →</span>
@@ -3077,6 +3133,7 @@
                                 <strong>What it enables:</strong> Move from “tool” logic to “process” logic with measurable outcomes. Secure compliance and risk management through a defined control framework.
                             </p>
                         </div>
+</div>
                     </div>
                     <div class="brick-footer">
                         <span class="expand-hint">Tap to expand →</span>
@@ -3110,6 +3167,7 @@
                                 <strong>What it enables:</strong> Accelerate build without turning CVA into an integrator. Protect value by aligning partners to the client’s decision process.
                             </p>
                         </div>
+</div>
                     </div>
                     <div class="brick-footer">
                         <span class="expand-hint">Tap to expand →</span>
@@ -3143,6 +3201,7 @@
                                 <strong>What it enables:</strong> Convert “go‑live” into “value‑in‑run” with disciplined tracking. Turn a lighthouse into a portfolio, without programme drift.
                             </p>
                         </div>
+</div>
                     </div>
                     <div class="brick-footer">
                         <span class="expand-hint">Tap to expand →</span>
@@ -3225,9 +3284,13 @@
                             <text x="375" y="194" text-anchor="middle" font-size="10" font-weight="800" fill="white">F</text>
                         </g>
                     </svg>
-                    
-                    
-                </div>
+<ul class="scoring-list">
+                            <li><strong>Process criticality</strong> — Core to operations, COMEX-steerable</li>
+                            <li><strong>Market maturity</strong> — Peer deployments exist, vendorised solutions available</li>
+                            <li><strong>Industrialisation blockers</strong> — Data readiness, controls gap, change complexity</li>
+                        </ul>
+                    </div>
+</div>
 
                 <div class="legend-wrap">
                     <h3 class="legend-title">Portfolio legend (A–F)</h3>
@@ -3257,7 +3320,14 @@
                         </div>
                     </div>
                     
-                    
+                    <!-- Segment entry points -->
+<div class="segment-entry-grid">
+                            <div class="segment-entry-item"><strong>DSO / TSO</strong> <span class="plays">A, B</span></div>
+                            <div class="segment-entry-item"><strong>Utilities</strong> <span class="plays">C, D</span></div>
+                            <div class="segment-entry-item"><strong>IPP / Renewables</strong> <span class="plays">E</span></div>
+                            <div class="segment-entry-item"><strong>ESCO</strong> <span class="plays">F</span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -3270,18 +3340,20 @@
                 <div class="section-tag">Proof and benchmarks</div>
                 <h2 class="section-title">Market reality: AI building blocks exist. Industrialisation is the white space.</h2>
                 <p class="section-subtitle">
-                    We anchor our portfolio in concrete market moves, then position CVA where most programmes stall: governance, end-to-end process redesign and value tracking.
+                    We anchor our portfolio in concrete market moves, then position CVA where most players fail: governance, end-to-end process redesign and value tracking.
                 </p>
             </div>
-
-            <div class="proof-layout">
-                <div class="proof-cards proof-cards-3">
+<div class="proof-grid">
+                <div class="proof-cards">
+<div class="proof-cards">
                     <div class="proof-card">
                         <div class="proof-card-header">
                             <div class="geo-icon light">◈</div>
                             <div class="proof-card-title">Distribution grids</div>
                         </div>
-                        <p class="proof-card-desc">Grid operators increasingly rely on forecasting and decision support to steer reinforcement and connection journeys at scale.</p>
+                        <p class="proof-card-desc">
+                            Grid operators increasingly rely on forecasting and decision support to steer reinforcement and connection journeys at scale.
+                        </p>
                         <div class="proof-tags" aria-label="Typical AI building blocks">
                             <span class="proof-tag">Forecasting</span>
                             <span class="proof-tag">Reinforcement optimisation</span>
@@ -3295,7 +3367,9 @@
                             <div class="geo-icon light">◇</div>
                             <div class="proof-card-title">Flexibility and forecasting</div>
                         </div>
-                        <p class="proof-card-desc">Forecasting, optimisation and automated dispatch are widely available — yet many players struggle to operationalise end‑to‑end forecast‑to‑position routines.</p>
+                        <p class="proof-card-desc">
+                            Forecasting, optimisation and automated dispatch are widely available — yet many players struggle to operationalise end‑to‑end forecast‑to‑position routines.
+                        </p>
                         <div class="proof-tags" aria-label="Typical AI building blocks">
                             <span class="proof-tag">Flex forecasting</span>
                             <span class="proof-tag">Portfolio optimisation</span>
@@ -3306,15 +3380,19 @@
                     <div class="proof-card">
                         <div class="proof-card-header">
                             <div class="geo-icon light">□</div>
-                            <div class="proof-card-title">System operations</div>
+                            <div class="proof-card-title">System operations and modular control</div>
                         </div>
-                        <p class="proof-card-desc">TSOs are modernising control stacks and interoperability — a prerequisite for moving AI from pilots to foundational infrastructure.</p>
+                        <p class="proof-card-desc">
+                            TSOs are modernising control stacks and interoperability — a prerequisite for moving AI from pilots to foundational infrastructure.
+                        </p>
                         <div class="proof-tags" aria-label="Typical AI building blocks">
-                            <span class="proof-tag">Control modernisation</span>
+                            <span class="proof-tag">Control centre modernisation</span>
                             <span class="proof-tag">Interoperability</span>
                             <span class="proof-tag">System forecasting</span>
                         </div>
                     </div>
+                </div>
+
                 </div>
 
                 <div class="credibility-card">
@@ -3333,6 +3411,9 @@
                             Governance cadence, KPIs, and value tracking to keep delivery COMEX‑steerable.
                         </li>
                     </ul>
+                    <div class="credibility-note">
+                        Brick 1 is a fast way to validate what is realistically industrialisable in your context and where to start.
+                    </div>
                 </div>
             </div>
         </div>
@@ -3345,223 +3426,301 @@
             <div class="section-tag">CVA references</div>
             <h2 class="section-title">Selected proof points from CORE and Data &amp; AI programmes</h2>
             <p class="section-subtitle">
-                The examples below illustrate the type of decision‑centric, governance‑led programmes we deliver in regulated, high‑stakes environments — the same conditions that typically prevent AI from scaling in Energy.
+                The examples below illustrate the type of decision-centric, governance-led programmes we deliver in regulated, high-stakes environments — the same conditions that typically prevent AI from scaling in Energy.
             </p>
         </div>
 
-        <div class="references-right-title">Selected reference snapshots</div>
+        <div class="references-grid">
+            <div class="references-left">
+                <div class="references-card">
+                    <div class="references-card-header">
+                        <div class="geo-icon light">◆</div>
+                        <div>
+                            <div class="references-card-title">A proven protocol (CORE + DIDA)</div>
+                            <div class="references-card-sub">From baseline to a steerable transformation trajectory</div>
+                        </div>
+                    </div>
 
-        <div class="references-snapshots" aria-label="CVA reference snapshots">
-            <div class="ref-snapshot" tabindex="0" role="button" aria-expanded="false">
-                <div class="ref-snapshot-header">
-                    <div class="geo-icon light">◈</div>
-                    <div>
-                        <div class="ref-snapshot-title">Cost &amp; customer journey optimisation</div>
-                        <div class="ref-snapshot-sub">Large regulated organisation — multi‑journey programme</div>
+                    <div class="core-lots">
+                        <div class="core-lot">
+                            <div class="core-lot-badge">Lot 1</div>
+                            <div class="core-lot-title">Baseline + data-native redesign</div>
+
+                            <div class="core-module">
+                                <div class="core-module-title">M1 — End-to-end diagnostic &amp; baseline</div>
+                                <div class="core-module-desc">Process mapping, baseline efficiency (FTE/cost), satisfaction (e.g., NPS), and carbon where relevant.</div>
+                            </div>
+
+                            <div class="core-module">
+                                <div class="core-module-title">M2 — Target journey design</div>
+                                <div class="core-module-desc">Target journey, voice-of-customer inputs where applicable, plus benchmarks &amp; proof points.</div>
+                            </div>
+
+                            <div class="core-module">
+                                <div class="core-module-title">M3 — DIDA flows + data/AI foundations</div>
+                                <div class="core-module-desc">Data → insight → decision → action flows, platform inputs, governance and controls.</div>
+                            </div>
+                        </div>
+
+                        <div class="core-lot">
+                            <div class="core-lot-badge">Lot 2</div>
+                            <div class="core-lot-title">Gap analysis + trajectory (“base camps”)</div>
+
+                            <div class="core-module">
+                                <div class="core-module-title">M4 — Impacts &amp; levers</div>
+                                <div class="core-module-desc">Gap to target, action portfolio, trade-offs, and a business case that can be steered.</div>
+                            </div>
+
+                            <div class="core-module">
+                                <div class="core-module-title">M5 — Transformation trajectory</div>
+                                <div class="core-module-desc">Transformation plan, digital/data/IT trajectory, financial trajectory, and governance cadence.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="references-mini-note">
+                        The point is not “more models”. The point is an implementable interface to decisions: rules, controls, ownership and operating rhythms that secure value in run.
                     </div>
                 </div>
 
-                <div class="ref-chip-row">
-                    <div class="ref-chip">Cost pressure: +24% (to 2025)</div>
-                    <div class="ref-chip">Headcount: +29% (5y)</div>
-                    <div class="ref-chip">Target: ~20% FTE impact</div>
-                </div>
+                <div class="references-card">
+                    <div class="references-card-header">
+                        <div class="geo-icon light">◇</div>
+                        <div>
+                            <div class="references-card-title">Observed outcomes (context-dependent)</div>
+                            <div class="references-card-sub">Orders of magnitude across CORE deployments</div>
+                        </div>
+                    </div>
 
-                <p class="ref-snapshot-desc">A programme to redesign end‑to‑end journeys and unlock productivity through process redesign, automation and tighter controls.</p>
+                    <div class="ref-metric-grid">
+                        <div class="ref-metric">
+                            <div class="ref-metric-kpi">Up to +30 pts</div>
+                            <div class="ref-metric-label">NPS uplift on customer journeys</div>
+                        </div>
+                        <div class="ref-metric">
+                            <div class="ref-metric-kpi">40–50%</div>
+                            <div class="ref-metric-label">End-to-end efficiency gains (FTE / cost)</div>
+                        </div>
+                        <div class="ref-metric">
+                            <div class="ref-metric-kpi">20–35%</div>
+                            <div class="ref-metric-label">Investments redirected to “target-state” solutions</div>
+                        </div>
+                        <div class="ref-metric">
+                            <div class="ref-metric-kpi">42–57%</div>
+                            <div class="ref-metric-label">Productivity gains in selected IT / compliance-heavy functions</div>
+                        </div>
+                    </div>
 
-                <div class="ref-snapshot-details">
-                    <ul class="ref-bullets">
-                        <li>AI-enabled automation &amp; digitalisation of repetitive activities</li>
-                        <li>Process simplification to reduce manual workload and improve throughput</li>
-                        <li>Automated controls and fraud prevention levers</li>
-                        <li>Governance reinforced with clear KPIs and decision routines</li>
-                    </ul>
-                    <div class="ref-snapshot-foot">Illustrative impact: significant workforce needs reduction, anchored in a portfolio of IT and non‑IT levers.</div>
-                </div>
-
-                <div class="ref-snapshot-footer"><span class="expand-hint">Tap to expand →</span></div>
-            </div>
-
-            <div class="ref-snapshot" tabindex="0" role="button" aria-expanded="false">
-                <div class="ref-snapshot-header">
-                    <div class="geo-icon light">□</div>
-                    <div>
-                        <div class="ref-snapshot-title">Finance data &amp; reporting industrialisation</div>
-                        <div class="ref-snapshot-sub">Decentralised teams — fragmented definitions &amp; tooling</div>
+                    <div class="references-mini-disclaimer">
+                        These are reference points observed across CVA programmes. Outcomes depend on starting point, scope, and adoption. We use them to calibrate ambition and design credible programmes — not as generic promises.
                     </div>
                 </div>
-
-                <div class="ref-chip-row">
-                    <div class="ref-chip">~290 FTE</div>
-                    <div class="ref-chip">~40 teams</div>
-                    <div class="ref-chip">32% time on low-value data work</div>
-                    <div class="ref-chip">Efficiency gain: ~50%</div>
-                </div>
-
-                <p class="ref-snapshot-desc">Centralise and industrialise data collection and organisation to unlock self‑serve decisioning — not “more reporting”.</p>
-
-                <div class="ref-snapshot-details">
-                    <ul class="ref-bullets">
-                        <li>A single governed access point and an integrated data catalogue</li>
-                        <li>Centralised structuring and enrichment to eliminate data duplication</li>
-                        <li>AI-enabled access for decision makers (personalised views, fewer report requests)</li>
-                        <li>Decision routines accelerated through “zero-based” simplification</li>
-                    </ul>
-                    <div class="ref-snapshot-foot">Illustrative impact: material reduction in reporting effort and faster decision cycles.</div>
-                </div>
-
-                <div class="ref-snapshot-footer"><span class="expand-hint">Tap to expand →</span></div>
             </div>
 
-            <div class="ref-snapshot" tabindex="0" role="button" aria-expanded="false">
-                <div class="ref-snapshot-header">
-                    <div class="geo-icon light">○</div>
-                    <div>
-                        <div class="ref-snapshot-title">Run IT productivity programme</div>
-                        <div class="ref-snapshot-sub">High volumes — cost control under pressure</div>
+            <div class="references-right">
+                <div class="references-right-title">Selected reference snapshots</div>
+
+                <div class="references-snapshots">
+                    <div class="ref-snapshot">
+                        <div class="ref-snapshot-header">
+                            <div class="geo-icon light">◈</div>
+                            <div>
+                                <div class="ref-snapshot-title">Cost &amp; customer journey optimisation</div>
+                                <div class="ref-snapshot-sub">Large regulated organisation — multi-journey programme</div>
+                            </div>
+                        </div>
+
+                        <div class="ref-chip-row">
+                            <div class="ref-chip">Cost pressure: +24% (to 2025)</div>
+                            <div class="ref-chip">Headcount: +29% (5y)</div>
+                            <div class="ref-chip">Target: ~20% FTE impact</div>
+                        </div>
+
+                        <p class="ref-snapshot-desc">
+                            A programme to redesign end-to-end journeys and unlock productivity through process redesign, automation and tighter controls.
+                        </p>
+
+                        <ul class="ref-bullets">
+                            <li>AI-enabled automation &amp; digitalisation of repetitive activities</li>
+                            <li>Process simplification to reduce manual workload and improve throughput</li>
+                            <li>Automated controls and fraud prevention levers</li>
+                            <li>Governance reinforced with clear KPIs and decision routines</li>
+                        </ul>
+
+                        <div class="ref-snapshot-foot">Illustrative impact: significant workforce needs reduction, anchored in a portfolio of IT and non-IT levers.</div>
+                    </div>
+
+                    <div class="ref-snapshot">
+                        <div class="ref-snapshot-header">
+                            <div class="geo-icon light">□</div>
+                            <div>
+                                <div class="ref-snapshot-title">Finance data &amp; reporting industrialisation</div>
+                                <div class="ref-snapshot-sub">Decentralised teams — fragmented definitions &amp; tooling</div>
+                            </div>
+                        </div>
+
+                        <div class="ref-chip-row">
+                            <div class="ref-chip">~290 FTE</div>
+                            <div class="ref-chip">~40 teams</div>
+                            <div class="ref-chip">32% time on low-value data work</div>
+                            <div class="ref-chip">Efficiency gain: ~50%</div>
+                        </div>
+
+                        <p class="ref-snapshot-desc">
+                            Centralise and industrialise data collection and organisation to unlock self-serve decisioning — not “more reporting”.
+                        </p>
+
+                        <ul class="ref-bullets">
+                            <li>A single governed access point and an integrated data catalogue</li>
+                            <li>Centralised structuring and enrichment to eliminate data duplication</li>
+                            <li>AI-enabled access for decision makers (personalised views, fewer report requests)</li>
+                            <li>Decision routines accelerated through “zero-based” simplification</li>
+                        </ul>
+
+                        <div class="ref-snapshot-foot">Illustrative impact: material reduction in reporting effort and faster decision cycles.</div>
+                    </div>
+
+                    <div class="ref-snapshot">
+                        <div class="ref-snapshot-header">
+                            <div class="geo-icon light">○</div>
+                            <div>
+                                <div class="ref-snapshot-title">Run IT productivity programme</div>
+                                <div class="ref-snapshot-sub">High volumes — cost control under pressure</div>
+                            </div>
+                        </div>
+
+                        <div class="ref-chip-row">
+                            <div class="ref-chip">Efficiency gain: 42%</div>
+                            <div class="ref-chip">Focus: incidents &amp; support</div>
+                            <div class="ref-chip">Scope: RTB processes</div>
+                        </div>
+
+                        <p class="ref-snapshot-desc">
+                            Identify disruptive levers beyond traditional sourcing and tooling optimisation to increase RTB productivity and reliability.
+                        </p>
+
+                        <ul class="ref-bullets">
+                            <li>NLP/ML-driven ticket classification and routing</li>
+                            <li>Automated incident triage and alert reduction</li>
+                            <li>Root-cause analytics (data mining) and automated resolution patterns</li>
+                            <li>Targeted use of LLMs to automate parts of programming work</li>
+                        </ul>
+
+                        <div class="ref-snapshot-foot">Illustrative impact: step-change in RTB productivity through redesigned routines + automation.</div>
+                    </div>
+
+                    <div class="ref-snapshot">
+                        <div class="ref-snapshot-header">
+                            <div class="geo-icon light">◇</div>
+                            <div>
+                                <div class="ref-snapshot-title">Onboarding &amp; lifecycle management (incl. KYC)</div>
+                                <div class="ref-snapshot-sub">Highly regulated, multi-process journey redesign</div>
+                            </div>
+                        </div>
+
+                        <div class="ref-chip-row">
+                            <div class="ref-chip">27 → 2 processes</div>
+                            <div class="ref-chip">~400 FTE E2E workload</div>
+                            <div class="ref-chip">Efficiency gain: 57%</div>
+                        </div>
+
+                        <p class="ref-snapshot-desc">
+                            Reframe onboarding and lifecycle events as a continuous information journey, then industrialise with data-native decisioning and automation.
+                        </p>
+
+                        <ul class="ref-bullets">
+                            <li>Optimised data model leveraging KYC utilities and digital ID where available</li>
+                            <li>Automated interpretation of legal documents (NLP/ML)</li>
+                            <li>GenAI-supported reviews of KYC summaries (human-controlled)</li>
+                            <li>Rule-based quality control, task orchestration and case routing</li>
+                        </ul>
+
+                        <div class="ref-snapshot-foot">Illustrative impact: large efficiency uplift while preserving regulatory steps and controls.</div>
                     </div>
                 </div>
-
-                <div class="ref-chip-row">
-                    <div class="ref-chip">Efficiency gain: 42%</div>
-                    <div class="ref-chip">Focus: incidents &amp; support</div>
-                    <div class="ref-chip">Scope: RTB processes</div>
-                </div>
-
-                <p class="ref-snapshot-desc">Identify disruptive levers beyond traditional sourcing and tooling optimisation to increase RTB productivity and reliability.</p>
-
-                <div class="ref-snapshot-details">
-                    <ul class="ref-bullets">
-                        <li>NLP/ML-driven ticket classification and routing</li>
-                        <li>Automated incident triage and alert reduction</li>
-                        <li>Root-cause analytics (data mining) and automated resolution patterns</li>
-                        <li>Targeted use of GenAI to automate parts of programming work</li>
-                    </ul>
-                    <div class="ref-snapshot-foot">Illustrative impact: step-change in RTB productivity through redesigned routines + automation.</div>
-                </div>
-
-                <div class="ref-snapshot-footer"><span class="expand-hint">Tap to expand →</span></div>
-            </div>
-
-            <div class="ref-snapshot" tabindex="0" role="button" aria-expanded="false">
-                <div class="ref-snapshot-header">
-                    <div class="geo-icon light">◇</div>
-                    <div>
-                        <div class="ref-snapshot-title">Onboarding &amp; lifecycle management (incl. KYC)</div>
-                        <div class="ref-snapshot-sub">Highly regulated — multi‑process journey redesign</div>
-                    </div>
-                </div>
-
-                <div class="ref-chip-row">
-                    <div class="ref-chip">27 → 2 processes</div>
-                    <div class="ref-chip">~400 FTE E2E workload</div>
-                    <div class="ref-chip">Efficiency gain: 57%</div>
-                </div>
-
-                <p class="ref-snapshot-desc">Reframe onboarding and lifecycle events as a continuous information journey, then industrialise with data‑native decisioning and automation.</p>
-
-                <div class="ref-snapshot-details">
-                    <ul class="ref-bullets">
-                        <li>Optimised data model leveraging KYC utilities and digital ID where available</li>
-                        <li>Automated interpretation of legal documents (NLP/ML)</li>
-                        <li>GenAI-supported reviews of KYC summaries (human‑controlled)</li>
-                        <li>Rule-based quality control, task orchestration and case routing</li>
-                    </ul>
-                    <div class="ref-snapshot-foot">Illustrative impact: large efficiency uplift while preserving regulatory steps and controls.</div>
-                </div>
-
-                <div class="ref-snapshot-footer"><span class="expand-hint">Tap to expand →</span></div>
-            </div>
-        </div>
-
-        <div class="references-card references-outcomes">
-            <div class="references-card-header">
-                <div class="geo-icon light">◇</div>
-                <div>
-                    <div class="references-card-title">Observed outcomes (context‑dependent)</div>
-                    <div class="references-card-sub">Orders of magnitude across CORE deployments</div>
-                </div>
-            </div>
-
-            <div class="ref-metric-grid">
-                <div class="ref-metric">
-                    <div class="ref-metric-kpi">Up to +30 pts</div>
-                    <div class="ref-metric-label">NPS uplift on customer journeys</div>
-                </div>
-                <div class="ref-metric">
-                    <div class="ref-metric-kpi">40–50%</div>
-                    <div class="ref-metric-label">End-to-end efficiency gains (FTE / cost)</div>
-                </div>
-                <div class="ref-metric">
-                    <div class="ref-metric-kpi">20–35%</div>
-                    <div class="ref-metric-label">Investments redirected to “target‑state” solutions</div>
-                </div>
-                <div class="ref-metric">
-                    <div class="ref-metric-kpi">42–57%</div>
-                    <div class="ref-metric-label">Productivity gains in selected IT / compliance‑heavy functions</div>
-                </div>
-            </div>
-
-            <div class="references-mini-disclaimer">
-                These are reference points observed across CVA programmes. Outcomes depend on starting point, scope and adoption. We use them to calibrate ambition and design credible programmes — not as generic promises.
-            </div>
+</div>
         </div>
     </div>
 </section>
 
-    <!-- Ecosystem Section -->
-    <section id="ecosystem" class="ecosystem-section">
-        <div class="section-container">
-            <div class="section-header">
-                <div class="section-tag">Execution ecosystem</div>
-                <h2 class="section-title">CVA-led programmes, reinforced by a curated ecosystem of experts</h2>
-                <p class="section-subtitle">CVA leads governance and value tracking; partners accelerate build and integration when needed.</p>
-            </div>
+    
+<!-- Ecosystem Section -->
+<section id="ecosystem" class="ecosystem-section">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-tag">Execution ecosystem</div>
+            <h2 class="section-title">CVA-led programmes, reinforced by a curated ecosystem of experts</h2>
+            <p class="section-subtitle">
+                CVA keeps the governance and value backbone; partners accelerate build and integration when needed.
+            </p>
+        </div>
 
-            <div class="ecosystem-grid">
-                <div class="modes-card">
-                    <h3 class="modes-title">Three partnership modes</h3>
+        <div class="ecosystem-grid">
+            <div class="modes-card">
+                <h3 class="modes-title">Three partnership modes</h3>
 
-                    <div class="mode-item">
-                        <div class="mode-name">Mode 1. CVA-led diagnostic and programme design</div>
-                        <div class="mode-desc">Optional targeted inputs (benchmarks, feasibility).</div>
-                    </div>
-
-                    <div class="mode-item">
-                        <div class="mode-name">Mode 2. Joint delivery with blended teams</div>
-                        <div class="mode-desc">CVA steers governance and value; partners build and integrate.</div>
-                    </div>
-
-                    <div class="mode-item">
-                        <div class="mode-name">Mode 3. End-to-end “one-stop shop”</div>
-                        <div class="mode-desc">CVA leads the COMEX interface; partners provide execution capacity and technical depth.</div>
-                    </div>
-
-                    <div class="partner-categories">
-                        <div class="partner-categories-title">Partner categories (technology-neutral selection)</div>
-                        <ul class="partner-categories-list">
-                            <li>AI engineering boutiques (product squads)</li>
-                            <li>Data platform and integration specialists</li>
-                            <li>Energy software vendors (when buying beats building)</li>
-                        </ul>
-                    </div>
-
-                    <div class="modes-accountability">
-                        ◆ CVA remains accountable for governance, decision design, controls and value tracking.
-                    </div>
+                <div class="mode-item">
+                    <div class="mode-name">Mode 1. CVA-led diagnostic and programme design</div>
+                    <div class="mode-desc">Optional targeted inputs (benchmarks, feasibility, architecture choices).</div>
                 </div>
 
-                <div class="ecosystem-value-card">
-                    <h3 class="ecosystem-value-title">What clients get from the ecosystem</h3>
-                    <ul class="content-list light">
-                        <li><span class="list-lead">Speed with control.</span> Execution acceleration without losing governance and value discipline.</li>
-                        <li><span class="list-lead">Vendor neutrality.</span> Make-or-buy decisions anchored in client constraints, not partner incentives.</li>
-                        <li><span class="list-lead">Reuse and scale.</span> Playbooks and architecture that can be replicated across processes and assets.</li>
+                <div class="mode-item">
+                    <div class="mode-name">Mode 2. Joint delivery with blended teams</div>
+                    <div class="mode-desc">CVA steers governance and value; partners build and integrate under shared success criteria.</div>
+                </div>
+
+                <div class="mode-item">
+                    <div class="mode-name">Mode 3. End-to-end delivery for the client</div>
+                    <div class="mode-desc">CVA leads the COMEX interface; partners provide execution capacity and technical depth.</div>
+                </div>
+
+                <div class="partner-categories">
+                    <div class="partner-categories-title">Typical partner categories (technology-neutral)</div>
+                    <ul class="partner-categories-list">
+                        <li>AI engineering boutiques (product squads)</li>
+                        <li>Data platform and integration specialists</li>
+                        <li>Energy software vendors (when buying beats building)</li>
+                    </ul>
+                </div>
+
+                <p class="modes-note">
+                    The goal is not to compete with integrators, but to remain the strategic orchestrator ensuring that industrialisation happens in core processes with measurable outcomes.
+                </p>
+            </div>
+
+            <div class="ecosystem-value-card">
+                <h3 class="ecosystem-value-title">What clients get from the ecosystem</h3>
+                <ul class="content-list light">
+                    <li>
+                        <span class="list-lead">Speed with control.</span>
+                        Execution acceleration without losing governance and value discipline.
+                    </li>
+                    <li>
+                        <span class="list-lead">Vendor neutrality.</span>
+                        Make-or-buy decisions anchored in client constraints, not partner incentives.
+                    </li>
+                    <li>
+                        <span class="list-lead">Reuse and scale.</span>
+                        Playbooks and architecture that can be replicated across processes and assets.
+                    </li>
+                </ul>
+
+                <div class="ecosystem-highlight">
+                    ◆ CVA remains accountable for governance, decision design, controls and value tracking.
+                </div>
+
+                <div class="ecosystem-mini">
+                    <div class="ecosystem-mini-title">How partnering works (in practice)</div>
+                    <ul class="ecosystem-mini-list">
+                        <li>Make-or-buy and partner selection anchored in the programme blueprint</li>
+                        <li>Delivery organised around quality gates, controls and outcome KPIs</li>
+                        <li>Industrialisation runbooks to replicate across processes, assets and geographies</li>
                     </ul>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 
     <!-- CTA Section -->
@@ -3569,7 +3728,7 @@
         <div class="section-container">
             <div class="section-header">
                 <div class="section-tag">Contact</div>
-                <h2 class="section-title">Request a scoping call</h2>
+                <h2 class="section-title">Request a Scoping call</h2>
                 <p class="section-subtitle">
                     Share your context in two minutes — we will come back with a short, tailored scoping proposal.
                 </p>
@@ -3628,7 +3787,7 @@
 
     <!-- Floating CTA -->
     <div class="floating-cta" id="floatingCta">
-        <a href="#start"><button class="btn-primary btn-small">Book a Brick 1 diagnostic →</button></a>
+        <a href="#start"><button class="btn-primary btn-small">Request a Scoping call →</button></a>
     </div>
 
     <script>
@@ -3766,38 +3925,6 @@
             });
         });
 
-        // Reference snapshots expand/collapse (to keep the section light)
-        document.querySelectorAll('.ref-snapshot').forEach(card => {
-            const hintEl = card.querySelector('.expand-hint');
-            const handleActivate = (e) => {
-                // Prevent accidental text selection / double activation on iOS
-                e.preventDefault();
-                const wasActive = card.classList.contains('active');
-
-                document.querySelectorAll('.ref-snapshot').forEach(c => {
-                    c.classList.remove('active');
-                    c.setAttribute('aria-expanded', 'false');
-                    const h = c.querySelector('.expand-hint');
-                    if (h) h.textContent = 'Tap to expand →';
-                });
-
-                if (!wasActive) {
-                    card.classList.add('active');
-                    card.setAttribute('aria-expanded', 'true');
-                    if (hintEl) hintEl.textContent = 'Tap to collapse';
-                }
-            };
-
-            card.addEventListener('click', handleActivate);
-            card.addEventListener('touchend', handleActivate);
-            card.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleActivate(e);
-                }
-            });
-        });
-
         // Interactive matrix - play dots and legend
         const playDetailPanel = document.getElementById('playDetailPanel');
         const playDetailTitle = document.getElementById('playDetailTitle');
@@ -3889,7 +4016,7 @@
             const body = encodeURIComponent(
 `Hello,
 
-I would like to request a scoping call regarding CVA's AI for Energy programme.
+I would like to request a scoping call regarding CVA AI for Energy.
 
 SEGMENT: ${segment}
 
