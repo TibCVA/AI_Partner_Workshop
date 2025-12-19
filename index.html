@@ -1137,7 +1137,7 @@
         /* Proof Section */
         .proof-section {
             padding: 120px 32px;
-            background: white;
+            background: var(--gray-100);
         }
 
         .proof-disclaimer {
@@ -1162,15 +1162,18 @@
 
         .proof-cards {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
         }
 
         .proof-card {
-            background: var(--gray-100);
+            position: relative;
+            background: white;
             border: 1px solid var(--gray-300);
-            border-radius: 16px;
-            padding: 24px;
+            border-radius: 18px;
+            padding: 26px;
+            box-shadow: 0 12px 34px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
         }
 
         .proof-card-header {
@@ -1535,7 +1538,11 @@
             .core-lots {
                 grid-template-columns: 1fr;
             }
-        }
+        
+            .proof-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+}
 
         @media (max-width: 768px) {
             .references-snapshots {
@@ -2127,7 +2134,111 @@
             color: var(--navy);
             line-height: 1.6;
         }
-</style>
+
+        /* Hero positioning tabs (lighter hero card) */
+        .hero-card-tabs {
+            display: inline-flex;
+            gap: 8px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 14px;
+            margin-bottom: 14px;
+        }
+
+        .hero-tab {
+            appearance: none;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 10px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .hero-tab:hover {
+            background: rgba(255, 255, 255, 0.10);
+        }
+
+        .hero-tab.active {
+            background: rgba(0, 198, 198, 0.20);
+            border-color: rgba(0, 198, 198, 0.35);
+            color: white;
+        }
+
+        .hero-panel[hidden] {
+            display: none !important;
+        }
+
+        /* Maturity CTA title (home page) */
+        .maturity-minicallout-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: -0.01em;
+            margin-bottom: 12px;
+        }
+
+        /* Proof cards accent */
+        .proof-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            opacity: 0.9;
+        }
+
+        /* References expand (keeps the section readable) */
+        .ref-compact-summary {
+            margin-top: 14px;
+            padding: 14px 16px;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-300);
+            border-radius: 14px;
+            font-size: 13px;
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+
+        .ref-expand-toggle {
+            width: 100%;
+            margin-top: 14px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--gray-300);
+            background: white;
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .ref-expand-toggle:hover {
+            background: var(--gray-100);
+        }
+
+        .ref-expand-toggle.small {
+            margin-top: 10px;
+            padding: 10px 12px;
+            font-size: 12px;
+        }
+
+        .ref-expand-body {
+            margin-top: 14px;
+        }
+
+    </style>
 </head>
 <body>
 <!-- Progress Bar -->
@@ -2226,21 +2337,27 @@
 <div class="hero-card-sub">We sell governance, value tracking and decision redesign, not models</div>
 </div>
 </div>
-<div class="hero-card-box">
-<div class="hero-card-box-title">What clients typically have</div>
-<ul class="hero-card-list">
-<li>Many pilots, scattered across functions and BUs</li>
-<li>Vendors pushing platforms and "AI at scale" narratives</li>
-<li>Limited end-to-end ownership, weak value tracking</li>
-</ul>
+<div class="hero-card-tabs" role="tablist" aria-label="CVA positioning details">
+    <button class="hero-tab active" data-panel="create" role="tab" aria-selected="true" aria-controls="heroPanelCreate">What we create</button>
+    <button class="hero-tab" data-panel="have" role="tab" aria-selected="false" aria-controls="heroPanelHave">What clients typically have</button>
 </div>
-<div class="hero-card-box">
-<div class="hero-card-box-title">What we create</div>
-<ul class="hero-card-list">
-<li>A prioritised use case portfolio anchored in core processes</li>
-<li>A COMEX-steerable programme architecture and governance</li>
-<li>Industrialisation playbooks with execution partners when relevant</li>
-</ul>
+
+<div class="hero-card-box hero-panel active" id="heroPanelCreate" data-panel="create" role="tabpanel">
+    <div class="hero-card-box-title">What we create</div>
+    <ul class="hero-card-list">
+        <li>A prioritised use case portfolio anchored in core processes</li>
+        <li>A COMEX-steerable programme architecture and governance</li>
+        <li>Industrialisation playbooks with execution partners when relevant</li>
+    </ul>
+</div>
+
+<div class="hero-card-box hero-panel" id="heroPanelHave" data-panel="have" role="tabpanel" hidden>
+    <div class="hero-card-box-title">What clients typically have</div>
+    <ul class="hero-card-list">
+        <li>Many pilots, scattered across functions and BUs</li>
+        <li>Vendors pushing platforms and "AI at scale" narratives</li>
+        <li>Limited end-to-end ownership, weak value tracking</li>
+    </ul>
 </div>
 <div class="hero-card-footer">
 <span class="gloss" tabindex="0">CORE<span class="tooltip-text">CORE is CVA's proven five-step approach to redesign end-to-end processes and embed data and AI into decision making.</span></span> and 
@@ -2259,10 +2376,11 @@
 <section class="maturity-section" id="maturity">
 <div class="section-container">
 <div aria-label="AI maturity self-check" class="maturity-minicallout" role="region">
-<a class="maturity-minicallout-link" href="ai-maturity.html">
-<button class="btn-primary">Start the self-check →</button>
-</a>
-<div class="maturity-minicallout-sub">6 minutes • runs locally • no data sent</div>
+    <div class="maturity-minicallout-title">Take the Energy AI maturity test</div>
+    <a class="maturity-minicallout-link" href="ai-maturity.html">
+        <button class="btn-primary">Start the self-check →</button>
+    </a>
+    <div class="maturity-minicallout-sub">6 minutes • runs locally • no data sent</div>
 </div>
 </div>
 </section>
@@ -2458,7 +2576,7 @@
 <div class="matrix-wrap">
 <div class="matrix-header">
 <span class="matrix-title">Mapping logic</span>
-<span class="matrix-hint">Click dots for details</span>
+<span class="matrix-hint">Tap dots for details</span>
 </div>
 <svg aria-label="Use case portfolio matrix" class="matrix-svg" role="img" viewbox="0 0 500 340">
 <!-- Grid -->
@@ -2507,17 +2625,8 @@
 <text fill="white" font-size="10" font-weight="800" text-anchor="middle" x="375" y="194">F</text>
 </g>
 </svg>
-<div class="scoring-box">
-<div class="scoring-title">How we score use cases</div>
-<ul class="scoring-list">
-<li><strong>Process criticality</strong> — Core to operations, COMEX-steerable</li>
-<li><strong>Market maturity</strong> — Peer deployments exist, vendorised solutions available</li>
-<li><strong>Industrialisation blockers</strong> — Data readiness, controls gap, change complexity</li>
-</ul>
-</div>
-<div class="matrix-note">
-                        We intentionally select use cases where market solutions and pilots exist, but where end-to-end industrialisation is typically missing: governance, controls, process redesign, value tracking.
-                    </div>
+
+
 </div>
 <div class="legend-wrap">
 <h3 class="legend-title">Portfolio legend (A–F)</h3>
@@ -2546,15 +2655,7 @@
 </div>
 </div>
 <!-- Segment entry points -->
-<div class="segment-entry-box">
-<div class="segment-entry-title">Typical entry points by segment</div>
-<div class="segment-entry-grid">
-<div class="segment-entry-item"><strong>DSO / TSO</strong> <span class="plays">A, B</span></div>
-<div class="segment-entry-item"><strong>Utilities</strong> <span class="plays">C, D</span></div>
-<div class="segment-entry-item"><strong>IPP / Renewables</strong> <span class="plays">E</span></div>
-<div class="segment-entry-item"><strong>ESCO</strong> <span class="plays">F</span></div>
-</div>
-</div>
+
 </div>
 </div>
 </div>
@@ -2630,6 +2731,9 @@
 <div class="references-card-sub">From baseline to a steerable transformation trajectory</div>
 </div>
 </div>
+<div class="ref-compact-summary">Lot 1: Baseline + data-native redesign (M1–M3) • Lot 2: Gap analysis + trajectory (M4–M5)</div>
+<button class="ref-expand-toggle" type="button" aria-expanded="false">Tap to expand →</button>
+<div class="ref-expand-body" hidden>
 <div class="core-lots">
 <div class="core-lot">
 <div class="core-lot-badge">Lot 1</div>
@@ -2663,6 +2767,8 @@
 <div class="references-mini-note">
                         The point is not “more models”. The point is an implementable interface to decisions: rules, controls, ownership and operating rhythms that secure value in run.
                     </div>
+
+</div>
 </div>
 <div class="references-card">
 <div class="references-card-header">
@@ -2714,12 +2820,15 @@
 <p class="ref-snapshot-desc">
                             A programme to redesign end-to-end journeys and unlock productivity through process redesign, automation and tighter controls.
                         </p>
+<button class="ref-expand-toggle small" type="button" aria-expanded="false">Tap to expand →</button>
+<div class="ref-expand-body" hidden>
 <ul class="ref-bullets">
 <li>AI-enabled automation &amp; digitalisation of repetitive activities</li>
 <li>Process simplification to reduce manual workload and improve throughput</li>
 <li>Automated controls and fraud prevention levers</li>
 <li>Governance reinforced with clear KPIs and decision routines</li>
 </ul>
+</div>
 <div class="ref-snapshot-foot">Illustrative impact: significant workforce needs reduction, anchored in a portfolio of IT and non-IT levers.</div>
 </div>
 <div class="ref-snapshot">
@@ -2739,12 +2848,15 @@
 <p class="ref-snapshot-desc">
                             Centralise and industrialise data collection and organisation to unlock self-serve decisioning — not “more reporting”.
                         </p>
+<button class="ref-expand-toggle small" type="button" aria-expanded="false">Tap to expand →</button>
+<div class="ref-expand-body" hidden>
 <ul class="ref-bullets">
 <li>A single governed access point and an integrated data catalogue</li>
 <li>Centralised structuring and enrichment to eliminate data duplication</li>
 <li>AI-enabled access for decision makers (personalised views, fewer report requests)</li>
 <li>Decision routines accelerated through “zero-based” simplification</li>
 </ul>
+</div>
 <div class="ref-snapshot-foot">Illustrative impact: material reduction in reporting effort and faster decision cycles.</div>
 </div>
 <div class="ref-snapshot">
@@ -2763,12 +2875,15 @@
 <p class="ref-snapshot-desc">
                             Identify disruptive levers beyond traditional sourcing and tooling optimisation to increase RTB productivity and reliability.
                         </p>
+<button class="ref-expand-toggle small" type="button" aria-expanded="false">Tap to expand →</button>
+<div class="ref-expand-body" hidden>
 <ul class="ref-bullets">
 <li>NLP/ML-driven ticket classification and routing</li>
 <li>Automated incident triage and alert reduction</li>
 <li>Root-cause analytics (data mining) and automated resolution patterns</li>
 <li>Targeted use of LLMs to automate parts of programming work</li>
 </ul>
+</div>
 <div class="ref-snapshot-foot">Illustrative impact: step-change in RTB productivity through redesigned routines + automation.</div>
 </div>
 <div class="ref-snapshot">
@@ -2787,12 +2902,15 @@
 <p class="ref-snapshot-desc">
                             Reframe onboarding and lifecycle events as a continuous information journey, then industrialise with data-native decisioning and automation.
                         </p>
+<button class="ref-expand-toggle small" type="button" aria-expanded="false">Tap to expand →</button>
+<div class="ref-expand-body" hidden>
 <ul class="ref-bullets">
 <li>Optimised data model leveraging KYC utilities and digital ID where available</li>
 <li>Automated interpretation of legal documents (NLP/ML)</li>
 <li>GenAI-supported reviews of KYC summaries (human-controlled)</li>
 <li>Rule-based quality control, task orchestration and case routing</li>
 </ul>
+</div>
 <div class="ref-snapshot-foot">Illustrative impact: large efficiency uplift while preserving regulatory steps and controls.</div>
 </div>
 </div>
@@ -2909,7 +3027,7 @@
 </footer>
 <!-- Floating CTA -->
 <div class="floating-cta" id="floatingCta">
-<a href="#start"><button class="btn-primary btn-small">Book a Brick 1 diagnostic →</button></a>
+<a href="#start"><button class="btn-primary btn-small">Request a Brick 1 diagnostic →</button></a>
 </div>
 <script>
         // Play data for interactive matrix
@@ -3045,6 +3163,56 @@
             });
         });
 
+        
+        // Hero positioning tabs (reduces visual density in the hero card)
+        (function initHeroTabs() {
+            const tabs = Array.from(document.querySelectorAll('.hero-tab'));
+            const panels = Array.from(document.querySelectorAll('.hero-panel'));
+            if (!tabs.length || !panels.length) return;
+
+            const activate = (panelName, focusTab = false) => {
+                tabs.forEach(t => {
+                    const active = t.dataset.panel === panelName;
+                    t.classList.toggle('active', active);
+                    t.setAttribute('aria-selected', active ? 'true' : 'false');
+                    if (active && focusTab) t.focus();
+                });
+                panels.forEach(p => {
+                    const active = p.dataset.panel === panelName;
+                    p.hidden = !active;
+                    p.classList.toggle('active', active);
+                });
+            };
+
+            tabs.forEach((tab, idx) => {
+                tab.addEventListener('click', () => activate(tab.dataset.panel));
+                tab.addEventListener('keydown', (e) => {
+                    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+                    e.preventDefault();
+                    const dir = e.key === 'ArrowRight' ? 1 : -1;
+                    const next = (idx + dir + tabs.length) % tabs.length;
+                    activate(tabs[next].dataset.panel, true);
+                });
+            });
+
+            // Ensure panels match initial active tab
+            const initial = document.querySelector('.hero-tab.active')?.dataset.panel || tabs[0].dataset.panel;
+            activate(initial);
+        })();
+
+        // Expand/collapse (CVA references) — keeps the section readable
+        document.querySelectorAll('.ref-expand-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const body = btn.nextElementSibling;
+                if (!body || !body.classList.contains('ref-expand-body')) return;
+
+                const willOpen = body.hidden === true;
+                body.hidden = !willOpen;
+                btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+                btn.textContent = willOpen ? 'Tap to collapse' : 'Tap to expand →';
+            });
+        });
+
         // Interactive matrix - play dots and legend
         const playDetailPanel = document.getElementById('playDetailPanel');
         const playDetailTitle = document.getElementById('playDetailTitle');
@@ -3052,7 +3220,7 @@
         const playDetailBuyers = document.getElementById('playDetailBuyers');
         const playDetailWedge = document.getElementById('playDetailWedge');
 
-        function selectPlay(playId) {
+        function selectPlay(playId, opts = {}) {
             // Update dots
             document.querySelectorAll('.play-dot').forEach(dot => {
                 dot.classList.toggle('active', dot.dataset.play === playId);
@@ -3073,7 +3241,7 @@
                 playDetailPanel.classList.add('active');
 
                 // Scroll detail panel into view on mobile
-                if (window.innerWidth < 1024) {
+                if (!opts.silent && window.innerWidth < 1024) {
                     safeScrollIntoView(playDetailPanel, { behavior: 'smooth', block: 'nearest' });
                 }
             }
@@ -3111,6 +3279,8 @@
                 }
             });
         });
+
+        selectPlay('A', { silent: true });
 
         // Segment buttons - improved for mobile
         document.querySelectorAll('.segment-btn').forEach(btn => {
