@@ -1,1 +1,4430 @@
-tets
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CVA | AI for Energy — AI maturity self-check</title>
+    <meta name="description" content="A 6-minute AI maturity self-check for energy companies: adoption & impact, data readiness, delivery & monitoring, governance & risk, people & partners.">
+    
+    <!-- OpenGraph / Social -->
+    <meta property="og:title" content="CVA | AI for Energy — AI maturity self-check">
+    <meta property="og:description" content="A 6-minute AI maturity self-check for energy companies. Evidence-friendly questions, transparent scoring, instant results.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_GB">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CVA | AI for Energy — AI maturity self-check">
+    <meta name="twitter:description" content="A 6-minute AI maturity self-check for energy companies.">
+    
+    <link rel="canonical" href="https://cva.com/ai-for-energy">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --navy: #1F2B4F;
+            --navy-deep: #172759;
+            --blue: #20357A;
+            --accent: #00A1BF;
+            --accent-light: #00C6C6;
+            --warm: #FA9B48;
+            --ink: #1D1D1B;
+            --gray: #717A7C;
+            --gray-100: #F4F8FD;
+            --gray-200: #EDF2F2;
+            --gray-300: #E2E8F0;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #374151;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Anchor offset for fixed navigation */
+        section { scroll-margin-top: 96px; }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-700);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Focus styles for accessibility */
+        *:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            z-index: 1001;
+            transition: width 0.1s linear;
+            width: 0%;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 16px 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+            border-bottom: 1px solid var(--gray-300);
+        }
+
+        .nav-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            letter-spacing: -0.02em;
+            transition: color 0.3s ease;
+        }
+
+        nav.scrolled .logo {
+            color: var(--navy);
+        }
+
+        .logo-sub {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        nav.scrolled .logo-sub {
+            color: var(--gray-500);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-link {
+            position: relative;
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        nav.scrolled .nav-link {
+            color: var(--gray-600);
+        }
+
+        nav.scrolled .nav-link:hover {
+            color: var(--navy);
+        }
+
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            width: 44px;
+            height: 44px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled .mobile-menu-btn {
+            border-color: var(--gray-300);
+            background: white;
+            color: var(--navy);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 76px;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid var(--gray-300);
+            padding: 24px 32px;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            z-index: 99;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 8px 0;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'DM Sans', sans-serif;
+            box-shadow: 0 10px 30px rgba(0, 161, 191, 0.25);
+        }
+
+        .btn-primary:hover {
+            filter: brightness(0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 161, 191, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(0, 161, 191, 0.08);
+            color: var(--accent);
+            border: 1px solid rgba(0, 161, 191, 0.3);
+            padding: 14px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 161, 191, 0.12);
+        }
+
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 13px;
+        }
+
+        /* Geometric Icons */
+        .geo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .geo-icon.light {
+            background: white;
+            border: 1px solid var(--gray-300);
+            color: var(--accent);
+        }
+
+        .geo-icon.dark {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--accent-light);
+        }
+
+        /* Tooltip */
+        .gloss {
+            position: relative;
+            font-weight: 700;
+            border-bottom: 1px dashed currentColor;
+            cursor: help;
+        }
+
+        .gloss .tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px);
+            background: var(--navy);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.5;
+            width: 280px;
+            text-align: left;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .gloss .tooltip-text::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: var(--navy);
+        }
+
+        .gloss:hover .tooltip-text,
+        .gloss:focus .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 50%, var(--blue) 100%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+        }
+
+        .grid-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.6;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.4; }
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 198, 198, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 0 12px rgba(0, 198, 198, 0); transform: scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 120px 32px 80px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent-light);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .hero-tag-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-light);
+            animation: pulseDot 2.5s ease-in-out infinite;
+        }
+
+        .hero-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(40px, 5vw, 60px);
+            font-weight: 400;
+            line-height: 1.1;
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 32px;
+            max-width: 560px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        
+        .hero-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            transition: color 0.3s ease;
+            margin-bottom: 32px;
+        }
+
+        .hero-link:hover {
+            color: white;
+        }
+
+.hero-segments {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .segment-tag {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Hero Card */
+        .hero-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        .hero-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .hero-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--accent-light);
+        }
+
+        .hero-card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .hero-card-sub {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .hero-card-box {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .hero-card-box-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .hero-card-list {
+            list-style: none;
+        }
+
+        .hero-card-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.5;
+        }
+
+        .hero-card-list li::before {
+            content: '■';
+            position: absolute;
+            left: 0;
+            color: var(--accent-light);
+            font-size: 8px;
+            top: 5px;
+        }
+
+        .hero-card-footer {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 16px;
+        }
+
+        .hero-card-footer .gloss {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .scroll-indicator svg {
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* Sections common */
+        .section-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(32px, 4vw, 44px);
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--navy);
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 17px;
+            color: var(--gray-600);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Positioning Section */
+        .positioning-section {
+            padding: 120px 32px;
+            background: white;
+        }
+
+        .positioning-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .positioning-card {
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .positioning-card.light {
+            background: var(--gray-100);
+            border: 1px solid var(--gray-300);
+        }
+
+        .positioning-card.dark {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+            color: white;
+        }
+
+        .positioning-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .positioning-card.light .positioning-card-title {
+            color: var(--navy);
+        }
+
+        .content-list {
+            list-style: none;
+        }
+
+        .content-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 14px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .content-list li::before {
+            content: '■';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 10px;
+            top: 4px;
+        }
+
+        .content-list.light li::before {
+            color: var(--accent-light);
+        }
+
+        .content-list .list-lead {
+            font-weight: 700;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .positioning-card.light .list-lead {
+            color: var(--ink);
+        }
+
+        .positioning-card.dark .content-list li {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .positioning-card.dark .list-lead {
+            color: white;
+        }
+
+        .dida-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .dida-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .dida-card-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .dida-card-desc {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.5;
+        }
+
+        .dida-note {
+            margin-top: 24px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Offer Section */
+        .offer-section {
+            padding: 120px 32px;
+            background: var(--gray-100);
+        }
+
+        .bricks-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .brick-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 2px solid transparent;
+        }
+
+        .brick-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 161, 191, 0.15);
+        }
+
+        .brick-card.active {
+            border-color: var(--accent);
+        }
+
+        .brick-header {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .brick-header-1 { background: linear-gradient(135deg, #00A1BF 0%, #00B8D4 100%); }
+        .brick-header-2 { background: linear-gradient(135deg, #0091A8 0%, #00A1BF 100%); }
+        .brick-header-3 { background: linear-gradient(135deg, #007A8C 0%, #0091A8 100%); }
+        .brick-header-4 { background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%); }
+
+        .brick-badge {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+
+        .brick-number {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+        }
+
+        .brick-body {
+            padding: 24px;
+            flex: 1;
+        }
+
+        .brick-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .brick-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--gray-600);
+            margin-bottom: 16px;
+        }
+
+        .brick-list {
+            list-style: none;
+        }
+
+        .brick-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--gray-700);
+            line-height: 1.5;
+        }
+
+        .brick-list li::before {
+            content: '■';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 8px;
+            top: 5px;
+        }
+
+        .brick-expanded {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-300);
+            display: none;
+        }
+
+        .brick-card.active .brick-expanded {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .brick-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--gray-200);
+            text-align: center;
+        }
+
+        .expand-hint {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .bricks-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 20px 28px;
+            background: white;
+            border: 1px solid var(--gray-300);
+            border-radius: 14px;
+            font-size: 14px;
+            color: var(--navy);
+            font-weight: 500;
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            padding: 120px 32px;
+            background: linear-gradient(180deg, #0f172a 0%, var(--navy-deep) 50%, var(--navy) 100%);
+            color: white;
+        }
+
+        .section-title-dark {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(32px, 4vw, 44px);
+            font-weight: 400;
+            line-height: 1.2;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle-dark {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .portfolio-container {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr;
+            gap: 40px;
+            margin-top: 48px;
+        }
+
+        .matrix-wrap {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 28px;
+        }
+
+        .matrix-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .matrix-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .matrix-hint {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .matrix-svg {
+            width: 100%;
+            height: auto;
+        }
+
+        .play-dot {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-dot:hover circle:first-child {
+            opacity: 0.3;
+            r: 20;
+        }
+
+        .play-dot.active circle:first-child {
+            opacity: 0.4;
+        }
+
+        .play-dot.active circle:nth-child(2) {
+            fill: var(--accent-light);
+        }
+
+        /* Scoring criteria box */
+        .scoring-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+        }
+
+        .scoring-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--accent-light);
+        }
+
+        .scoring-list {
+            list-style: none;
+        }
+
+        .scoring-list li {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .scoring-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border: 2px solid var(--accent-light);
+            border-radius: 2px;
+        }
+
+        .scoring-list li:nth-child(1)::before { background: var(--accent-light); }
+        .scoring-list li:nth-child(2)::before { background: rgba(0, 198, 198, 0.5); }
+        .scoring-list li:nth-child(3)::before { background: transparent; }
+
+        .matrix-note {
+            margin-top: 20px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.6;
+        }
+
+        .legend-wrap {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 28px;
+        }
+
+        .legend-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .legend-items {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .legend-item {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.5;
+            cursor: pointer;
+            padding: 10px 12px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .legend-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .legend-item.active {
+            background: rgba(0, 198, 198, 0.15);
+            border-color: rgba(0, 198, 198, 0.3);
+        }
+
+        .legend-item span {
+            font-weight: 800;
+            color: var(--accent-light);
+            margin-right: 8px;
+        }
+
+        /* Play detail panel */
+        .play-detail-panel {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 198, 198, 0.1);
+            border: 1px solid rgba(0, 198, 198, 0.2);
+            border-radius: 14px;
+            display: none;
+        }
+
+        .play-detail-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .play-detail-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .play-detail-row {
+            margin-bottom: 10px;
+        }
+
+        .play-detail-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .play-detail-value {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+
+        /* Segment entry points box */
+        .segment-entry-box {
+            margin-top: 24px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+        }
+
+        .segment-entry-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .segment-entry-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .segment-entry-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .segment-entry-item strong {
+            color: white;
+            min-width: 100px;
+        }
+
+        .segment-entry-item .plays {
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        /* Proof Section */
+        .proof-section {
+            padding: 120px 32px;
+            background: white;
+        }
+
+        .proof-disclaimer {
+            text-align: center;
+            margin-bottom: 48px;
+            padding: 16px 24px;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-300);
+            border-radius: 12px;
+            font-size: 13px;
+            color: var(--gray-600);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .proof-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 40px;
+        }
+
+        .proof-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .proof-card {
+            background: var(--gray-100);
+            border: 1px solid var(--gray-300);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .proof-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .proof-card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .proof-card-desc {
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .proof-card-bullets {
+            list-style: none;
+            margin-bottom: 14px;
+        }
+
+        .proof-card-bullets li {
+            font-size: 12px;
+            color: var(--gray-700);
+            padding-left: 16px;
+            position: relative;
+            margin-bottom: 6px;
+        }
+
+        .proof-card-bullets li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 11px;
+        }
+
+        .proof-card-anchor {
+            font-size: 12px;
+            color: var(--gray-500);
+            font-style: italic;
+        }
+
+        .credibility-card {
+            background: white;
+            border: 1px solid var(--gray-300);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .credibility-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+
+        .credibility-note {
+            margin-top: 24px;
+            padding: 20px;
+            background: var(--gray-100);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+
+/* CVA References Section */
+.references-section {
+    padding: 120px 32px;
+    background: linear-gradient(180deg, #FFFFFF 0%, var(--gray-100) 100%);
+    border-top: 1px solid var(--gray-200);
+}
+
+.references-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1.45fr;
+    gap: 40px;
+    margin-top: 48px;
+    align-items: start;
+}
+
+.references-left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.references-card {
+    background: white;
+    border: 1px solid var(--gray-300);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+.references-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.references-card-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.25;
+}
+
+.references-card-sub {
+    font-size: 12px;
+    color: var(--gray-500);
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.core-lots {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 16px;
+    margin-bottom: 18px;
+}
+
+.core-lot {
+    background: var(--gray-100);
+    border: 1px solid var(--gray-300);
+    border-radius: 16px;
+    padding: 18px;
+}
+
+.core-lot-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+}
+
+.core-lot-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.core-module {
+    background: white;
+    border: 1px solid var(--gray-300);
+    border-radius: 14px;
+    padding: 12px 12px;
+    margin-bottom: 10px;
+}
+
+.core-module:last-child {
+    margin-bottom: 0;
+}
+
+.core-module-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 6px;
+    line-height: 1.35;
+}
+
+.core-module-desc {
+    font-size: 12px;
+    color: var(--gray-600);
+    line-height: 1.5;
+}
+
+.references-mini-note {
+    margin-top: 10px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: rgba(0, 161, 191, 0.06);
+    border: 1px solid rgba(0, 161, 191, 0.18);
+    font-size: 13px;
+    color: var(--gray-700);
+    line-height: 1.6;
+}
+
+.ref-metric-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 10px;
+}
+
+.ref-metric {
+    background: var(--gray-100);
+    border: 1px solid var(--gray-300);
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.ref-metric-kpi {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+}
+
+.ref-metric-label {
+    font-size: 12px;
+    color: var(--gray-600);
+    line-height: 1.5;
+}
+
+.references-mini-disclaimer {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--gray-500);
+    line-height: 1.6;
+}
+
+.references-right-title {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--navy);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+.references-snapshots {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.ref-snapshot {
+    background: white;
+    border: 1px solid var(--gray-300);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.ref-snapshot:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0, 161, 191, 0.12);
+}
+
+.ref-snapshot-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.ref-snapshot-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1.25;
+}
+
+.ref-snapshot-sub {
+    font-size: 12px;
+    color: var(--gray-500);
+    font-weight: 700;
+    margin-top: 3px;
+}
+
+.ref-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0 14px;
+}
+
+.ref-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-300);
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--navy);
+}
+
+.ref-chip::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--accent);
+    flex: 0 0 auto;
+}
+
+.ref-snapshot-desc {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: 14px;
+}
+
+.ref-bullets {
+    list-style: none;
+    margin-bottom: 12px;
+}
+
+.ref-bullets li {
+    font-size: 12px;
+    color: var(--gray-700);
+    padding-left: 16px;
+    position: relative;
+    margin-bottom: 7px;
+    line-height: 1.5;
+}
+
+.ref-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 11px;
+}
+
+.ref-snapshot-foot {
+    font-size: 12px;
+    color: var(--gray-500);
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.references-bottom-note {
+    margin-top: 18px;
+    padding: 18px 20px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid var(--gray-300);
+    border-radius: 16px;
+    font-size: 13px;
+    color: var(--gray-700);
+    line-height: 1.6;
+}
+
+        @media (max-width: 1024px) {
+            .references-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .core-lots {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .references-snapshots {
+                grid-template-columns: 1fr;
+            }
+
+            .ref-metric-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        /* Ecosystem Section */
+        .ecosystem-section {
+            padding: 120px 32px;
+            background: var(--gray-100);
+        }
+
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 40px;
+            margin-top: 48px;
+        }
+
+        .modes-card {
+            background: white;
+            border: 1px solid var(--gray-300);
+            border-radius: 20px;
+            padding: 32px;
+        }
+
+        .modes-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 24px;
+        }
+
+        .mode-item {
+            padding: 20px;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-300);
+            border-radius: 14px;
+            margin-bottom: 14px;
+        }
+
+        .mode-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .mode-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+
+        .mode-desc {
+            font-size: 13px;
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+
+        .partner-categories {
+            margin-top: 24px;
+            padding: 20px;
+            background: var(--gray-100);
+            border-radius: 14px;
+        }
+
+        .partner-categories-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+
+        .partner-categories-list {
+            list-style: none;
+        }
+
+        .partner-categories-list li {
+            font-size: 13px;
+            color: var(--gray-600);
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .partner-categories-list li::before {
+            content: '◇';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 10px;
+        }
+
+        .modes-note {
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+
+        .modes-accountability {
+            margin-top: 16px;
+            padding: 16px 20px;
+            background: rgba(0, 161, 191, 0.08);
+            border: 1px solid rgba(0, 161, 191, 0.2);
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .ecosystem-value-card {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+            border-radius: 20px;
+            padding: 32px;
+            color: white;
+        }
+
+        .ecosystem-value-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 32px;
+            background: white;
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        .cta-text h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(32px, 4vw, 40px);
+            font-weight: 400;
+            color: var(--navy);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .cta-text > p {
+            font-size: 17px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .cta-info-box {
+            background: var(--gray-100);
+            border: 1px solid var(--gray-300);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .cta-info-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 16px;
+        }
+
+        .cta-info-note {
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* Client targeting box */
+        .targeting-box {
+            margin-top: 24px;
+            padding: 20px;
+            background: rgba(0, 161, 191, 0.06);
+            border: 1px solid rgba(0, 161, 191, 0.15);
+            border-radius: 14px;
+        }
+
+        .targeting-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .targeting-desc {
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        .cta-form-card {
+            background: white;
+            border: 1px solid var(--gray-300);
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .cta-form-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .segment-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .segment-btn {
+            padding: 14px 16px;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-300);
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'DM Sans', sans-serif;
+            text-align: left;
+        }
+
+        .segment-btn:hover {
+            background: var(--gray-200);
+        }
+
+        .segment-btn.active {
+            background: white;
+            border-color: var(--accent);
+            color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(0, 161, 191, 0.15);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 14px 16px;
+            background: white;
+            border: 1px solid var(--gray-300);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--gray-700);
+            margin-bottom: 20px;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: white;
+            border: 1px solid var(--gray-300);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--gray-700);
+            margin-bottom: 20px;
+            font-family: 'DM Sans', sans-serif;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .form-note {
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+
+
+        /* AI Maturity Self-Check */
+        .maturity-section {
+            padding: 120px 32px;
+            background: linear-gradient(180deg, #ffffff 0%, var(--gray-100) 45%, #ffffff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .maturity-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 12% 10%, rgba(0, 198, 198, 0.14), transparent 52%),
+                radial-gradient(circle at 88% 0%, rgba(0, 161, 191, 0.10), transparent 55%),
+                radial-gradient(circle at 85% 85%, rgba(31, 43, 79, 0.06), transparent 55%);
+            pointer-events: none;
+        }
+
+        .maturity-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 0.6fr;
+            gap: 24px;
+            margin-top: 48px;
+            align-items: start;
+            position: relative;
+            z-index: 1;
+        }
+
+        .maturity-tool-card {
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid var(--gray-300);
+            border-radius: 24px;
+            padding: 34px;
+            box-shadow: 0 30px 70px rgba(15, 23, 42, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .maturity-tool-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+        }
+
+        .maturity-side-card {
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid var(--gray-300);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
+            position: sticky;
+            top: 96px;
+        }
+
+        .maturity-side-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+
+        .maturity-side-desc {
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 14px;
+        }
+
+        .maturity-side-list {
+            list-style: none;
+        }
+
+        .maturity-side-list li {
+            position: relative;
+            padding-left: 18px;
+            font-size: 13px;
+            color: var(--gray-700);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .maturity-side-list li::before {
+            content: '■';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: var(--accent);
+            font-size: 8px;
+        }
+
+        .maturity-tool-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .maturity-tool-kicker {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .maturity-stepper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .maturity-step {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 161, 191, 0.06);
+            border: 1px solid rgba(0, 161, 191, 0.18);
+            padding: 10px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--navy);
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .maturity-step .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0, 161, 191, 0.25);
+        }
+
+        .maturity-step.active {
+            background: rgba(0, 198, 198, 0.14);
+            border-color: rgba(0, 198, 198, 0.35);
+        }
+
+        .maturity-step.active .dot {
+            background: var(--accent-light);
+        }
+
+        .maturity-step.done {
+            background: rgba(15, 23, 42, 0.04);
+            border-color: rgba(148, 163, 184, 0.35);
+            color: var(--gray-600);
+        }
+
+        .maturity-step.done .dot {
+            background: rgba(148, 163, 184, 0.65);
+        }
+
+        .maturity-progress {
+            height: 10px;
+            background: rgba(226, 232, 240, 0.8);
+            border: 1px solid var(--gray-300);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 14px;
+        }
+
+        .maturity-progress span {
+            display: block;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            transition: width 0.5s ease;
+        }
+
+        .maturity-progress-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+
+        .maturity-progress-note {
+            color: var(--gray-500);
+            font-weight: 600;
+        }
+
+        .maturity-tool-badges {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-width: 160px;
+        }
+
+        .maturity-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 800;
+            color: white;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+        }
+
+        .maturity-badge.light {
+            color: var(--navy);
+            background: rgba(0, 161, 191, 0.10);
+            border: 1px solid rgba(0, 161, 191, 0.22);
+        }
+
+        .maturity-form-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--navy);
+            margin-bottom: 6px;
+            margin-top: 10px;
+        }
+
+        .maturity-form-subtitle {
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .maturity-q {
+            margin-bottom: 14px;
+            padding: 18px;
+            background: rgba(244, 248, 253, 0.85);
+            border: 1px solid var(--gray-300);
+            border-radius: 18px;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .maturity-q:focus-within {
+            background: white;
+            border-color: rgba(0, 161, 191, 0.45);
+            box-shadow: 0 0 0 4px rgba(0, 161, 191, 0.12);
+        }
+
+        .maturity-q-help {
+            font-size: 13px;
+            color: var(--gray-600);
+            line-height: 1.55;
+            margin-top: -4px;
+            margin-bottom: 12px;
+        }
+
+        .maturity-select {
+            margin-bottom: 0;
+        }
+
+        .maturity-checklist {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .maturity-check {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: white;
+            border: 1px solid var(--gray-300);
+            border-radius: 14px;
+            padding: 12px 12px;
+            font-size: 13px;
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .maturity-check:hover {
+            border-color: rgba(0, 161, 191, 0.35);
+            box-shadow: 0 12px 30px rgba(0, 161, 191, 0.08);
+        }
+
+        .maturity-check input {
+            margin-top: 2px;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--accent);
+        }
+
+        /* Highlight selected checkbox options where supported */
+        @supports selector(label:has(input:checked)) {
+            .maturity-check:has(input:checked) {
+                background: rgba(0, 161, 191, 0.08);
+                border-color: rgba(0, 161, 191, 0.35);
+            }
+            .maturity-check:has(input:checked) span {
+                color: var(--navy);
+                font-weight: 700;
+            }
+        }
+
+        .maturity-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        .maturity-actions button {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        /* Maturity side blocks */
+        .maturity-methodology {
+            margin-top: 18px;
+            padding: 18px 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--gray-300);
+            border-radius: 16px;
+        }
+        .maturity-methodology-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+        .maturity-methodology-text {
+            font-size: 13px;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+        .maturity-side-cta {
+            margin-top: 18px;
+            padding: 20px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(0, 161, 191, 0.12) 0%, rgba(0, 198, 198, 0.10) 100%);
+            border: 1px solid rgba(0, 161, 191, 0.18);
+        }
+        .maturity-side-cta-title {
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--navy);
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+        .maturity-side-cta-text {
+            font-size: 13px;
+            color: var(--gray-700);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        /* iOS: prevent form zoom (font-size >= 16px on inputs) */
+        @media (max-width: 768px) {
+            .form-select, .form-textarea, .maturity-select {
+                font-size: 16px;
+            }
+            .maturity-actions {
+                flex-direction: column;
+            }
+            .maturity-actions button {
+                width: 100%;
+                min-width: 0;
+            }
+        }
+
+        .maturity-footnote {
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--gray-500);
+            line-height: 1.7;
+        }
+
+        /* Results */
+        .maturity-results {
+            margin-top: 36px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .maturity-results-card {
+            background: white;
+            border: 1px solid var(--gray-300);
+            border-radius: 26px;
+            overflow: hidden;
+            box-shadow: 0 30px 70px rgba(15, 23, 42, 0.10);
+        }
+
+        .maturity-results-top {
+            padding: 28px 28px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 22px;
+            align-items: center;
+        }
+
+        .maturity-score-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .maturity-score-ring {
+            --score: 0;
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent-light) calc(var(--score) * 1%), rgba(255, 255, 255, 0.14) 0);
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+        }
+
+        .maturity-score-ring-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 14px;
+        }
+
+        .maturity-score-kicker {
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 6px;
+        }
+
+        .maturity-score {
+            font-family: 'Instrument Serif', serif;
+            font-size: 54px;
+            line-height: 1;
+            color: white;
+        }
+
+        .maturity-level {
+            margin-top: 10px;
+            font-size: 12px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.85);
+            padding: 8px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .maturity-archetype-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .maturity-archetype-desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.78);
+            line-height: 1.7;
+        }
+
+        .maturity-results-top .content-list li {
+            color: rgba(255, 255, 255, 0.78);
+        }
+
+        .maturity-results-top .content-list li::before {
+            color: var(--accent-light);
+        }
+
+        .maturity-scores-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            padding: 22px 28px 8px;
+        }
+
+        .maturity-dim-card {
+            background: rgba(244, 248, 253, 0.85);
+            border: 1px solid var(--gray-300);
+            border-radius: 18px;
+            padding: 16px 16px;
+        }
+
+        .maturity-dim-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .maturity-dim-name {
+            font-size: 13px;
+            font-weight: 900;
+            color: var(--navy);
+        }
+
+        .maturity-dim-val {
+            font-size: 12px;
+            color: var(--gray-600);
+            font-weight: 800;
+        }
+
+        .maturity-bar {
+            height: 10px;
+            background: rgba(226, 232, 240, 0.8);
+            border: 1px solid var(--gray-300);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .maturity-bar span {
+            display: block;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            transition: width 0.8s ease;
+        }
+
+        .maturity-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding: 10px 28px 26px;
+        }
+
+        .maturity-mini-card {
+            background: white;
+            border: 1px solid var(--gray-300);
+            border-radius: 20px;
+            padding: 18px 18px;
+            box-shadow: 0 14px 40px rgba(15, 23, 42, 0.06);
+        }
+
+        .maturity-mini-title {
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .maturity-mini-text {
+            font-size: 13px;
+            color: var(--gray-600);
+            line-height: 1.7;
+        }
+
+        .maturity-ref {
+            margin-top: 12px;
+            font-size: 11px;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        .maturity-ref a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        .maturity-ref a:hover {
+            text-decoration: underline;
+        }
+
+        .maturity-export {
+            padding: 0 28px 22px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .maturity-export button {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .maturity-details {
+            padding: 0 28px 26px;
+        }
+
+        .maturity-details details {
+            border-radius: 18px;
+            border: 1px solid var(--gray-300);
+            background: rgba(244, 248, 253, 0.7);
+            padding: 14px 16px;
+        }
+
+        .maturity-details summary {
+            cursor: pointer;
+            font-weight: 900;
+            color: var(--navy);
+        }
+
+        .maturity-source-list {
+            margin-top: 10px;
+            list-style: none;
+        }
+
+        .maturity-source-list li {
+            font-size: 12px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            padding-left: 18px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .maturity-source-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 900;
+        }
+
+        .maturity-source-list a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        .maturity-source-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive tweaks for maturity tool */
+        @media (max-width: 1024px) {
+            .maturity-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .maturity-side-card {
+                position: relative;
+                top: auto;
+            }
+
+            .maturity-scores-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .maturity-checklist {
+                grid-template-columns: 1fr;
+            }
+
+            .maturity-sections {
+                grid-template-columns: 1fr;
+            }
+
+            .maturity-results-top {
+                grid-template-columns: 1fr;
+                justify-items: start;
+            }
+        }
+
+
+        /* Footer */
+        footer {
+            background: var(--navy-deep);
+            padding: 48px 32px;
+            color: white;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .footer-sub {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 4px;
+        }
+
+        .footer-disclaimer {
+            max-width: 500px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.6;
+        }
+
+        .footer-note {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Floating CTA */
+        .floating-cta {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 90;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .floating-cta.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                padding: 140px 24px 80px;
+            }
+
+            .hero-card {
+                max-width: 500px;
+            }
+
+            .bricks-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .positioning-grid,
+            .portfolio-container,
+            .proof-grid,
+            .references-grid,
+            .ecosystem-grid,
+            .cta-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dida-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .bricks-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .segment-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .proof-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+
+            /* Improve touch targets on mobile */
+            .brick-card {
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+            }
+
+            .brick-footer {
+                padding: 20px 24px;
+            }
+
+            .expand-hint {
+                font-size: 14px;
+            }
+
+            .legend-item {
+                padding: 14px 12px;
+                min-height: 48px;
+            }
+
+            .play-dot {
+                cursor: pointer;
+            }
+
+            .play-dot circle:first-child {
+                r: 22;
+            }
+
+            .play-dot circle:nth-child(2) {
+                r: 14;
+            }
+
+            .segment-btn {
+                min-height: 52px;
+                padding: 16px;
+            }
+
+            .mobile-menu-btn {
+                min-width: 48px;
+                min-height: 48px;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .brick-card:hover {
+                transform: none;
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            }
+
+            .brick-card.active {
+                transform: none;
+                box-shadow: 0 10px 40px rgba(0, 161, 191, 0.2);
+            }
+
+            .btn-primary:hover {
+                transform: none;
+            }
+
+            .legend-item:hover {
+                background: transparent;
+            }
+
+            .legend-item.active {
+                background: rgba(0, 198, 198, 0.15);
+            }
+        }
+    
+    
+        /* Lightweight CTA row for the self-check entry point */
+        .maturity-cta-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .maturity-cta-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .maturity-cta-note {
+            font-size: 12px;
+            color: var(--gray-500);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* Proof tags (lighter than bullet lists) */
+        .proof-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .proof-tag {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--navy);
+            background: white;
+            border: 1px solid var(--gray-300);
+            padding: 6px 10px;
+            border-radius: 999px;
+        }
+
+        /* Single-column contact block */
+        .cta-single {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .cta-single .cta-form-card {
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .maturity-cta-actions {
+                align-items: stretch;
+                width: 100%;
+            }
+
+            .maturity-cta-actions .btn-primary {
+                width: 100%;
+            }
+
+            .maturity-cta-note {
+                text-align: left;
+            }
+        }
+
+    
+        /* Standalone maturity page hero (keeps nav readable on load) */
+        .maturity-hero {
+            padding: 140px 32px 72px;
+            background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 55%, var(--blue) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .maturity-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 18% 20%, rgba(0, 198, 198, 0.28), transparent 55%),
+                radial-gradient(circle at 82% 10%, rgba(0, 161, 191, 0.18), transparent 55%),
+                radial-gradient(circle at 70% 85%, rgba(255, 255, 255, 0.06), transparent 55%);
+            pointer-events: none;
+        }
+
+        .maturity-hero-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .maturity-hero-inner .hero-title {
+            margin-bottom: 16px;
+        }
+
+        .maturity-hero-inner .hero-subtitle {
+            margin-bottom: 24px;
+            max-width: 720px;
+        }
+
+    
+        /* Page-specific spacing for the standalone assessment */
+        .maturity-page .maturity-section {
+            padding-top: 90px;
+        }
+
+        @media (max-width: 768px) {
+            .maturity-page .maturity-section {
+                padding-top: 78px;
+            }
+        }
+
+    </style>
+</head>
+<body class="maturity-page">
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+    <!-- Navigation -->
+    <nav id="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-content">
+            <a href="index.html" class="logo" aria-label="Back to CVA AI for Energy">CVA <span class="logo-sub">AI for Energy</span></a>
+            <div class="nav-links">
+                <a href="index.html#offer" class="nav-link">Offer</a>
+                <a href="index.html#portfolio" class="nav-link">Use cases</a>
+                <a href="index.html#references" class="nav-link">References</a>
+                <a href="#maturity" class="nav-link">Self-check</a>
+                <a href="index.html#start"><button class="btn-primary btn-small">Request a Brick 1 diagnostic</button></a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+        <a href="index.html#offer">Offer</a>
+        <a href="index.html#portfolio">Use cases</a>
+        <a href="index.html#references">References</a>
+        <a href="#maturity">Self-check</a>
+        <a href="index.html#start"><button class="btn-primary" style="width: 100%;">Request a Brick 1 diagnostic</button></a>
+    </div>
+
+    <section class="maturity-hero" aria-label="AI maturity self-check">
+        <div class="maturity-hero-inner">
+            <div class="hero-tag">
+                <span class="hero-tag-dot"></span>
+                AI maturity self-check
+            </div>
+            <h1 class="hero-title">Benchmark your AI maturity in energy</h1>
+            <p class="hero-subtitle">
+                6 minutes • Plain-English questions • Transparent scoring • Instant results.
+            </p>
+            <div class="hero-ctas">
+                <a href="#maturity"><button class="btn-primary">Start the self-check →</button></a>
+                <a href="index.html"><button class="btn-secondary">Back to the offer</button></a>
+            </div>
+            <div class="hero-segments" aria-label="Assessment coverage">
+                <span class="segment-tag">Use cases</span>
+                <span class="segment-tag">Data foundations</span>
+                <span class="segment-tag">Industrialisation</span>
+                <span class="segment-tag">Governance & risk</span>
+                <span class="segment-tag">People & partners</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="maturity-section" id="maturity">
+<div class="section-container">
+
+<div class="maturity-grid">
+<div aria-labelledby="maturityTitle" class="maturity-tool-card">
+<div class="maturity-tool-header">
+<div>
+<div class="maturity-tool-kicker" id="maturityTitle">6‑minute assessment • 20 evidence‑based questions</div>
+<div aria-label="Assessment progress" class="maturity-stepper" id="maturityStepper"></div>
+<div aria-hidden="true" class="maturity-progress"><span id="maturityProgressSpan"></span></div>
+<div aria-label="Progress summary" class="maturity-progress-meta">
+<span id="maturityProgressText">Step 1 of 5</span>
+<span class="maturity-progress-note">Runs locally • no data sent</span>
+</div>
+</div>
+<div aria-label="Privacy and auditability badges" class="maturity-tool-badges">
+<span class="maturity-badge">No data sent</span>
+<span class="maturity-badge light">Transparent scoring</span>
+</div>
+</div>
+<div aria-live="polite" class="maturity-form" id="maturityForm"></div>
+<div aria-label="Assessment navigation" class="maturity-actions" id="maturityActions" role="group">
+<button class="btn-secondary" disabled="" id="maturityBackBtn" type="button">Back</button>
+<button class="btn-primary" id="maturityNextBtn" type="button">Next →</button>
+</div>
+<div class="maturity-footnote" id="maturityFootnote">
+                        This tool avoids subjective claims (“we are advanced”). Each question maps to tangible artefacts or operating facts that can be evidenced (policies, inventories, governance bodies, logs, monitoring, KPIs).
+                    </div>
+</div>
+<div class="maturity-side-card">
+<h3 class="maturity-side-title">What you get</h3>
+<ul class="content-list">
+<li>
+<span class="list-lead">A maturity level (1–5) and dimension scores</span>
+                            aligned to what it takes to industrialise AI in core energy processes.
+                        </li>
+<li>
+<span class="list-lead">Positioning vs. reference points</span>
+                            from public surveys (energy/utility when available; otherwise cross-industry governance baselines).
+                        </li>
+<li>
+<span class="list-lead">An archetype + clear priorities</span>
+                            mapped to the CVA “AI for Energy” bricks.
+                        </li>
+</ul>
+<div class="maturity-methodology">
+<div class="maturity-methodology-title">Methodology transparency</div>
+<p class="maturity-methodology-text">
+                            Scoring rules and benchmark sources are shown in the results screen (with links). This is a client-side self-check — it does not use or claim any proprietary benchmark dataset.
+                        </p>
+</div>
+<div class="maturity-side-cta">
+<div class="maturity-side-cta-title">Want an executive‑grade benchmark?</div>
+<p class="maturity-side-cta-text">
+                            This self-check is a good first filter. Brick 1 adds a structured portfolio review on your core processes and a peer benchmark grounded in CVA delivery experience.
+                        </p>
+<a href="index.html#start"><button class="btn-primary btn-small" style="width: 100%;">Book Brick 1 diagnostic →</button></a>
+</div>
+</div>
+</div>
+<div class="maturity-results" hidden="" id="maturityResults"></div>
+</div>
+</section>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <a href="https://www.corporate-value.com" target="_blank" rel="noopener" style="text-decoration: none; color: white;">
+                    <div class="footer-brand">CVA</div>
+                </a>
+                <div class="footer-sub">AI for Energy offering</div>
+            </div>
+            <div class="footer-disclaimer">
+                <strong>Disclaimer:</strong> Market benchmarks and peer references cited on this site are based on publicly communicated initiatives and CVA synthesis. They do not imply existing client relationships for this specific AI industrialisation offer.
+            </div>
+            <div style="text-align: right;">
+                <a href="https://www.corporate-value.com" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; display: block; margin-bottom: 8px;">www.corporate-value.com</a>
+                <div class="footer-note">© 2026 Corporate Value Associates</div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Scroll effects (progress bar + nav)
+        const progressBar = document.getElementById('progressBar');
+        const nav = document.getElementById('nav');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+            if (progressBar) {
+                progressBar.style.width = progress + '%';
+                progressBar.setAttribute('aria-valuenow', Math.round(progress));
+            }
+
+            if (nav) {
+                nav.classList.toggle('scrolled', scrollTop > 50);
+            }
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        function handleMobileMenu(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const isOpen = mobileMenu.classList.toggle('open');
+            mobileMenuBtn.setAttribute('aria-expanded', isOpen);
+            mobileMenuBtn.textContent = isOpen ? '✕' : '☰';
+        }
+
+        mobileMenuBtn?.addEventListener('click', handleMobileMenu);
+        mobileMenuBtn?.addEventListener('touchend', handleMobileMenu);
+
+        // Close mobile menu when clicking links
+        mobileMenu?.querySelectorAll('a').forEach(link => {
+            const closeMenu = () => {
+                mobileMenu.classList.remove('open');
+                mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+                if (mobileMenuBtn) mobileMenuBtn.textContent = '☰';
+            };
+            link.addEventListener('click', closeMenu);
+            link.addEventListener('touchend', closeMenu);
+        });
+
+// --- AI maturity self-check (client-side) ---
+        // Transparent, evidence-friendly scoring. Runs fully in the browser (no server calls).
+        const maturityConfig = {
+            version: '1.1',
+            dimensions: [
+                { id: 'portfolio', label: 'Adoption & impact', weight: 0.25 },
+                { id: 'data', label: 'Data readiness', weight: 0.20 },
+                { id: 'delivery', label: 'Delivery & monitoring', weight: 0.20 },
+                { id: 'governance', label: 'Governance & risk', weight: 0.25 },
+                { id: 'people', label: 'People & partners', weight: 0.10 }
+            ],
+            steps: [
+                {
+                    id: 'context',
+                    title: 'Your context',
+                    subtitle: 'Used only to select the closest public peer reference points (no scoring).',
+                    scored: false,
+                    questions: [
+                        {
+                            id: 'segment',
+                            label: 'Organisation type',
+                            help: 'Pick the closest option. This only affects the benchmark references shown in the results.',
+                            type: 'select',
+                            required: true,
+                            options: [
+                                { value: 'utility', label: 'Utility or network operator (DSO/TSO / integrated utility)' },
+                                { value: 'ipp', label: 'IPP platform / renewables developer / investor' },
+                                { value: 'esco', label: 'ESCO / energy services (buildings, campuses, industry)' },
+                                { value: 'compute', label: 'Energy-to-compute ecosystem (data centres, infra)' },
+                                { value: 'other', label: 'Other energy player' }
+                            ]
+                        },
+                        {
+                            id: 'geo',
+                            label: 'Primary geography',
+                            help: 'Used to select the closest public peer reference points available. If unsure, pick “Multi‑region / global”.',
+                            type: 'select',
+                            required: true,
+                            options: [
+                                { value: 'na', label: 'North America (US / Canada)' },
+                                { value: 'eu', label: 'Europe (EU / UK / Switzerland / Norway)' },
+                                { value: 'mea', label: 'Middle East & Africa' },
+                                { value: 'apac', label: 'Asia-Pacific' },
+                                { value: 'latam', label: 'Latin America' },
+                                { value: 'global', label: 'Multi-region / global' }
+                            ]
+                        },
+                        {
+                            id: 'size',
+                            label: 'Company size (employees)',
+                            help: 'Used for context only. If you do not know, pick the closest band.',
+                            type: 'select',
+                            required: true,
+                            options: [
+                                { value: '<1000', label: '< 1,000' },
+                                { value: '1000-9999', label: '1,000–9,999' },
+                                { value: '10000-49999', label: '10,000–49,999' },
+                                { value: '50000+', label: '50,000+' }
+                            ]
+                        },
+                        {
+                            id: 'tension',
+                            label: 'Top AI priority area (next 12 months)',
+                            help: 'Pick the area where you most want measurable business impact first. This does not change the score — it only tailors the “where to start” guidance.',
+                            type: 'select',
+                            required: true,
+                            options: [
+                                { value: 'grid', label: 'Grid planning and connection backlog' },
+                                { value: 'fleet', label: 'Fleet performance and risk steering' },
+                                { value: 'flex', label: 'Flexibility and trading routines' },
+                                { value: 'billing', label: 'Billing and customer operations productivity' },
+                                { value: 'origination', label: 'Origination and asset sourcing' },
+                                { value: 'buildings', label: 'Building optimisation and ESCO service scaling' },
+                                { value: 'other', label: 'Other / not sure' }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'portfolio',
+                    title: 'AI adoption & impact',
+                    subtitle: 'What is live today, how widely it is used, and whether impact is measured.',
+                    scored: true,
+                    questions: [
+                        {
+                            id: 'deployment_stage',
+                            dimension: 'portfolio',
+                            label: 'Which statement best describes AI today in your organisation?',
+                            help: '“AI” includes machine learning and GenAI. Choose the most accurate based on what is used in day‑to‑day work (not aspirations).',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No active AI pilots, and no AI used in day‑to‑day operations', points: 0 },
+                                { value: 'pilots', label: 'A few pilots / experiments, but nothing used in daily operations', points: 1 },
+                                { value: 'limited_prod', label: '1–2 AI solutions used in daily operations (limited scope)', points: 2 },
+                                { value: 'some_prod', label: '3–5 AI solutions used in daily operations (multiple teams)', points: 3 },
+                                { value: 'scaled', label: 'AI is used across several core processes, with monitoring and clear ownership', points: 4 }
+                            ]
+                        },
+                        {
+                            id: 'prod_domains',
+                            dimension: 'portfolio',
+                            label: 'Where is AI already used in day‑to‑day operations?',
+                            help: 'Select all that apply. Only count areas where AI outputs are embedded into a live workflow (not one‑off analyses).',
+                            type: 'checkbox',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'asset_maint', label: 'Asset maintenance & field operations (inspections, work orders, predictive maintenance)', points: 1 },
+                                { value: 'grid_planning', label: 'Network / grid planning (connection studies, capacity, investments)', points: 1 },
+                                { value: 'realtime_ops', label: 'Real‑time operations / control room decision support', points: 1 },
+                                { value: 'trading', label: 'Trading / dispatch / flexibility optimisation', points: 1 },
+                                { value: 'customer_ops', label: 'Customer operations (billing, contact centre, fraud, collections)', points: 1 },
+                                { value: 'commercial', label: 'Commercial / origination (site selection, contract analysis, bidding)', points: 1 },
+                                { value: 'backoffice', label: 'Back office (finance, procurement, HR)', points: 1 }
+                            ]
+                        },
+                        {
+                            id: 'value_tracking',
+                            dimension: 'portfolio',
+                            label: 'Do you measure business impact for AI solutions in production?',
+                            help: 'Measured KPIs with a baseline (before/after), reviewed at least quarterly (operational, financial or risk KPIs).',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No formal measurement', points: 0 },
+                                { value: 'some', label: 'Measured for a few AI solutions', points: 2 },
+                                { value: 'most', label: 'Measured for most AI solutions in production', points: 3 },
+                                { value: 'all', label: 'Measured for all AI solutions in production (portfolio view)', points: 4 }
+                            ]
+                        },
+                        {
+                            id: 'genai',
+                            dimension: 'portfolio',
+                            label: 'Generative AI (GenAI) usage and controls',
+                            help: 'Choose what is closest today. “Controls” means: approved tools, access rules, usage policy, and logs/monitoring for sensitive data.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No GenAI use (or blocked)', points: 0 },
+                                { value: 'shadow', label: 'Informal use of public GenAI tools (no approved tool / no policy / no logging)', points: 0 },
+                                { value: 'pilot', label: 'Limited pilot with approved tool and clear policy', points: 2 },
+                                { value: 'internal', label: 'Approved enterprise GenAI for internal productivity (policy + access controls + logging)', points: 3 },
+                                { value: 'core', label: 'GenAI embedded in core processes (guardrails + monitoring + human review where needed)', points: 4 }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'data',
+                    title: 'Data foundation',
+                    subtitle: 'Shared data platform, ownership & quality, discoverability, and access controls.',
+                    scored: true,
+                    questions: [
+                        {
+                            id: 'data_platform',
+                            dimension: 'data',
+                            label: 'Shared data platform across key domains (IT + OT)',
+                            help: 'Consider SCADA/IoT, asset registers, work orders, meters, customer, finance, market data. “Shared” means more than a local data mart.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No shared enterprise data platform', points: 0 },
+                                { value: 'silos', label: 'Multiple silos / departmental platforms', points: 1 },
+                                { value: 'partial', label: 'Shared platform for core IT data (limited OT/streaming)', points: 3 },
+                                { value: 'integrated', label: 'Shared platform incl. OT/streaming for critical assets and operations', points: 4 }
+                            ]
+                        },
+                        {
+                            id: 'data_governance',
+                            dimension: 'data',
+                            label: 'Data ownership and data quality for critical domains',
+                            help: 'Named data owners + data quality KPIs for critical domains (assets, networks, customer, market, finance…).',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No defined ownership and no data quality KPIs', points: 0 },
+                                { value: 'partial', label: 'Defined for a few domains only', points: 2 },
+                                { value: 'most', label: 'Defined for most key domains', points: 3 },
+                                { value: 'all', label: 'Defined for all key domains (with a review cadence)', points: 4 }
+                            ]
+                        },
+                        {
+                            id: 'catalog',
+                            dimension: 'data',
+                            label: 'Data discoverability and access workflow',
+                            help: 'A searchable catalog (datasets + owners) and a standard workflow to request access.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No catalog / no standard access workflow', points: 0 },
+                                { value: 'manual', label: 'Manual documentation (spreadsheets / wiki)', points: 1 },
+                                { value: 'tool', label: 'Tool-based catalog with ownership metadata', points: 3 },
+                                { value: 'lineage', label: 'Catalog + lineage + policy tags integrated with access', points: 4 }
+                            ]
+                        },
+                        {
+                            id: 'data_controls',
+                            dimension: 'data',
+                            label: 'Access controls for sensitive data (customer / critical infrastructure / OT)',
+                            help: 'Data classification + role‑based access controls + audit logs. This is about having an operating control set, not perfection.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No formal classification or access controls', points: 0 },
+                                { value: 'basic', label: 'Basic access controls (partial coverage)', points: 2 },
+                                { value: 'policy', label: 'Formal policy + role‑based access controls (most domains covered)', points: 3 },
+                                { value: 'audited', label: 'Controls + monitoring/audit logs + periodic reviews', points: 4 }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'delivery',
+                    title: 'Industrialisation & monitoring',
+                    subtitle: 'How reliably you can deploy, monitor, and update AI in production.',
+                    scored: true,
+                    questions: [
+                        {
+                            id: 'lifecycle',
+                            dimension: 'delivery',
+                            label: 'Standard lifecycle for production AI (build → validate → deploy → monitor → update)',
+                            help: 'A documented process with templates and clear roles (not just “how we do it on this project”).',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No standard lifecycle (project-by-project)', points: 0 },
+                                { value: 'doc', label: 'Documented, but not consistently applied', points: 2 },
+                                { value: 'enforced', label: 'Documented and consistently applied for production', points: 4 }
+                            ]
+                        },
+                        {
+                            id: 'mlops',
+                            dimension: 'delivery',
+                            label: 'Which capabilities are in place to run AI reliably at scale?',
+                            help: 'Select all that apply (cap at 4 points).',
+                            type: 'checkbox',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'repo', label: 'Version control + reproducible training code', points: 1 },
+                                { value: 'registry', label: 'Model inventory / registry (what is deployed, where, owner, criticality)', points: 1 },
+                                { value: 'deploy', label: 'Automated deployment pipeline (CI/CD) for models', points: 1 },
+                                { value: 'monitor', label: 'Monitoring with alerts (performance / drift)', points: 1 },
+                                { value: 'dq', label: 'Data quality monitoring for key pipelines', points: 1 },
+                                { value: 'incident', label: 'Incident response & rollback for models', points: 1 }
+                            ]
+                        },
+                        {
+                            id: 'monitoring',
+                            dimension: 'delivery',
+                            label: 'Monitoring for production models',
+                            help: 'At minimum: dashboards. Stronger: alerting + service levels + an incident routine with named owners.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No monitoring beyond basic logs', points: 0 },
+                                { value: 'dashboards', label: 'Dashboards exist, limited alerting', points: 2 },
+                                { value: 'alerts', label: 'Dashboards + alerting + named owners', points: 3 },
+                                { value: 'slos', label: 'Service levels + alerting + incident response routines', points: 4 }
+                            ]
+                        },
+                        {
+                            id: 'validation',
+                            dimension: 'delivery',
+                            label: 'Validation / re‑validation cadence for production models',
+                            help: 'A documented review of performance + risks, with a decision to keep / retrain / retire.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'adhoc', label: 'Ad hoc / only when issues happen', points: 0 },
+                                { value: 'annual', label: 'At least annually', points: 2 },
+                                { value: 'quarterly', label: 'At least quarterly', points: 3 },
+                                { value: 'continuous', label: 'Triggers + periodic reviews (continuous control)', points: 4 }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'governance',
+                    title: 'Governance & operating model',
+                    subtitle: 'Decision rights, risk controls, auditability, people and partner model.',
+                    scored: true,
+                    questions: [
+                        {
+                            id: 'gov_model',
+                            dimension: 'governance',
+                            label: 'Who approves what goes live? (decision rights & oversight)',
+                            help: 'Includes who can approve production use cases, who owns model risk, and how exceptions are handled.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No defined governance model', points: 0 },
+                                { value: 'informal', label: 'Informal governance (ad hoc reviews)', points: 1 },
+                                { value: 'defined', label: 'Defined governance (roles/committees), uneven enforcement', points: 3 },
+                                { value: 'enforced', label: 'Defined and enforced (incl. risk/legal/IT/OT)', points: 4 }
+                            ]
+                        },
+                        {
+                            id: 'responsible_ai',
+                            dimension: 'governance',
+                            label: 'Standard risk controls for AI (privacy, security, robustness, vendor due diligence)',
+                            help: 'Examples: documented risk assessment, testing, data privacy & security controls, supplier assessments, and sign‑offs for critical models.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No standard controls beyond project discretion', points: 0 },
+                                { value: 'project', label: 'Controls exist on a few projects only', points: 2 },
+                                { value: 'standard', label: 'Standard control set for production AI', points: 3 },
+                                { value: 'independent', label: 'Standard controls + independent review / stress testing (red teaming) on critical use cases', points: 4 }
+                            ]
+                        },
+                        {
+                            id: 'audit',
+                            dimension: 'governance',
+                            label: 'Auditability (inventory + evidence + logs)',
+                            help: 'Could internal audit (or regulators) review AI systems and evidence compliance with your policy and applicable regulations?',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'not_ready', label: 'Not ready (no AI inventory / no standard evidence pack)', points: 0 },
+                                { value: 'planned', label: 'Defined approach, not tested yet', points: 1 },
+                                { value: 'ready', label: 'Ready (inventory + evidence pack exist for production AI)', points: 3 },
+                                { value: 'audited', label: 'Audited (audits performed on AI systems)', points: 4 }
+                            ]
+                        },
+                        {
+                            id: 'operating_elements',
+                            dimension: 'people',
+                            label: 'Operating model elements in place today',
+                            help: 'Select all that apply (cap at 4 points).',
+                            type: 'checkbox',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'exec_sponsor', label: 'Named executive sponsor for AI (executive team level)', points: 1 },
+                                { value: 'coe', label: 'Dedicated AI team / CoE (named roles, recurring capacity)', points: 1 },
+                                { value: 'squads', label: 'Cross‑functional squads embedded in at least one core process', points: 1 },
+                                { value: 'training', label: 'Role‑based AI training programme (at least annual)', points: 1 },
+                                { value: 'partners', label: 'Defined partner governance / procurement clauses for AI', points: 1 }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            // Public reference points used for comparisons (transparent and editable)
+            benchmarks: {
+                energy_global_ai_adoption: {
+                    label: 'Energy & utilities: organisations “implemented or exploring AI”',
+                    percent: 74,
+                    source: {
+                        name: 'IBM newsroom (Feb 2024)',
+                        url: 'https://newsroom.ibm.com/2024-02-26-New-IBM-Study-Data-Reveals-74-of-Energy-Utility-Companies-Surveyed-Embracing-AI',
+                        note: 'IBM Global AI Adoption Index study administered by Morning Consult (2,342 IT decision-makers across 20 countries); IBM-reported energy & utilities cut.'
+                    }
+                },
+                na_utilities_ai_use: {
+                    label: 'North America utilities: already use AI',
+                    percent: 81,
+                    source: {
+                        name: 'Itron newsroom (Oct 2025)',
+                        url: 'https://id.itron.com/web/apac/w/itron-report-reveals-81-of-north-american-utilities-already-use-ai',
+                        note: 'Survey of 500 electric utility executives in the US and Canada (Itron reporting).'
+                    }
+                },
+                na_utilities_ai_integrated: {
+                    label: 'North America utilities: AI “fully integrated”',
+                    percent: 41,
+                    source: {
+                        name: 'Itron newsroom (Oct 2025)',
+                        url: 'https://id.itron.com/web/apac/w/itron-report-reveals-81-of-north-american-utilities-already-use-ai',
+                        note: 'Same Itron survey; “fully integrated” share reported by Itron.'
+                    }
+                },
+                iea_grid_ops_adoption: {
+                    label: 'Grid operators: AI use by area (survey)',
+                    stats: { real_time_ops: 23, grid_planning: 54, asset_maint_planning: 70, genai_fault_diag: 8 },
+                    source: {
+                        name: 'International Energy Agency — “Energy and AI” (2025)',
+                        url: 'https://iea.blob.core.windows.net/assets/601eaec9-ba91-4623-819b-4ded331ec9e8/EnergyandAI.pdf',
+                        note: 'IEA survey of grid operators from 13 countries (Australia, Belgium, China, Czechia, France, Germany, Ireland, Italy, Japan, Korea, Malaysia, Netherlands, US).'
+                    }
+                },
+                gartner_scaling: {
+                    label: 'AI scaling baseline (cross‑industry)',
+                    stats: { ai_mature: 9, projects_to_production: 48, prototype_to_prod_months: 8 },
+                    source: {
+                        name: 'Gartner press release (May 2024)',
+                        url: 'https://www.gartner.com/en/newsroom/press-releases/2024-05-07-gartner-survey-finds-generative-ai-is-now-the-most-frequently-deployed-ai-solution-in-organizations',
+                        note: 'Gartner survey reporting: 9% “AI‑mature”; 48% of AI projects reach production; ~8 months from prototype to production.'
+                    }
+                },
+                deloitte_board_ai: {
+                    label: 'Boards: AI not on the agenda / limited AI knowledge',
+                    stats: { not_on_agenda: 31, limited_knowledge: 66 },
+                    source: {
+                        name: 'Deloitte — AI governance in the boardroom (2025)',
+                        url: 'https://www.deloitte.com/global/en/issues/trust/progress-on-ai-in-the-boardroom-but-room-to-accelerate.html',
+                        note: 'Deloitte Global survey: 31% say AI is not on the board agenda; 66% say boards have limited to no AI knowledge/experience (Deloitte reporting).'
+                    }
+                },
+                kpmg_energy_training: {
+                    label: 'Energy leaders offering AI education organisation‑wide',
+                    percent: 18,
+                    source: {
+                        name: 'KPMG — Energy CEO Outlook (Oct 2025)',
+                        url: 'https://kpmg.com/xx/en/home/media/press-releases/2025/10/genai-investment-in-energy-natural-resources-chemicals-accelerates.html',
+                        note: 'KPMG 2025 Energy CEO Outlook: 18% offer AI education across the entire organisation (KPMG reporting).'
+                    }
+                },
+                ey_ai_risk_losses: {
+                    label: 'Organisations reporting financial losses from AI‑related risks',
+                    stats: { any_losses: 99, over_1m: 64 },
+                    source: {
+                        name: 'EY Responsible AI Pulse (Oct 2025)',
+                        url: 'https://www.ey.com/en_gl/newsroom/2025/10/ey-survey-companies-advancing-responsible-ai-governance-linked-to-better-business-outcomes',
+                        note: 'EY Responsible AI (RAI) Pulse survey: 99% report financial losses from AI risks; 64% report losses above US$1m (EY reporting).'
+                    }
+                },
+                nist_ai_rmf: {
+                    label: 'Governance reference: NIST AI Risk Management Framework (AI RMF 1.0)',
+                    source: {
+                        name: 'NIST AI RMF (2023)',
+                        url: 'https://www.nist.gov/itl/ai-risk-management-framework',
+                        note: 'Public risk management framework (voluntary) structured around Govern / Map / Measure / Manage.'
+                    }
+                },
+                iso_42001: {
+                    label: 'Governance reference: ISO/IEC 42001 (AI management systems)',
+                    source: {
+                        name: 'ISO/IEC 42001:2023 overview',
+                        url: 'https://www.iso.org/standard/42001',
+                        note: 'International standard specifying requirements for an AI management system (AIMS).'
+                    }
+                },
+                eu_ai_act: {
+                    label: 'Regulatory reference: EU AI Act (high‑risk obligations, documentation, logs)',
+                    source: {
+                        name: 'European Commission — AI Act Service Desk',
+                        url: 'https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-16',
+                        note: 'Official EU resource summarising obligations for providers of high‑risk AI systems (includes QMS, documentation, logs).'
+                    }
+                }
+            }
+        };
+
+        (function initMaturityTool() {
+            const stepperEl = document.getElementById('maturityStepper');
+            const formEl = document.getElementById('maturityForm');
+            const resultsEl = document.getElementById('maturityResults');
+            const backBtn = document.getElementById('maturityBackBtn');
+            const nextBtn = document.getElementById('maturityNextBtn');
+            const actionsEl = document.getElementById('maturityActions');
+            const footnoteEl = document.getElementById('maturityFootnote');
+
+            if (!stepperEl || !formEl || !resultsEl || !backBtn || !nextBtn) return;
+
+            const storageKey = 'cva_ai_energy_maturity_v11';
+
+            const state = {
+                stepIndex: 0,
+                answers: {}
+            };
+
+            const canUseStorage = (() => {
+                try {
+                    const testKey = '__cva_test__';
+                    localStorage.setItem(testKey, '1');
+                    localStorage.removeItem(testKey);
+                    return true;
+                } catch (e) {
+                    return false;
+                }
+            })();
+
+            function escapeHtml(str) {
+                return String(str ?? '').replace(/[&<>"'`=\/]/g, (s) => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;',
+                    '`': '&#x60;',
+                    '=': '&#x3D;',
+                    '/': '&#x2F;'
+                }[s] || s));
+            }
+
+            function saveState() {
+                if (!canUseStorage) return;
+                try {
+                    localStorage.setItem(storageKey, JSON.stringify({
+                        version: maturityConfig.version,
+                        stepIndex: state.stepIndex,
+                        answers: state.answers
+                    }));
+                } catch (e) { /* ignore */ }
+            }
+
+            function loadSaved() {
+                if (!canUseStorage) return;
+                try {
+                    const raw = localStorage.getItem(storageKey);
+                    if (!raw) return;
+                    const parsed = JSON.parse(raw);
+                    if (parsed?.version !== maturityConfig.version) return;
+                    state.stepIndex = Math.min(parsed.stepIndex ?? 0, maturityConfig.steps.length - 1);
+                    state.answers = parsed.answers ?? {};
+                } catch (e) { /* ignore */ }
+            }
+
+            function renderStepper() {
+                stepperEl.innerHTML = '';
+                maturityConfig.steps.forEach((s, idx) => {
+                    const pill = document.createElement('div');
+                    pill.className = 'maturity-step' + (idx === state.stepIndex ? ' active' : (idx < state.stepIndex ? ' done' : ''));
+                    pill.innerHTML = `<span class="dot" aria-hidden="true"></span><span>${idx + 1}. ${escapeHtml(s.title)}</span>`;
+                    stepperEl.appendChild(pill);
+                });
+
+                // Update progress bar / label
+                const progSpan = document.getElementById('maturityProgressSpan');
+                const progText = document.getElementById('maturityProgressText');
+                if (progSpan) {
+                    const denom = Math.max(1, maturityConfig.steps.length - 1);
+                    const pct = Math.round((state.stepIndex / denom) * 100);
+                    progSpan.style.width = pct + '%';
+                }
+                if (progText) {
+                    progText.textContent = `Step ${state.stepIndex + 1} of ${maturityConfig.steps.length}`;
+                }
+            }
+
+            function setAnswer(qId, value) {
+                state.answers[qId] = value;
+                saveState();
+            }
+
+            function getAnswer(qId) {
+                return state.answers[qId];
+            }
+
+            function renderSelect(q) {
+                const current = getAnswer(q.id) ?? '';
+                const opts = q.options.map(o => `<option value="${escapeHtml(o.value)}"${o.value === current ? ' selected' : ''}>${escapeHtml(o.label)}</option>`).join('');
+                const placeholder = q.required ? '<option value="" disabled>Select one</option>' : '<option value="">(optional)</option>';
+                return `
+                    <select class="form-select maturity-select" id="${escapeHtml(q.id)}" data-qid="${escapeHtml(q.id)}">
+                        ${placeholder}
+                        ${opts}
+                    </select>
+                `;
+            }
+
+            function renderCheckbox(q) {
+                const current = Array.isArray(getAnswer(q.id)) ? getAnswer(q.id) : [];
+                const boxes = q.options.map(o => {
+                    const checked = current.includes(o.value) ? 'checked' : '';
+                    return `
+                        <label class="maturity-check">
+                            <input type="checkbox" data-qid="${escapeHtml(q.id)}" value="${escapeHtml(o.value)}" ${checked}/>
+                            <span>${escapeHtml(o.label)}</span>
+                        </label>
+                    `;
+                }).join('');
+                return `<div class="maturity-checklist" data-qid="${escapeHtml(q.id)}">${boxes}</div>`;
+            }
+
+            function renderStep() {
+                const step = maturityConfig.steps[state.stepIndex];
+                backBtn.disabled = state.stepIndex === 0;
+
+                nextBtn.textContent = (state.stepIndex === maturityConfig.steps.length - 1) ? 'See results →' : 'Next →';
+
+                let html = `
+                    <div class="maturity-form-title">${escapeHtml(step.title)}</div>
+                    <div class="maturity-form-subtitle">${escapeHtml(step.subtitle || '')}</div>
+                `;
+
+                step.questions.forEach(q => {
+                    html += `
+                        <div class="maturity-q">
+                            <label class="form-label" for="${escapeHtml(q.id)}">${escapeHtml(q.label)}</label>
+                            ${q.help ? `<div class="maturity-q-help">${escapeHtml(q.help)}</div>` : ''}
+                            ${q.type === 'checkbox' ? renderCheckbox(q) : renderSelect(q)}
+                        </div>
+                    `;
+                });
+
+                formEl.innerHTML = html;
+
+                // Bind events
+                formEl.querySelectorAll('select[data-qid]').forEach(sel => {
+                    sel.addEventListener('change', () => {
+                        setAnswer(sel.dataset.qid, sel.value);
+                    });
+                });
+
+                formEl.querySelectorAll('input[type="checkbox"][data-qid]').forEach(cb => {
+                    cb.addEventListener('change', () => {
+                        const qId = cb.dataset.qid;
+                        const checked = Array.from(formEl.querySelectorAll(`input[type="checkbox"][data-qid="${qId}"]:checked`)).map(x => x.value);
+                        setAnswer(qId, checked);
+                    });
+                });
+
+                // Hide results while editing
+                resultsEl.hidden = true;
+                resultsEl.innerHTML = '';
+                actionsEl.style.display = 'flex';
+                footnoteEl.style.display = 'block';
+
+                // Ensure placeholder selection renders correctly
+                step.questions.forEach(q => {
+                    if (q.type !== 'checkbox' && q.required) {
+                        const val = getAnswer(q.id);
+                        const sel = formEl.querySelector(`#${CSS.escape(q.id)}`);
+                        if (sel && (val === undefined || val === null || val === '')) {
+                            sel.selectedIndex = 0; // placeholder
+                        }
+                    }
+                });
+            }
+
+            function scoreQuestion(q) {
+                const a = getAnswer(q.id);
+
+                if (q.type === 'checkbox') {
+                    const selected = Array.isArray(a) ? a : [];
+                    let pts = 0;
+                    selected.forEach(v => {
+                        const opt = q.options.find(o => o.value === v);
+                        if (opt) pts += Number(opt.points || 0);
+                    });
+                    return Math.min(Number(q.maxPoints || pts), pts);
+                }
+
+                const opt = q.options.find(o => o.value === a);
+                return Number(opt?.points || 0);
+            }
+
+            function computeScores() {
+                const dim = {};
+                const dimMax = {};
+                maturityConfig.dimensions.forEach(d => {
+                    dim[d.id] = 0;
+                    dimMax[d.id] = 0;
+                });
+
+                maturityConfig.steps.forEach(step => {
+                    if (!step.scored) return;
+                    step.questions.forEach(q => {
+                        const d = q.dimension;
+                        if (!d) return;
+                        const pts = scoreQuestion(q);
+                        dim[d] += pts;
+                        dimMax[d] += Number(q.maxPoints || 0);
+                    });
+                });
+
+                // Normalise to 0–100
+                const dimScore = {};
+                Object.keys(dim).forEach(k => {
+                    const max = dimMax[k] || 0;
+                    dimScore[k] = max === 0 ? 0 : Math.round((dim[k] / max) * 100);
+                });
+
+                // Overall weighted score
+                let overall = 0;
+                maturityConfig.dimensions.forEach(d => {
+                    overall += (dimScore[d.id] || 0) * d.weight;
+                });
+                overall = Math.round(overall);
+
+                return { dimScore, overall };
+            }
+
+            function levelFromScore(score) {
+                if (score <= 20) return 1;
+                if (score <= 40) return 2;
+                if (score <= 60) return 3;
+                if (score <= 80) return 4;
+                return 5;
+            }
+
+            function applyGating(level) {
+                // If there is nothing in production, cap maturity at Level 2 (avoid “PowerPoint maturity”).
+                const stage = getAnswer('deployment_stage');
+                const noProd = ['none', 'pilots'].includes(stage || '');
+                if (noProd) return Math.min(level, 2);
+                return level;
+            }
+
+            function deriveArchetype(level, scores) {
+                const p = scores.dimScore.portfolio || 0;
+                const d = scores.dimScore.data || 0;
+                const m = scores.dimScore.delivery || 0;
+                const g = scores.dimScore.governance || 0;
+
+                const stage = getAnswer('deployment_stage') || 'none';
+                const stageLabel = ({
+                    none: 'No operational AI',
+                    pilots: 'Pilots only',
+                    limited_prod: 'Limited production',
+                    some_prod: 'Several production solutions',
+                    scaled: 'Scaled across processes'
+                }[stage] || stage);
+
+                // Clear, non-jargony archetypes with simple signals
+                if (stage === 'none') {
+                    return {
+                        name: 'Observer',
+                        desc: 'AI is not yet used in day‑to‑day operations. The priority is to choose a first business wedge and set up the minimum foundations to run it safely.',
+                        signals: [
+                            `Deployment stage: ${stageLabel}`,
+                            'Start with 1–2 measurable outcomes, not a long wish‑list.',
+                            'Put basic governance and data ownership in place early.'
+                        ]
+                    };
+                }
+
+                if (level <= 2) {
+                    return {
+                        name: 'Experimenter',
+                        desc: 'AI exists mostly as pilots or local initiatives. The priority is to convert one pilot into a “production‑grade” capability with ownership, monitoring and impact tracking.',
+                        signals: [
+                            `Deployment stage: ${stageLabel}`,
+                            'Typical blocker: unclear ownership and missing production routines.',
+                            'A small number of well‑chosen use cases beats many disconnected experiments.'
+                        ]
+                    };
+                }
+
+                if (p >= 60 && (m < 55 || g < 55)) {
+                    return {
+                        name: 'Pilot‑heavy, scale‑constrained',
+                        desc: 'You have meaningful AI activity, but scaling is constrained by industrialisation (delivery routines) and/or governance. The risk is a growing “pilot factory” with limited impact.',
+                        signals: [
+                            'Focus on standard lifecycle, monitoring, and evidence packs.',
+                            'Treat models as products: owners, service levels, incident routines.',
+                            'Harden controls before you scale to more processes.'
+                        ]
+                    };
+                }
+
+                if (d >= 65 && p < 50) {
+                    return {
+                        name: 'Data builder (use‑case pull missing)',
+                        desc: 'Data foundations are progressing, but AI is not yet embedded into enough live processes. The priority is to pick 1–2 programme‑grade processes and industrialise end‑to‑end.',
+                        signals: [
+                            'Convert platform work into process outcomes (not just datasets).',
+                            'Define decision workflows and controls before adding more models.',
+                            'Track value early to guide investment choices.'
+                        ]
+                    };
+                }
+
+                if (level >= 4 && g >= 60 && m >= 60) {
+                    return {
+                        name: 'Process‑embedded operator',
+                        desc: 'AI is becoming an operating capability, not a set of projects. The priority is to keep governance strong while scaling to more processes and strengthening portfolio‑level steering.',
+                        signals: [
+                            'Maintain auditability as you scale (inventory, logs, reviews).',
+                            'Expand to adjacent processes with reusable patterns.',
+                            'Move from use‑case KPIs to a portfolio view of impact.'
+                        ]
+                    };
+                }
+
+                return {
+                    name: 'Scaler (structure emerging)',
+                    desc: 'You are scaling beyond pilots with some foundations in place. The priority is to standardise delivery and governance so AI remains steerable as volume grows.',
+                    signals: [
+                        'Standardise lifecycle and monitoring for all production AI.',
+                        'Make decision rights and controls explicit (risk‑based).',
+                        'Invest in repeatable delivery capacity (squads + partners).'
+                    ]
+                };
+            }
+
+            function startingFocus() {
+                const tension = getAnswer('tension') || 'other';
+                const byTension = {
+                    grid: {
+                        title: 'Network planning and connection backlog',
+                        text: 'Typical starting points focus on accelerating studies and decisions — while keeping traceability and engineering sign‑offs.',
+                        examples: [
+                            'Connection queue triage and data completeness checks',
+                            'Scenario acceleration for reinforcement and flexibility options',
+                            'Document automation for technical files and evidence packs'
+                        ]
+                    },
+                    fleet: {
+                        title: 'Fleet performance and risk steering',
+                        text: 'Typical starting points focus on risk‑based maintenance and inspection routines that can be embedded into existing work management processes.',
+                        examples: [
+                            'Inspection prioritisation and defect detection support',
+                            'Predictive maintenance with clear failure mode coverage',
+                            'Work order triage and spare parts optimisation support'
+                        ]
+                    },
+                    flex: {
+                        title: 'Flexibility and trading routines',
+                        text: 'Typical starting points focus on forecasting and decision support routines with robust monitoring and controls.',
+                        examples: [
+                            'Price / load / renewables forecasting with drift monitoring',
+                            'Dispatch and bidding decision support with guardrails',
+                            'Flexibility portfolio steering and constraint management'
+                        ]
+                    },
+                    billing: {
+                        title: 'Billing and customer operations productivity',
+                        text: 'Typical starting points focus on productivity and quality in customer operations, with data privacy controls and human‑in‑the‑loop routines.',
+                        examples: [
+                            'Case triage and next‑best action for contact centres',
+                            'Anomaly detection for billing quality and revenue protection',
+                            'Knowledge copilots on approved internal sources'
+                        ]
+                    },
+                    origination: {
+                        title: 'Origination and asset sourcing',
+                        text: 'Typical starting points focus on faster screening and higher hit‑rate, with traceable decisions and review loops.',
+                        examples: [
+                            'Site screening / yield risk steering',
+                            'Contract and permitting document analysis (with controls)',
+                            'Pipeline prioritisation and bid optimisation support'
+                        ]
+                    },
+                    buildings: {
+                        title: 'Building optimisation and ESCO scaling',
+                        text: 'Typical starting points focus on measurable energy savings and service scalability, with safe control loops.',
+                        examples: [
+                            'HVAC optimisation with comfort and safety constraints',
+                            'Fault detection & diagnostics with actionable work orders',
+                            'Service ticket automation and technician copilots'
+                        ]
+                    }
+                };
+
+                return byTension[tension] || {
+                    title: 'A focused first wedge',
+                    text: 'A good starting point is one core process where AI can change decisions and routines, with clear owners and measurable outcomes.',
+                    examples: [
+                        'Pick one high‑value process with an accountable business owner',
+                        'Confirm data readiness and control requirements early',
+                        'Design the end‑to‑end operating routine (not just a model)'
+                    ]
+                };
+            }
+
+            function benchmarkCards(scores) {
+                const geo = getAnswer('geo');
+                const segment = getAnswer('segment');
+                const stage = getAnswer('deployment_stage') || 'none';
+                const domains = Array.isArray(getAnswer('prod_domains')) ? getAnswer('prod_domains') : [];
+                const trainingInPlace = Array.isArray(getAnswer('operating_elements')) && (getAnswer('operating_elements') || []).includes('training');
+
+                const hasAnyAi = stage !== 'none';
+                const hasScaled = stage === 'scaled';
+
+                const governanceStrong = (scores.dimScore.governance || 0) >= 60;
+                const deliveryStrong = (scores.dimScore.delivery || 0) >= 60;
+
+                const cards = [];
+
+                // 1) Peer adoption reference
+                if (segment === 'utility' && geo === 'na') {
+                    const peer = maturityConfig.benchmarks.na_utilities_ai_use;
+                    const integrated = maturityConfig.benchmarks.na_utilities_ai_integrated;
+                    const stance = !hasAnyAi ? 'behind' : (hasScaled ? 'aligned with the more advanced group' : 'in the adopting majority');
+                    cards.push({
+                        title: 'Peer reference (utilities)',
+                        text: `${peer.percent}% of surveyed North American utilities report already using AI, and ${integrated.percent}% report AI is “fully integrated”. Based on your answers, you are ${stance}.`,
+                        ref: peer
+                    });
+                } else if (segment === 'utility') {
+                    const peer = maturityConfig.benchmarks.iea_grid_ops_adoption;
+                    const s = peer.stats;
+                    const usesRealTime = domains.includes('realtime_ops');
+                    const usesAsset = domains.includes('asset_maint');
+                    const usesPlanning = domains.includes('grid_planning');
+
+                    let stance = 'behind this reference point';
+                    if (usesRealTime) stance = 'in the smaller group using AI for real‑time operations';
+                    else if (usesAsset || usesPlanning) stance = 'aligned with common adoption patterns';
+                    else if (hasAnyAi) stance = 'adopting, but not yet in the most common operational areas';
+
+                    cards.push({
+                        title: 'Peer reference (grid operators)',
+                        text: `In an IEA survey of grid operators, ~${s.asset_maint_planning}% reported AI use for asset maintenance/operation planning, ${s.grid_planning}% for grid development planning, and ${s.real_time_ops}% for real‑time operations. Your selected production areas suggest you are ${stance}.`,
+                        ref: peer
+                    });
+                } else {
+                    const peer = maturityConfig.benchmarks.energy_global_ai_adoption;
+                    cards.push({
+                        title: 'Energy sector reference point',
+                        text: `Public reporting suggests AI is mainstream in energy & utilities (e.g., ${peer.percent}% “implemented or exploring AI” in an IBM-reported energy & utilities cut). Your answers suggest you are ${hasAnyAi ? 'in the adopting majority' : 'behind this reference point'}.`,
+                        ref: peer
+                    });
+                }
+
+                // 2) Scaling baseline (cross-industry)
+                const scale = maturityConfig.benchmarks.gartner_scaling;
+                const st = scale.stats;
+                const scalingStance = (deliveryStrong && governanceStrong) ? 'better prepared than many organisations to scale reliably' : 'in line with common scaling constraints';
+                cards.push({
+                    title: 'Scaling baseline (production reality)',
+                    text: `In Gartner reporting, only ${st.projects_to_production}% of AI projects make it into production and only ${st.ai_mature}% of organisations are considered “AI‑mature”. Your delivery and governance scores suggest you are ${scalingStance}.`,
+                    ref: scale
+                });
+
+                // 3) Governance baseline (board oversight + risk)
+                const board = maturityConfig.benchmarks.deloitte_board_ai;
+                const bst = board.stats;
+                const govStance = governanceStrong ? 'ahead of common board-level governance baselines' : 'in line with a frequent governance gap';
+                cards.push({
+                    title: 'Governance baseline (board oversight)',
+                    text: `Deloitte reporting indicates ${bst.not_on_agenda}% say AI is not on the board agenda and ${bst.limited_knowledge}% say boards have limited AI knowledge/experience. Your governance score suggests you are ${govStance}.`,
+                    ref: board
+                });
+
+                // 4) AI risk signal (optional fourth card) OR training signal
+                if (trainingInPlace) {
+                    const tr = maturityConfig.benchmarks.kpmg_energy_training;
+                    cards.push({
+                        title: 'Training / AI literacy signal',
+                        text: `You indicate role‑based AI training exists. In KPMG reporting for energy leaders, only ${tr.percent}% offer AI education across the entire organisation — this is a differentiator.`,
+                        ref: tr
+                    });
+                } else {
+                    const risk = maturityConfig.benchmarks.ey_ai_risk_losses;
+                    const rst = risk.stats;
+                    cards.push({
+                        title: 'Risk signal (why governance matters)',
+                        text: `In EY reporting, ${rst.any_losses}% of organisations surveyed reported financial losses from AI‑related risks (and ${rst.over_1m}% reported losses above US$1m). This is why auditability and standard controls become critical as adoption grows.`,
+                        ref: risk
+                    });
+                }
+
+                // Keep it readable: return max 4 cards
+                return cards.slice(0, 4);
+            }
+
+            function nextSteps(scores, level) {
+                const scoredDims = ['portfolio', 'data', 'delivery', 'governance', 'people'];
+                const sorted = scoredDims
+                    .map(k => ({ k, v: scores.dimScore[k] || 0 }))
+                    .sort((a, b) => a.v - b.v);
+
+                const weak = sorted[0]?.k;
+                const strong = sorted[sorted.length - 1]?.k;
+
+                const needsByDim = {
+                    portfolio: [
+                        'Make the portfolio steerable: owners, baselines and success KPIs per initiative.',
+                        'Focus on 1–2 core processes (not many disconnected pilots).',
+                        'Design the end‑to‑end routine (decision rules, controls, exceptions) before scaling models.'
+                    ],
+                    data: [
+                        'Clarify data ownership for key domains (assets, networks, customers, markets).',
+                        'Make data quality measurable (KPIs + a review cadence).',
+                        'Prioritise IT/OT integration for the processes you want to industrialise.'
+                    ],
+                    delivery: [
+                        'Standardise lifecycle and tooling (inventory/registry, deployment pipeline, monitoring, incident response).',
+                        'Define validation and retraining routines — especially for safety- or revenue-critical models.',
+                        'Treat models as products: service levels, named owners, and operational runbooks.'
+                    ],
+                    governance: [
+                        'Clarify decision rights: who approves what, and with which evidence pack.',
+                        'Implement a risk‑based control set (privacy, security, robustness, vendor due diligence).',
+                        'Make AI auditable (inventory, logs, reviews) so it can be scaled safely.'
+                    ],
+                    people: [
+                        'Secure a sponsor and recurring delivery capacity (CoE and/or embedded squads).',
+                        'Build role‑based training and a clear partner governance model.',
+                        'Scale delivery capacity without losing governance (standards + templates).'
+                    ]
+                };
+
+                const brickPath = (() => {
+                    const rec = [];
+                    if (level <= 2) rec.push('Brick 1 (Diagnostic)', 'Brick 2 (Programme design)');
+                    if (level === 3) rec.push('Brick 2 (Programme design)', 'Brick 3 (Build & industrialise)');
+                    if (level >= 4) rec.push('Brick 3 (Build & industrialise)', 'Brick 4 (Scale & governance-as-usual)');
+                    if (weak === 'portfolio' && !rec.includes('Brick 1 (Diagnostic)')) rec.unshift('Brick 1 (Diagnostic)');
+                    if (weak === 'governance' && !rec.includes('Brick 2 (Programme design)')) rec.unshift('Brick 2 (Programme design)');
+                    if (weak === 'delivery' && !rec.includes('Brick 3 (Build & industrialise)')) rec.unshift('Brick 3 (Build & industrialise)');
+                    return Array.from(new Set(rec)).slice(0, 3);
+                })();
+
+                return {
+                    weakDim: weak,
+                    strongDim: strong,
+                    needs: needsByDim[weak] || [],
+                    bricks: brickPath
+                };
+            }
+
+                        function renderResults() {
+                try {
+                    const scores = computeScores();
+                    let level = applyGating(levelFromScore(scores.overall));
+                    const archetype = deriveArchetype(level, scores);
+                    const focus = startingFocus();
+                    const steps = nextSteps(scores, level);
+                    const refs = benchmarkCards(scores);
+
+                    const levelNames = {
+                        1: 'Level 1 — Foundations missing',
+                        2: 'Level 2 — Experimenting',
+                        3: 'Level 3 — Scaling foundations',
+                        4: 'Level 4 — Industrialising',
+                        5: 'Level 5 — Repeatable operating capability'
+                    };
+
+                    // Dimension ranking (for "Relative strengths")
+                    const dimRanking = maturityConfig.dimensions
+                        .map(d => ({ id: d.id, label: d.label, score: scores.dimScore[d.id] || 0 }))
+                        .sort((a, b) => b.score - a.score);
+
+                    const topDims = dimRanking.slice(0, 2)
+                        .map(d => `<li><span class="list-lead">${escapeHtml(d.label)}</span>${d.score}/100</li>`)
+                        .join('');
+
+                    const dimCards = maturityConfig.dimensions.map(d => {
+                        const val = scores.dimScore[d.id] || 0;
+                        return `
+                            <div class="maturity-dim-card">
+                                <div class="maturity-dim-head">
+                                    <div class="maturity-dim-name">${escapeHtml(d.label)}</div>
+                                    <div class="maturity-dim-val">${val}/100</div>
+                                </div>
+                                <div class="maturity-bar" aria-label="${escapeHtml(d.label)} score">
+                                    <span style="width:${val}%"></span>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    const refCards = refs.map(rc => `
+                        <div class="maturity-mini-card">
+                            <div class="maturity-mini-title">${escapeHtml(rc.title)}</div>
+                            <div class="maturity-mini-text">${escapeHtml(rc.text)}</div>
+                            <div class="maturity-ref">
+                                Reference: <a href="${escapeHtml(rc.ref.source.url)}" target="_blank" rel="noopener">${escapeHtml(rc.ref.source.name)}</a> — ${escapeHtml(rc.ref.source.note)}
+                            </div>
+                        </div>
+                    `).join('');
+
+                    const needsList = (steps.needs && steps.needs.length)
+                        ? steps.needs.map(n => `<li>${escapeHtml(n)}</li>`).join('')
+                        : `<li>No dominant blocker surfaced from your inputs. Validate on one priority process with evidence (data flows, controls, KPIs) to confirm what is realistically industrialisable.</li>`;
+
+                    const bricksList = (steps.bricks && steps.bricks.length)
+                        ? steps.bricks.map(b => `<li><strong>${escapeHtml(b)}</strong></li>`).join('')
+                        : `<li><strong>Brick 1 (Diagnostic)</strong></li><li><strong>Brick 2 (Programme design)</strong></li>`;
+
+                    const signalsList = (archetype.signals || []).map(s => `<li>${escapeHtml(s)}</li>`).join('');
+
+                    const focusBlock = `
+                        <div class="maturity-mini-card">
+                            <div class="maturity-mini-title">Where to start (typical wedge)</div>
+                            <div class="maturity-mini-text"><strong>${escapeHtml(focus.title)}</strong><br>${escapeHtml(focus.text)}</div>
+                            <ul class="content-list" style="margin-top: 8px;">
+                                ${(focus.examples || []).map(x => `<li>${escapeHtml(x)}</li>`).join('')}
+                            </ul>
+                            <div class="maturity-ref" style="margin-top: 10px;">
+                                This is guidance, not a prescription — your best wedge depends on your data readiness, control requirements and leadership priorities.
+                            </div>
+                        </div>
+                    `;
+
+                    const sourcesList = (() => {
+                        const allSources = [
+                            maturityConfig.benchmarks.energy_global_ai_adoption.source,
+                            maturityConfig.benchmarks.na_utilities_ai_use.source,
+                            maturityConfig.benchmarks.iea_grid_ops_adoption.source,
+                            maturityConfig.benchmarks.gartner_scaling.source,
+                            maturityConfig.benchmarks.deloitte_board_ai.source,
+                            maturityConfig.benchmarks.kpmg_energy_training.source,
+                            maturityConfig.benchmarks.ey_ai_risk_losses.source,
+                            maturityConfig.benchmarks.nist_ai_rmf.source,
+                            maturityConfig.benchmarks.iso_42001.source,
+                            maturityConfig.benchmarks.eu_ai_act.source
+                        ].filter(Boolean);
+
+                        const uniq = [];
+                        allSources.forEach(s => {
+                            if (!uniq.some(u => u.url === s.url)) uniq.push(s);
+                        });
+
+                        return uniq.map(s => `<li><a href="${escapeHtml(s.url)}" target="_blank" rel="noopener">${escapeHtml(s.name)}</a> — ${escapeHtml(s.note)}</li>`).join('');
+                    })();
+
+                    const scoringList = (() => {
+                        const items = [
+                            `Dimensions and weights: ${maturityConfig.dimensions.map(d => `${d.label} (${Math.round(d.weight * 100)}%)`).join(', ')}.`,
+                            'Gating rule: if there is no AI in production (deployment stage = “No operational AI” or “Pilots only”), maturity is capped at Level 2.',
+                            'This is a self-assessment based on your inputs. No evidence is collected or validated by CVA through this page.'
+                        ];
+                        return items.map(i => `<li>${escapeHtml(i)}</li>`).join('');
+                    })();
+
+                    const exportPayload = {
+                        tool: 'CVA AI for Energy — maturity self-check',
+                        version: maturityConfig.version,
+                        timestamp: new Date().toISOString(),
+                        context: {
+                            segment: getAnswer('segment'),
+                            geo: getAnswer('geo'),
+                            size: getAnswer('size'),
+                            priorityArea: getAnswer('tension')
+                        },
+                        answers: state.answers,
+                        scores: {
+                            overall: scores.overall,
+                            level,
+                            byDimension: scores.dimScore
+                        },
+                        archetype,
+                        focus
+                    };
+
+                    // Human-readable labels (for clipboard summary)
+                    const getOptionLabel = (qid, value) => {
+                        if (value === undefined || value === null || value === '') return 'Not specified';
+                        for (let i = 0; i < maturityConfig.steps.length; i++) {
+                            const qs = maturityConfig.steps[i].questions || [];
+                            for (let j = 0; j < qs.length; j++) {
+                                if (qs[j].id === qid) {
+                                    const opts = qs[j].options || [];
+                                    const opt = opts.find(o => o.value === value);
+                                    return opt ? opt.label : String(value);
+                                }
+                            }
+                        }
+                        return String(value);
+                    };
+
+                    const summaryText = (() => {
+                        const segmentLabel = getOptionLabel('segment', exportPayload.context.segment);
+                        const geoLabel = getOptionLabel('geo', exportPayload.context.geo);
+                        const sizeLabel = getOptionLabel('size', exportPayload.context.size);
+                        const prioLabel = getOptionLabel('tension', exportPayload.context.priorityArea);
+
+                        const dimLines = dimRanking.map(d => `- ${d.label}: ${d.score}/100`).join('\n');
+                        const needsLines = (steps.needs && steps.needs.length) ? steps.needs.map(n => `- ${n}`).join('\n') : '- No dominant blocker surfaced from your inputs.';
+                        const bricksLines = (steps.bricks && steps.bricks.length) ? steps.bricks.map(b => `- ${b}`).join('\n') : '- Brick 1 (Diagnostic)\n- Brick 2 (Programme design)';
+                        const refLines = (refs && refs.length) ? refs.map(r => `- ${r.title}: ${r.text} (${r.ref.source.name})`).join('\n') : '- Reference points not available';
+
+                        return [
+                            'CVA | AI for Energy — AI maturity self-check',
+                            `Date: ${new Date().toISOString().slice(0, 10)}`,
+                            '',
+                            'Context:',
+                            `- Organisation type: ${segmentLabel}`,
+                            `- Primary geography: ${geoLabel}`,
+                            `- Company size (employees): ${sizeLabel}`,
+                            `- Priority area: ${prioLabel}`,
+                            '',
+                            'Results:',
+                            `- Overall: ${scores.overall}/100`,
+                            `- ${levelNames[level] || ('Level ' + level)}`,
+                            `- Archetype: ${archetype.name}`,
+                            '',
+                            'Dimension scores:',
+                            dimLines,
+                            '',
+                            'Priority gaps (based on lowest dimension):',
+                            needsLines,
+                            '',
+                            'Typical CVA path:',
+                            bricksLines,
+                            '',
+                            'Public reference points shown:',
+                            refLines
+                        ].join('\n');
+                    })();
+
+                    resultsEl.innerHTML = `
+                        <div class="maturity-results-card">
+                            <div class="maturity-results-top">
+                                <div class="maturity-score-box">
+                                    <div class="maturity-score-ring" style="--score:${scores.overall}">
+                                        <div class="maturity-score-ring-inner">
+                                            <div class="maturity-score-kicker">Overall score</div>
+                                            <div class="maturity-score">${scores.overall}</div>
+                                            <div class="maturity-level">${escapeHtml(levelNames[level] || ('Level ' + level))}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="maturity-archetype">
+                                    <div class="maturity-archetype-title">Archetype: ${escapeHtml(archetype.name)}</div>
+                                    <div class="maturity-archetype-desc">${escapeHtml(archetype.desc)}</div>
+                                    ${signalsList ? `<ul class="content-list" style="margin-top: 10px;">${signalsList}</ul>` : ''}
+                                </div>
+                            </div>
+
+                            <div class="maturity-scores-grid">
+                                ${dimCards}
+                            </div>
+
+                            <div class="maturity-sections">
+                                <div class="maturity-mini-card">
+                                    <div class="maturity-mini-title">Relative strengths</div>
+                                    <div class="maturity-mini-text">Highest-scoring dimensions in this self-check:</div>
+                                    <ul class="content-list" style="margin-top: 10px;">
+                                        ${topDims || '<li>Not enough information yet</li>'}
+                                    </ul>
+                                </div>
+
+                                <div class="maturity-mini-card">
+                                    <div class="maturity-mini-title">Your priority gaps (actionable)</div>
+                                    <div class="maturity-mini-text">Based on your lowest‑scoring dimension, here is what typically blocks scaling.</div>
+                                    <ul class="content-list" style="margin-top: 8px;">
+                                        ${needsList}
+                                    </ul>
+                                </div>
+
+                                <div class="maturity-mini-card">
+                                    <div class="maturity-mini-title">Recommended CVA path</div>
+                                    <div class="maturity-mini-text">Bricks that typically fit your profile:</div>
+                                    <ul class="content-list" style="margin-top: 8px;">
+                                        ${bricksList}
+                                    </ul>
+                                    <div class="maturity-ref" style="margin-top: 10px;">
+                                        Brick 1 benchmarks current initiatives and selects 1–2 programme‑grade priorities. Brick 2 designs governance and the operating model. Brick 3 industrialises delivery. Brick 4 scales.
+                                    </div>
+                                    <div style="margin-top: 12px;">
+                                        <a href="index.html#start"><button class="btn-primary btn-small" style="width: 100%;">Book a Brick 1 diagnostic →</button></a>
+                                    </div>
+                                </div>
+
+                                ${focusBlock}
+
+                                ${refCards}
+                            </div>
+
+                            <div class="maturity-export">
+                                <button class="btn-secondary" id="maturityResetBtn" type="button">Reset assessment</button>
+                            </div>
+
+                            <div class="maturity-details">
+                                <details>
+                                    <summary>Sources, definitions & scoring</summary>
+                                    <p style="margin-top: 10px; font-size: 12px; color: var(--gray-600); line-height: 1.7;">
+                                        “Reference points” are based on public surveys with their own scopes and samples — treat them as directional, not as a certified percentile.
+                                    </p>
+                                    <ul class="maturity-source-list">
+                                        ${sourcesList}
+                                    </ul>
+                                    <p style="margin-top: 14px; font-weight: 800; color: var(--navy);">Scoring rules (transparent)</p>
+                                    <ul class="maturity-source-list">
+                                        ${scoringList}
+                                    </ul>
+                                    <p style="margin-top: 10px; font-size: 12px; color: var(--gray-500); line-height: 1.7;">
+                                        Notes: This tool runs locally in your browser. It does not send your answers to CVA. This is not legal advice.
+                                    </p>
+                                </details>
+                            </div>
+                        </div>
+                    `;
+
+                    resultsEl.hidden = false;
+                    actionsEl.style.display = 'none';
+                    footnoteEl.style.display = 'none';
+
+                    // Animate bars
+                    requestAnimationFrame(() => {
+                        resultsEl.querySelectorAll('.maturity-bar > span').forEach(span => {
+                            const w = span.style.width;
+                            span.style.width = '0%';
+                            requestAnimationFrame(() => span.style.width = w);
+                        });
+                    });
+
+                    // Results actions
+const promptFallback = () => {
+                            // Last resort: show a native prompt so users can manually copy (works on iOS too)
+                            window.prompt('Copy the text below:', text);
+                        };
+
+                        try {
+                            if (navigator.clipboard && navigator.clipboard.writeText) {
+                                await navigator.clipboard.writeText(text);
+                                notify();
+                                return;
+                            }
+                            throw new Error('Clipboard API not available');
+                        } catch (err) {
+                            try {
+                                const ta = document.createElement('textarea');
+                                ta.value = text;
+                                ta.setAttribute('readonly', '');
+                                ta.style.position = 'fixed';
+                                ta.style.top = '0';
+                                ta.style.left = '0';
+                                ta.style.opacity = '0';
+                                document.body.appendChild(ta);
+                                ta.focus();
+                                ta.select();
+
+                                const ok = document.execCommand('copy');
+                                document.body.removeChild(ta);
+
+                                if (ok) {
+                                    notify();
+                                    return;
+                                }
+                            } catch (e) {
+                                // ignore
+                            }
+                            promptFallback();
+                        }
+                    });
+const blob = new Blob([json], { type: 'application/json' });
+                        const url = URL.createObjectURL(blob);
+                        const filename = `cva-ai-energy-maturity-${new Date().toISOString().slice(0,10)}.json`;
+
+                        // iOS Safari: download attribute is not consistently honoured.
+                        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+                        if (isIOS) {
+                            window.open(url, '_blank');
+                            setTimeout(() => URL.revokeObjectURL(url), 4000);
+                            return;
+                        }
+
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        setTimeout(() => URL.revokeObjectURL(url), 4000);
+                    });
+
+                    resultsEl.querySelector('#maturityResetBtn')?.addEventListener('click', () => {
+                        if (!confirm('Reset your answers?')) return;
+                        state.stepIndex = 0;
+                        state.answers = {};
+                        if (canUseStorage) {
+                            try { localStorage.removeItem(storageKey); } catch (e) { /* ignore */ }
+                        }
+                        renderStepper();
+                        renderStep();
+                        safeScrollIntoView(document.getElementById('maturity'), { behavior: 'smooth', block: 'start' });
+                    });
+
+                    safeScrollIntoView(resultsEl, { behavior: 'smooth', block: 'start' });
+                } catch (err) {
+                    console.error('Maturity results rendering failed:', err);
+                    resultsEl.hidden = false;
+                    resultsEl.innerHTML = `
+                        <div class="maturity-results-card">
+                            <div class="maturity-results-top" style="grid-template-columns: 1fr;">
+                                <div class="maturity-archetype">
+                                    <div class="maturity-archetype-title">Something went wrong while generating results</div>
+                                    <div class="maturity-archetype-desc">
+                                        Please try again. If the issue persists on your device, you can still reset the assessment and re-run it.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="maturity-export">
+                                <button class="btn-secondary" id="maturityResetBtnFallback" type="button">Reset assessment</button>
+                            </div>
+                        </div>
+                    `;
+                    actionsEl.style.display = 'flex';
+                    footnoteEl.style.display = 'block';
+                    resultsEl.querySelector('#maturityResetBtnFallback')?.addEventListener('click', () => {
+                        state.stepIndex = 0;
+                        state.answers = {};
+                        if (canUseStorage) {
+                            try { localStorage.removeItem(storageKey); } catch (e) { /* ignore */ }
+                        }
+                        renderStepper();
+                        renderStep();
+                        safeScrollIntoView(document.getElementById('maturity'), { behavior: 'smooth', block: 'start' });
+                    });
+                    safeScrollIntoView(resultsEl, { behavior: 'smooth', block: 'start' });
+                }
+            }
+function validateCurrentStep() {
+                const step = maturityConfig.steps[state.stepIndex];
+                const missing = [];
+
+                step.questions.forEach(q => {
+                    if (!q.required) return;
+                    const a = getAnswer(q.id);
+                    if (q.type === 'checkbox') {
+                        if (!Array.isArray(a) || a.length === 0) missing.push(q.label);
+                    } else {
+                        if (a === undefined || a === null || a === '') missing.push(q.label);
+                    }
+                });
+
+                return missing;
+            }
+
+            backBtn.addEventListener('click', () => {
+                if (state.stepIndex > 0) {
+                    state.stepIndex -= 1;
+                    saveState();
+                    renderStepper();
+                    renderStep();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                const missing = validateCurrentStep();
+                if (missing.length > 0) {
+                    alert('Please answer the following before continuing:\n\n• ' + missing.join('\n• '));
+                    return;
+                }
+
+                if (state.stepIndex < maturityConfig.steps.length - 1) {
+                    state.stepIndex += 1;
+                    saveState();
+                    renderStepper();
+                    renderStep();
+                } else {
+                    renderResults();
+                }
+            });
+
+            // First load
+            loadSaved();
+            renderStepper();
+            renderStep();
+        })();
+
+    </script>
+</body>
+</html>
