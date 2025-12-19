@@ -3664,7 +3664,7 @@
     <footer>
         <div class="footer-content">
             <div>
-                <a href="https://www.corporate-value.com" target="_blank" rel="noopener" style="text-decoration: none;">
+                <a href="https://www.corporate-value.com" target="_blank" rel="noopener" style="text-decoration: none; color: white;">
                     <div class="footer-brand">CVA</div>
                 </a>
                 <div class="footer-sub">AI for Energy offering</div>
@@ -4939,299 +4939,401 @@ Best regards`
                 };
             }
 
-            function renderResults() {
-                const scores = computeScores();
-                let level = applyGating(levelFromScore(scores.overall));
-                const archetype = deriveArchetype(level, scores);
-                const focus = startingFocus();
-                const steps = nextSteps(scores, level);
-                const refs = benchmarkCards(scores);
+                        function renderResults() {
+                try {
+                    const scores = computeScores();
+                    let level = applyGating(levelFromScore(scores.overall));
+                    const archetype = deriveArchetype(level, scores);
+                    const focus = startingFocus();
+                    const steps = nextSteps(scores, level);
+                    const refs = benchmarkCards(scores);
 
-                const levelNames = {
-                    1: 'Level 1 — Foundations missing',
-                    2: 'Level 2 — Experimenting',
-                    3: 'Level 3 — Scaling foundations',
-                    4: 'Level 4 — Industrialising',
-                    5: 'Level 5 — Repeatable operating capability'
-                };
+                    const levelNames = {
+                        1: 'Level 1 — Foundations missing',
+                        2: 'Level 2 — Experimenting',
+                        3: 'Level 3 — Scaling foundations',
+                        4: 'Level 4 — Industrialising',
+                        5: 'Level 5 — Repeatable operating capability'
+                    };
 
-                const dimCards = maturityConfig.dimensions.map(d => {
-                    const val = scores.dimScore[d.id] || 0;
-                    return `
-                        <div class="maturity-dim-card">
-                            <div class="maturity-dim-head">
-                                <div class="maturity-dim-name">${escapeHtml(d.label)}</div>
-                                <div class="maturity-dim-val">${val}/100</div>
+                    // Dimension ranking (for "Relative strengths")
+                    const dimRanking = maturityConfig.dimensions
+                        .map(d => ({ id: d.id, label: d.label, score: scores.dimScore[d.id] || 0 }))
+                        .sort((a, b) => b.score - a.score);
+
+                    const topDims = dimRanking.slice(0, 2)
+                        .map(d => `<li><span class="list-lead">${escapeHtml(d.label)}</span>${d.score}/100</li>`)
+                        .join('');
+
+                    const dimCards = maturityConfig.dimensions.map(d => {
+                        const val = scores.dimScore[d.id] || 0;
+                        return `
+                            <div class="maturity-dim-card">
+                                <div class="maturity-dim-head">
+                                    <div class="maturity-dim-name">${escapeHtml(d.label)}</div>
+                                    <div class="maturity-dim-val">${val}/100</div>
+                                </div>
+                                <div class="maturity-bar" aria-label="${escapeHtml(d.label)} score">
+                                    <span style="width:${val}%"></span>
+                                </div>
                             </div>
-                            <div class="maturity-bar" aria-label="${escapeHtml(d.label)} score">
-                                <span style="width:${val}%"></span>
+                        `;
+                    }).join('');
+
+                    const refCards = refs.map(rc => `
+                        <div class="maturity-mini-card">
+                            <div class="maturity-mini-title">${escapeHtml(rc.title)}</div>
+                            <div class="maturity-mini-text">${escapeHtml(rc.text)}</div>
+                            <div class="maturity-ref">
+                                Reference: <a href="${escapeHtml(rc.ref.source.url)}" target="_blank" rel="noopener">${escapeHtml(rc.ref.source.name)}</a> — ${escapeHtml(rc.ref.source.note)}
+                            </div>
+                        </div>
+                    `).join('');
+
+                    const needsList = (steps.needs && steps.needs.length)
+                        ? steps.needs.map(n => `<li>${escapeHtml(n)}</li>`).join('')
+                        : `<li>No dominant blocker surfaced from your inputs. Validate on one priority process with evidence (data flows, controls, KPIs) to confirm what is realistically industrialisable.</li>`;
+
+                    const bricksList = (steps.bricks && steps.bricks.length)
+                        ? steps.bricks.map(b => `<li><strong>${escapeHtml(b)}</strong></li>`).join('')
+                        : `<li><strong>Brick 1 (Diagnostic)</strong></li><li><strong>Brick 2 (Programme design)</strong></li>`;
+
+                    const signalsList = (archetype.signals || []).map(s => `<li>${escapeHtml(s)}</li>`).join('');
+
+                    const focusBlock = `
+                        <div class="maturity-mini-card">
+                            <div class="maturity-mini-title">Where to start (typical wedge)</div>
+                            <div class="maturity-mini-text"><strong>${escapeHtml(focus.title)}</strong><br>${escapeHtml(focus.text)}</div>
+                            <ul class="content-list" style="margin-top: 8px;">
+                                ${(focus.examples || []).map(x => `<li>${escapeHtml(x)}</li>`).join('')}
+                            </ul>
+                            <div class="maturity-ref" style="margin-top: 10px;">
+                                This is guidance, not a prescription — your best wedge depends on your data readiness, control requirements and leadership priorities.
                             </div>
                         </div>
                     `;
-                }).join('');
 
-                const refCards = refs.map(rc => `
-                    <div class="maturity-mini-card">
-                        <div class="maturity-mini-title">${escapeHtml(rc.title)}</div>
-                        <div class="maturity-mini-text">${escapeHtml(rc.text)}</div>
-                        <div class="maturity-ref">
-                            Reference: <a href="${escapeHtml(rc.ref.source.url)}" target="_blank" rel="noopener">${escapeHtml(rc.ref.source.name)}</a> — ${escapeHtml(rc.ref.source.note)}
-                        </div>
-                    </div>
-                `).join('');
+                    const sourcesList = (() => {
+                        const allSources = [
+                            maturityConfig.benchmarks.energy_global_ai_adoption.source,
+                            maturityConfig.benchmarks.na_utilities_ai_use.source,
+                            maturityConfig.benchmarks.iea_grid_ops_adoption.source,
+                            maturityConfig.benchmarks.gartner_scaling.source,
+                            maturityConfig.benchmarks.deloitte_board_ai.source,
+                            maturityConfig.benchmarks.kpmg_energy_training.source,
+                            maturityConfig.benchmarks.ey_ai_risk_losses.source,
+                            maturityConfig.benchmarks.nist_ai_rmf.source,
+                            maturityConfig.benchmarks.iso_42001.source,
+                            maturityConfig.benchmarks.eu_ai_act.source
+                        ].filter(Boolean);
 
-                const needsList = (steps.needs || []).map(n => `<li>${escapeHtml(n)}</li>`).join('');
-                const bricksList = (steps.bricks || []).map(b => `<li><strong>${escapeHtml(b)}</strong></li>`).join('');
-                const signalsList = (archetype.signals || []).map(s => `<li>${escapeHtml(s)}</li>`).join('');
+                        const uniq = [];
+                        allSources.forEach(s => {
+                            if (!uniq.some(u => u.url === s.url)) uniq.push(s);
+                        });
 
-                const focusBlock = `
-                    <div class="maturity-mini-card">
-                        <div class="maturity-mini-title">Where to start (typical wedge)</div>
-                        <div class="maturity-mini-text"><strong>${escapeHtml(focus.title)}</strong><br>${escapeHtml(focus.text)}</div>
-                        <ul class="content-list" style="margin-top: 8px;">
-                            ${(focus.examples || []).map(x => `<li>${escapeHtml(x)}</li>`).join('')}
-                        </ul>
-                        <div class="maturity-ref" style="margin-top: 10px;">
-                            This is guidance, not a prescription — your best wedge depends on your data readiness, control requirements and leadership priorities.
-                        </div>
-                    </div>
-                `;
+                        return uniq.map(s => `<li><a href="${escapeHtml(s.url)}" target="_blank" rel="noopener">${escapeHtml(s.name)}</a> — ${escapeHtml(s.note)}</li>`).join('');
+                    })();
 
-                const sourcesList = (() => {
-                    const allSources = [
-                        maturityConfig.benchmarks.energy_global_ai_adoption.source,
-                        maturityConfig.benchmarks.na_utilities_ai_use.source,
-                        maturityConfig.benchmarks.iea_grid_ops_adoption.source,
-                        maturityConfig.benchmarks.gartner_scaling.source,
-                        maturityConfig.benchmarks.deloitte_board_ai.source,
-                        maturityConfig.benchmarks.kpmg_energy_training.source,
-                        maturityConfig.benchmarks.ey_ai_risk_losses.source,
-                        maturityConfig.benchmarks.nist_ai_rmf.source,
-                        maturityConfig.benchmarks.iso_42001.source,
-                        maturityConfig.benchmarks.eu_ai_act.source
-                    ].filter(Boolean);
+                    const scoringList = (() => {
+                        const items = [
+                            `Dimensions and weights: ${maturityConfig.dimensions.map(d => `${d.label} (${Math.round(d.weight * 100)}%)`).join(', ')}.`,
+                            'Gating rule: if there is no AI in production (deployment stage = “No operational AI” or “Pilots only”), maturity is capped at Level 2.',
+                            'This is a self-assessment based on your inputs. No evidence is collected or validated by CVA through this page.'
+                        ];
+                        return items.map(i => `<li>${escapeHtml(i)}</li>`).join('');
+                    })();
 
-                    const uniq = [];
-                    allSources.forEach(s => {
-                        if (!uniq.some(u => u.url === s.url)) uniq.push(s);
-                    });
-
-                    return uniq.map(s => `<li><a href="${escapeHtml(s.url)}" target="_blank" rel="noopener">${escapeHtml(s.name)}</a> — ${escapeHtml(s.note)}</li>`).join('');
-                })();
-
-                const scoringList = (() => {
-                    const items = [
-                        `Dimensions and weights: ${maturityConfig.dimensions.map(d => `${d.label} (${Math.round(d.weight * 100)}%)`).join(', ')}.`,
-                        'Gating rule: if there is no AI in production (deployment stage = “No operational AI” or “Pilots only”), maturity is capped at Level 2.',
-                        'This is a self-assessment based on your inputs. No evidence is collected or validated by CVA through this page.'
-                    ];
-                    return items.map(i => `<li>${escapeHtml(i)}</li>`).join('');
-                })();
-
-                const exportPayload = {
-                    tool: 'CVA AI for Energy — maturity self-check',
-                    version: maturityConfig.version,
-                    timestamp: new Date().toISOString(),
-                    context: {
-                        segment: getAnswer('segment'),
-                        geo: getAnswer('geo'),
-                        size: getAnswer('size'),
-                        priorityArea: getAnswer('tension')
-                    },
-                    answers: state.answers,
-                    scores: {
-                        overall: scores.overall,
-                        level,
-                        byDimension: scores.dimScore
-                    },
-                    archetype,
-                    focus
-                };
-
-                resultsEl.innerHTML = `
-                    <div class="maturity-results-card">
-                        <div class="maturity-results-top">
-                            <div class="maturity-score-box">
-                                <div class="maturity-score-ring" style="--score:${scores.overall}">
-                                    <div class="maturity-score-ring-inner">
-                                        <div class="maturity-score-kicker">Overall score</div>
-                                        <div class="maturity-score">${scores.overall}</div>
-                                        <div class="maturity-level">${escapeHtml(levelNames[level] || ('Level ' + level))}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="maturity-archetype">
-                                <div class="maturity-archetype-title">Archetype: ${escapeHtml(archetype.name)}</div>
-                                <div class="maturity-archetype-desc">${escapeHtml(archetype.desc)}</div>
-                                ${signalsList ? `<ul class="content-list" style="margin-top: 10px;">${signalsList}</ul>` : ''}
-                            </div>
-                        </div>
-
-                        <div class="maturity-scores-grid">
-                            ${dimCards}
-                        </div>
-
-                        <div class="maturity-sections">
-                            <div class="maturity-mini-card">
-                                <div class="maturity-mini-title">Relative strengths</div>
-                                <div class="maturity-mini-text">Highest-scoring dimensions in this self-check:</div>
-                                <ul class="content-list" style="margin-top: 10px;">
-                                    ${topDims || '<li>Not enough information yet</li>'}
-                                </ul>
-                            </div>
-
-                            <div class="maturity-mini-card">
-                                <div class="maturity-mini-title">Your priority gaps (actionable)</div>
-                                <div class="maturity-mini-text">Based on your lowest‑scoring dimension, here is what typically blocks scaling.</div>
-                                <ul class="content-list" style="margin-top: 8px;">
-                                    ${needsList}
-                                </ul>
-                            </div>
-
-                            <div class="maturity-mini-card">
-                                <div class="maturity-mini-title">Recommended CVA path</div>
-                                <div class="maturity-mini-text">Bricks that typically fit your profile:</div>
-                                <ul class="content-list" style="margin-top: 8px;">
-                                    ${bricksList}
-                                </ul>
-                                <div class="maturity-ref" style="margin-top: 10px;">
-                                    Brick 1 benchmarks current initiatives and selects 1–2 programme‑grade priorities. Brick 2 designs governance and the operating model. Brick 3 industrialises delivery. Brick 4 scales.
-                                </div>
-                                <div style="margin-top: 12px;">
-                                    <a href="#start"><button class="btn-primary btn-small" style="width: 100%;">Book a Brick 1 diagnostic →</button></a>
-                                </div>
-                            </div>
-
-                            ${focusBlock}
-
-                            ${refCards}
-                        </div>
-
-                        <div class="maturity-export">
-                            <button class="btn-secondary" id="maturityCopyBtn" type="button">Copy summary to clipboard</button>
-                            <button class="btn-secondary" id="maturityDownloadBtn" type="button">Download results (JSON)</button>
-                            <button class="btn-secondary" id="maturityResetBtn" type="button">Reset assessment</button>
-                        </div>
-
-                        <div class="maturity-details">
-                            <details>
-                                <summary>Sources, definitions & scoring</summary>
-                                <p style="margin-top: 10px; font-size: 12px; color: var(--gray-600); line-height: 1.7;">
-                                    “Reference points” are based on public surveys with their own scopes and samples — treat them as directional, not as a certified percentile.
-                                </p>
-                                <ul class="maturity-source-list">
-                                    ${sourcesList}
-                                </ul>
-                                <p style="margin-top: 14px; font-weight: 800; color: var(--navy);">Scoring rules (transparent)</p>
-                                <ul class="maturity-source-list">
-                                    ${scoringList}
-                                </ul>
-                                <p style="margin-top: 10px; font-size: 12px; color: var(--gray-500); line-height: 1.7;">
-                                    Notes: This tool runs locally in your browser. It does not send your answers to CVA. This is not legal advice.
-                                </p>
-                            </details>
-                        </div>
-                    </div>
-                `;
-
-                resultsEl.hidden = false;
-                actionsEl.style.display = 'none';
-                footnoteEl.style.display = 'none';
-
-                // Animate bars
-                requestAnimationFrame(() => {
-                    resultsEl.querySelectorAll('.maturity-bar > span').forEach(span => {
-                        const w = span.style.width;
-                        span.style.width = '0%';
-                        requestAnimationFrame(() => span.style.width = w);
-                    });
-                });
-
-                // Export buttons
-                
-                resultsEl.querySelector('#maturityCopyBtn')?.addEventListener('click', async () => {
-                    const text = summaryText;
-
-                    const notify = () => alert('Copied to clipboard.');
-                    const promptFallback = () => {
-                        // Last resort: show a native prompt so users can manually copy (works on iOS too)
-                        window.prompt('Copy the text below:', text);
+                    const exportPayload = {
+                        tool: 'CVA AI for Energy — maturity self-check',
+                        version: maturityConfig.version,
+                        timestamp: new Date().toISOString(),
+                        context: {
+                            segment: getAnswer('segment'),
+                            geo: getAnswer('geo'),
+                            size: getAnswer('size'),
+                            priorityArea: getAnswer('tension')
+                        },
+                        answers: state.answers,
+                        scores: {
+                            overall: scores.overall,
+                            level,
+                            byDimension: scores.dimScore
+                        },
+                        archetype,
+                        focus
                     };
 
-                    try {
-                        if (navigator.clipboard && navigator.clipboard.writeText) {
-                            await navigator.clipboard.writeText(text);
-                            notify();
-                            return;
+                    // Human-readable labels (for clipboard summary)
+                    const getOptionLabel = (qid, value) => {
+                        if (value === undefined || value === null || value === '') return 'Not specified';
+                        for (let i = 0; i < maturityConfig.steps.length; i++) {
+                            const qs = maturityConfig.steps[i].questions || [];
+                            for (let j = 0; j < qs.length; j++) {
+                                if (qs[j].id === qid) {
+                                    const opts = qs[j].options || [];
+                                    const opt = opts.find(o => o.value === value);
+                                    return opt ? opt.label : String(value);
+                                }
+                            }
                         }
-                        throw new Error('Clipboard API not available');
-                    } catch (err) {
+                        return String(value);
+                    };
+
+                    const summaryText = (() => {
+                        const segmentLabel = getOptionLabel('segment', exportPayload.context.segment);
+                        const geoLabel = getOptionLabel('geo', exportPayload.context.geo);
+                        const sizeLabel = getOptionLabel('size', exportPayload.context.size);
+                        const prioLabel = getOptionLabel('tension', exportPayload.context.priorityArea);
+
+                        const dimLines = dimRanking.map(d => `- ${d.label}: ${d.score}/100`).join('\n');
+                        const needsLines = (steps.needs && steps.needs.length) ? steps.needs.map(n => `- ${n}`).join('\n') : '- No dominant blocker surfaced from your inputs.';
+                        const bricksLines = (steps.bricks && steps.bricks.length) ? steps.bricks.map(b => `- ${b}`).join('\n') : '- Brick 1 (Diagnostic)\n- Brick 2 (Programme design)';
+                        const refLines = (refs && refs.length) ? refs.map(r => `- ${r.title}: ${r.text} (${r.ref.source.name})`).join('\n') : '- Reference points not available';
+
+                        return [
+                            'CVA | AI for Energy — AI maturity self-check',
+                            `Date: ${new Date().toISOString().slice(0, 10)}`,
+                            '',
+                            'Context:',
+                            `- Organisation type: ${segmentLabel}`,
+                            `- Primary geography: ${geoLabel}`,
+                            `- Company size (employees): ${sizeLabel}`,
+                            `- Priority area: ${prioLabel}`,
+                            '',
+                            'Results:',
+                            `- Overall: ${scores.overall}/100`,
+                            `- ${levelNames[level] || ('Level ' + level)}`,
+                            `- Archetype: ${archetype.name}`,
+                            '',
+                            'Dimension scores:',
+                            dimLines,
+                            '',
+                            'Priority gaps (based on lowest dimension):',
+                            needsLines,
+                            '',
+                            'Typical CVA path:',
+                            bricksLines,
+                            '',
+                            'Public reference points shown:',
+                            refLines
+                        ].join('\n');
+                    })();
+
+                    resultsEl.innerHTML = `
+                        <div class="maturity-results-card">
+                            <div class="maturity-results-top">
+                                <div class="maturity-score-box">
+                                    <div class="maturity-score-ring" style="--score:${scores.overall}">
+                                        <div class="maturity-score-ring-inner">
+                                            <div class="maturity-score-kicker">Overall score</div>
+                                            <div class="maturity-score">${scores.overall}</div>
+                                            <div class="maturity-level">${escapeHtml(levelNames[level] || ('Level ' + level))}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="maturity-archetype">
+                                    <div class="maturity-archetype-title">Archetype: ${escapeHtml(archetype.name)}</div>
+                                    <div class="maturity-archetype-desc">${escapeHtml(archetype.desc)}</div>
+                                    ${signalsList ? `<ul class="content-list" style="margin-top: 10px;">${signalsList}</ul>` : ''}
+                                </div>
+                            </div>
+
+                            <div class="maturity-scores-grid">
+                                ${dimCards}
+                            </div>
+
+                            <div class="maturity-sections">
+                                <div class="maturity-mini-card">
+                                    <div class="maturity-mini-title">Relative strengths</div>
+                                    <div class="maturity-mini-text">Highest-scoring dimensions in this self-check:</div>
+                                    <ul class="content-list" style="margin-top: 10px;">
+                                        ${topDims || '<li>Not enough information yet</li>'}
+                                    </ul>
+                                </div>
+
+                                <div class="maturity-mini-card">
+                                    <div class="maturity-mini-title">Your priority gaps (actionable)</div>
+                                    <div class="maturity-mini-text">Based on your lowest‑scoring dimension, here is what typically blocks scaling.</div>
+                                    <ul class="content-list" style="margin-top: 8px;">
+                                        ${needsList}
+                                    </ul>
+                                </div>
+
+                                <div class="maturity-mini-card">
+                                    <div class="maturity-mini-title">Recommended CVA path</div>
+                                    <div class="maturity-mini-text">Bricks that typically fit your profile:</div>
+                                    <ul class="content-list" style="margin-top: 8px;">
+                                        ${bricksList}
+                                    </ul>
+                                    <div class="maturity-ref" style="margin-top: 10px;">
+                                        Brick 1 benchmarks current initiatives and selects 1–2 programme‑grade priorities. Brick 2 designs governance and the operating model. Brick 3 industrialises delivery. Brick 4 scales.
+                                    </div>
+                                    <div style="margin-top: 12px;">
+                                        <a href="#start"><button class="btn-primary btn-small" style="width: 100%;">Book a Brick 1 diagnostic →</button></a>
+                                    </div>
+                                </div>
+
+                                ${focusBlock}
+
+                                ${refCards}
+                            </div>
+
+                            <div class="maturity-export">
+                                <button class="btn-secondary" id="maturityCopyBtn" type="button">Copy summary to clipboard</button>
+                                <button class="btn-secondary" id="maturityDownloadBtn" type="button">Download results (JSON)</button>
+                                <button class="btn-secondary" id="maturityResetBtn" type="button">Reset assessment</button>
+                            </div>
+
+                            <div class="maturity-details">
+                                <details>
+                                    <summary>Sources, definitions & scoring</summary>
+                                    <p style="margin-top: 10px; font-size: 12px; color: var(--gray-600); line-height: 1.7;">
+                                        “Reference points” are based on public surveys with their own scopes and samples — treat them as directional, not as a certified percentile.
+                                    </p>
+                                    <ul class="maturity-source-list">
+                                        ${sourcesList}
+                                    </ul>
+                                    <p style="margin-top: 14px; font-weight: 800; color: var(--navy);">Scoring rules (transparent)</p>
+                                    <ul class="maturity-source-list">
+                                        ${scoringList}
+                                    </ul>
+                                    <p style="margin-top: 10px; font-size: 12px; color: var(--gray-500); line-height: 1.7;">
+                                        Notes: This tool runs locally in your browser. It does not send your answers to CVA. This is not legal advice.
+                                    </p>
+                                </details>
+                            </div>
+                        </div>
+                    `;
+
+                    resultsEl.hidden = false;
+                    actionsEl.style.display = 'none';
+                    footnoteEl.style.display = 'none';
+
+                    // Animate bars
+                    requestAnimationFrame(() => {
+                        resultsEl.querySelectorAll('.maturity-bar > span').forEach(span => {
+                            const w = span.style.width;
+                            span.style.width = '0%';
+                            requestAnimationFrame(() => span.style.width = w);
+                        });
+                    });
+
+                    // Export buttons
+                    resultsEl.querySelector('#maturityCopyBtn')?.addEventListener('click', async () => {
+                        const text = summaryText;
+
+                        const notify = () => alert('Copied to clipboard.');
+                        const promptFallback = () => {
+                            // Last resort: show a native prompt so users can manually copy (works on iOS too)
+                            window.prompt('Copy the text below:', text);
+                        };
+
                         try {
-                            const ta = document.createElement('textarea');
-                            ta.value = text;
-                            ta.setAttribute('readonly', '');
-                            ta.style.position = 'fixed';
-                            ta.style.top = '0';
-                            ta.style.left = '0';
-                            ta.style.opacity = '0';
-                            document.body.appendChild(ta);
-                            ta.focus();
-                            ta.select();
-
-                            const ok = document.execCommand('copy');
-                            document.body.removeChild(ta);
-
-                            if (ok) {
+                            if (navigator.clipboard && navigator.clipboard.writeText) {
+                                await navigator.clipboard.writeText(text);
                                 notify();
                                 return;
                             }
-                        } catch (e) {
-                            // ignore
+                            throw new Error('Clipboard API not available');
+                        } catch (err) {
+                            try {
+                                const ta = document.createElement('textarea');
+                                ta.value = text;
+                                ta.setAttribute('readonly', '');
+                                ta.style.position = 'fixed';
+                                ta.style.top = '0';
+                                ta.style.left = '0';
+                                ta.style.opacity = '0';
+                                document.body.appendChild(ta);
+                                ta.focus();
+                                ta.select();
+
+                                const ok = document.execCommand('copy');
+                                document.body.removeChild(ta);
+
+                                if (ok) {
+                                    notify();
+                                    return;
+                                }
+                            } catch (e) {
+                                // ignore
+                            }
+                            promptFallback();
                         }
-                        promptFallback();
-                    }
-                });
+                    });
 
-                resultsEl.querySelector('#maturityDownloadBtn')?.addEventListener('click', () => {
-                    const json = JSON.stringify(exportPayload, null, 2);
-                    const blob = new Blob([json], { type: 'application/json' });
-                    const url = URL.createObjectURL(blob);
-                    const filename = `cva-ai-energy-maturity-${new Date().toISOString().slice(0,10)}.json`;
+                    resultsEl.querySelector('#maturityDownloadBtn')?.addEventListener('click', () => {
+                        const json = JSON.stringify(exportPayload, null, 2);
+                        const blob = new Blob([json], { type: 'application/json' });
+                        const url = URL.createObjectURL(blob);
+                        const filename = `cva-ai-energy-maturity-${new Date().toISOString().slice(0,10)}.json`;
 
-                    // iOS Safari: download attribute is not consistently honoured.
-                    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                        // iOS Safari: download attribute is not consistently honoured.
+                        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-                    if (isIOS) {
-                        window.open(url, '_blank');
+                        if (isIOS) {
+                            window.open(url, '_blank');
+                            setTimeout(() => URL.revokeObjectURL(url), 4000);
+                            return;
+                        }
+
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
                         setTimeout(() => URL.revokeObjectURL(url), 4000);
-                        return;
-                    }
+                    });
 
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = filename;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    setTimeout(() => URL.revokeObjectURL(url), 4000);
-                });
+                    resultsEl.querySelector('#maturityResetBtn')?.addEventListener('click', () => {
+                        if (!confirm('Reset your answers?')) return;
+                        state.stepIndex = 0;
+                        state.answers = {};
+                        if (canUseStorage) {
+                            try { localStorage.removeItem(storageKey); } catch (e) { /* ignore */ }
+                        }
+                        renderStepper();
+                        renderStep();
+                        safeScrollIntoView(document.getElementById('maturity'), { behavior: 'smooth', block: 'start' });
+                    });
 
-resultsEl.querySelector('#maturityResetBtn')?.addEventListener('click', () => {
-                    if (!confirm('Reset your answers?')) return;
-                    state.stepIndex = 0;
-                    state.answers = {};
-                    if (canUseStorage) {
-                        try { localStorage.removeItem(storageKey); } catch (e) { /* ignore */ }
-                    }
-                    renderStepper();
-                    renderStep();
-                    safeScrollIntoView(document.getElementById('maturity'), { behavior: 'smooth', block: 'start' });
-                });
-
-                safeScrollIntoView(resultsEl, { behavior: 'smooth', block: 'start' });
+                    safeScrollIntoView(resultsEl, { behavior: 'smooth', block: 'start' });
+                } catch (err) {
+                    console.error('Maturity results rendering failed:', err);
+                    resultsEl.hidden = false;
+                    resultsEl.innerHTML = `
+                        <div class="maturity-results-card">
+                            <div class="maturity-results-top" style="grid-template-columns: 1fr;">
+                                <div class="maturity-archetype">
+                                    <div class="maturity-archetype-title">Something went wrong while generating results</div>
+                                    <div class="maturity-archetype-desc">
+                                        Please try again. If the issue persists on your device, you can still reset the assessment and re-run it.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="maturity-export">
+                                <button class="btn-secondary" id="maturityResetBtnFallback" type="button">Reset assessment</button>
+                            </div>
+                        </div>
+                    `;
+                    actionsEl.style.display = 'flex';
+                    footnoteEl.style.display = 'block';
+                    resultsEl.querySelector('#maturityResetBtnFallback')?.addEventListener('click', () => {
+                        state.stepIndex = 0;
+                        state.answers = {};
+                        if (canUseStorage) {
+                            try { localStorage.removeItem(storageKey); } catch (e) { /* ignore */ }
+                        }
+                        renderStepper();
+                        renderStep();
+                        safeScrollIntoView(document.getElementById('maturity'), { behavior: 'smooth', block: 'start' });
+                    });
+                    safeScrollIntoView(resultsEl, { behavior: 'smooth', block: 'start' });
+                }
             }
-
-            function validateCurrentStep() {
+function validateCurrentStep() {
                 const step = maturityConfig.steps[state.stepIndex];
                 const missing = [];
 
