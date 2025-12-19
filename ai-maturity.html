@@ -1833,7 +1833,6 @@
         }
 
 
-
         /* AI Maturity Self-Check */
         .maturity-section {
             padding: 120px 32px;
@@ -2811,7 +2810,7 @@
                 <a href="index.html#portfolio" class="nav-link">Use cases</a>
                 <a href="index.html#references" class="nav-link">References</a>
                 <a href="#maturity" class="nav-link">Self-check</a>
-                <a href="index.html#start"><button class="btn-primary btn-small">Request a Brick 1 diagnostic</button></a>
+                <a href="index.html#start"><button class="btn-primary btn-small">Request a Scoping call</button></a>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
                 ☰
@@ -2825,7 +2824,7 @@
         <a href="index.html#portfolio">Use cases</a>
         <a href="index.html#references">References</a>
         <a href="#maturity">Self-check</a>
-        <a href="index.html#start"><button class="btn-primary" style="width: 100%;">Request a Brick 1 diagnostic</button></a>
+        <a href="index.html#start"><button class="btn-primary" style="width: 100%;">Request a Scoping call</button></a>
     </div>
 
     <section class="maturity-hero" aria-label="AI maturity self-check">
@@ -2867,9 +2866,9 @@
 <span class="maturity-progress-note">Runs locally • no data sent</span>
 </div>
 </div>
-<div aria-label="Privacy badges" class="maturity-tool-badges">
+<div aria-label="Privacy and auditability badges" class="maturity-tool-badges">
 <span class="maturity-badge">No data sent</span>
-<span class="maturity-badge light">Evidence-based</span>
+<span class="maturity-badge light">Transparent scoring</span>
 </div>
 </div>
 <div aria-live="polite" class="maturity-form" id="maturityForm"></div>
@@ -2887,14 +2886,23 @@
                             aligned to what it takes to industrialise AI in core energy processes.
                         </li>
 <li>
-<span class="list-lead">An archetype + clear priorities</span>
-                            clarifying what typically blocks industrialisation at your stage.
+<span class="list-lead">Positioning vs. reference points</span>
+                            from public surveys (energy/utility when available; otherwise cross-industry governance baselines).
                         </li>
 <li>
-<span class="list-lead">Plain‑English guidance</span>
-                            to focus your next 8–12 weeks on what is implementable (governance, data, delivery, adoption).
+<span class="list-lead">An archetype + clear priorities</span>
+                            mapped to the CVA “AI for Energy” bricks.
                         </li>
 </ul>
+<p class="maturity-methodology-text">
+                             in the results screen (with links). This is a client-side self-check — it does not use or claim any proprietary benchmark dataset.
+                        </p>
+</div>
+<p class="maturity-side-cta-text">
+                            This self-check is a good first filter. Brick 1 adds a structured portfolio review on your core processes and a peer benchmark grounded in CVA delivery experience.
+                        </p>
+<a href="index.html#start"><button class="btn-primary btn-small" style="width: 100%;">Request a Scoping call →</button></a>
+</div>
 </div>
 </div>
 <div class="maturity-results" hidden="" id="maturityResults"></div>
@@ -3452,6 +3460,112 @@
                 }
             })();
 
+            
+// Polyfills / safety helpers (mobile Safari friendly)
+// CSS.escape is missing in some WebKit builds
+if (typeof CSS === 'undefined') {
+    window.CSS = {};
+}
+if (typeof CSS.escape !== 'function') {
+    // Minimal polyfill based on the CSSOM spec
+    CSS.escape = function (value) {
+        const string = String(value);
+        const length = string.length;
+        let index = -1;
+        let output = '';
+        const firstCodeUnit = string.charCodeAt(0);
+        while (++index < length) {
+            const codeUnit = string.charCodeAt(index);
+
+            // NULL (U+0000) becomes U+FFFD.
+            if (codeUnit === 0x0000) {
+                output += '\uFFFD';
+                continue;
+            }
+
+            // Control characters, first-digit, or second-digit after leading hyphen.
+            if (
+                (codeUnit >= 0x0001 && codeUnit <= 0x001F) ||
+                codeUnit === 0x007F ||
+                (index === 0 && codeUnit >= 0x0030 && codeUnit <= 0x0039) ||
+                (index === 1 && codeUnit >= 0x0030 && codeUnit <= 0x0039 && firstCodeUnit === 0x002D)
+            ) {
+                output += '\\' + codeUnit.toString(16) + ' ';
+                continue;
+            }
+
+            // A lone hyphen.
+            if (index === 0 && codeUnit === 0x002D && length === 1) {
+                output += '\\-';
+                continue;
+            }
+
+            // Escapable punctuation.
+            if (
+                codeUnit === 0x0020 ||
+                codeUnit === 0x0021 ||
+                codeUnit === 0x0022 ||
+                codeUnit === 0x0023 ||
+                codeUnit === 0x0024 ||
+                codeUnit === 0x0025 ||
+                codeUnit === 0x0026 ||
+                codeUnit === 0x0027 ||
+                codeUnit === 0x0028 ||
+                codeUnit === 0x0029 ||
+                codeUnit === 0x002A ||
+                codeUnit === 0x002B ||
+                codeUnit === 0x002C ||
+                codeUnit === 0x002E ||
+                codeUnit === 0x002F ||
+                codeUnit === 0x003A ||
+                codeUnit === 0x003B ||
+                codeUnit === 0x003C ||
+                codeUnit === 0x003D ||
+                codeUnit === 0x003E ||
+                codeUnit === 0x003F ||
+                codeUnit === 0x0040 ||
+                codeUnit === 0x005B ||
+                codeUnit === 0x005C ||
+                codeUnit === 0x005D ||
+                codeUnit === 0x005E ||
+                codeUnit === 0x0060 ||
+                codeUnit === 0x007B ||
+                codeUnit === 0x007C ||
+                codeUnit === 0x007D ||
+                codeUnit === 0x007E
+            ) {
+                output += '\\' + string.charAt(index);
+                continue;
+            }
+
+            output += string.charAt(index);
+        }
+        return output;
+    };
+}
+
+function safeScrollIntoView(el, options) {
+    if (!el) return;
+    const opts = options || { behavior: 'smooth', block: 'start' };
+    try {
+        if (typeof el.scrollIntoView === 'function') {
+            el.scrollIntoView(opts);
+            return;
+        }
+    } catch (e) { /* fall through */ }
+
+    try {
+        const rect = el.getBoundingClientRect();
+        const y = rect.top + (window.pageYOffset || document.documentElement.scrollTop || 0);
+        const top = Math.max(0, y - 92); // fixed nav offset
+        if (opts && opts.behavior === 'smooth') {
+            window.scrollTo({ top, behavior: 'smooth' });
+        } else {
+            window.scrollTo(0, top);
+        }
+    } catch (e) { /* ignore */ }
+}
+
             function escapeHtml(str) {
                 return String(str ?? '').replace(/[&<>"'`=\/]/g, (s) => ({
                     '&': '&amp;',
@@ -3983,6 +4097,7 @@
                     const archetype = deriveArchetype(level, scores);
                     const focus = startingFocus();
                     const steps = nextSteps(scores, level);
+                    const refs = benchmarkCards(scores);
 
                     const levelNames = {
                         1: 'Level 1 — Foundations missing',
@@ -3992,7 +4107,7 @@
                         5: 'Level 5 — Repeatable operating capability'
                     };
 
-                    // Dimension ranking (for “Relative strengths”)
+                    // Dimension ranking (for "Relative strengths")
                     const dimRanking = maturityConfig.dimensions
                         .map(d => ({ id: d.id, label: d.label, score: scores.dimScore[d.id] || 0 }))
                         .sort((a, b) => b.score - a.score);
@@ -4016,11 +4131,25 @@
                         `;
                     }).join('');
 
-                    const signalsList = (archetype.signals || []).map(s => `<li>${escapeHtml(s)}</li>`).join('');
+                    const refCards = refs.map(rc => `
+                        <div class="maturity-mini-card">
+                            <div class="maturity-mini-title">${escapeHtml(rc.title)}</div>
+                            <div class="maturity-mini-text">${escapeHtml(rc.text)}</div>
+                            <div class="maturity-ref">
+                                Reference: <a href="${escapeHtml(rc.ref.source.url)}" target="_blank" rel="noopener">${escapeHtml(rc.ref.source.name)}</a> — ${escapeHtml(rc.ref.source.note)}
+                            </div>
+                        </div>
+                    `).join('');
 
                     const needsList = (steps.needs && steps.needs.length)
                         ? steps.needs.map(n => `<li>${escapeHtml(n)}</li>`).join('')
-                        : `<li>No dominant blocker surfaced from your inputs. Validate priorities on one core process with a lightweight evidence pack (data flows, controls, KPIs).</li>`;
+                        : `<li>No dominant blocker surfaced from your inputs. Validate on one priority process with evidence (data flows, controls, KPIs) to confirm what is realistically industrialisable.</li>`;
+
+                    const bricksList = (steps.bricks && steps.bricks.length)
+                        ? steps.bricks.map(b => `<li><strong>${escapeHtml(b)}</strong></li>`).join('')
+                        : `<li><strong>Brick 1 (Diagnostic)</strong></li><li><strong>Brick 2 (Programme design)</strong></li>`;
+
+                    const signalsList = (archetype.signals || []).map(s => `<li>${escapeHtml(s)}</li>`).join('');
 
                     const focusBlock = `
                         <div class="maturity-mini-card">
@@ -4030,10 +4159,117 @@
                                 ${(focus.examples || []).map(x => `<li>${escapeHtml(x)}</li>`).join('')}
                             </ul>
                             <div class="maturity-ref" style="margin-top: 10px;">
-                                This is guidance — your best wedge depends on data readiness, control requirements and leadership priorities.
+                                This is guidance, not a prescription — your best wedge depends on your data readiness, control requirements and leadership priorities.
                             </div>
                         </div>
                     `;
+
+                    const sourcesList = (() => {
+                        const allSources = [
+                            maturityConfig.benchmarks.energy_global_ai_adoption.source,
+                            maturityConfig.benchmarks.na_utilities_ai_use.source,
+                            maturityConfig.benchmarks.iea_grid_ops_adoption.source,
+                            maturityConfig.benchmarks.gartner_scaling.source,
+                            maturityConfig.benchmarks.deloitte_board_ai.source,
+                            maturityConfig.benchmarks.kpmg_energy_training.source,
+                            maturityConfig.benchmarks.ey_ai_risk_losses.source,
+                            maturityConfig.benchmarks.nist_ai_rmf.source,
+                            maturityConfig.benchmarks.iso_42001.source,
+                            maturityConfig.benchmarks.eu_ai_act.source
+                        ].filter(Boolean);
+
+                        const uniq = [];
+                        allSources.forEach(s => {
+                            if (!uniq.some(u => u.url === s.url)) uniq.push(s);
+                        });
+
+                        return uniq.map(s => `<li><a href="${escapeHtml(s.url)}" target="_blank" rel="noopener">${escapeHtml(s.name)}</a> — ${escapeHtml(s.note)}</li>`).join('');
+                    })();
+
+                    const scoringList = (() => {
+                        const items = [
+                            `Dimensions and weights: ${maturityConfig.dimensions.map(d => `${d.label} (${Math.round(d.weight * 100)}%)`).join(', ')}.`,
+                            'Gating rule: if there is no AI in production (deployment stage = “No operational AI” or “Pilots only”), maturity is capped at Level 2.',
+                            'This is a self-assessment based on your inputs. No evidence is collected or validated by CVA through this page.'
+                        ];
+                        return items.map(i => `<li>${escapeHtml(i)}</li>`).join('');
+                    })();
+
+                    const exportPayload = {
+                        tool: 'CVA AI for Energy — maturity self-check',
+                        version: maturityConfig.version,
+                        timestamp: new Date().toISOString(),
+                        context: {
+                            segment: getAnswer('segment'),
+                            geo: getAnswer('geo'),
+                            size: getAnswer('size'),
+                            priorityArea: getAnswer('tension')
+                        },
+                        answers: state.answers,
+                        scores: {
+                            overall: scores.overall,
+                            level,
+                            byDimension: scores.dimScore
+                        },
+                        archetype,
+                        focus
+                    };
+
+                    // Human-readable labels (for clipboard summary)
+                    const getOptionLabel = (qid, value) => {
+                        if (value === undefined || value === null || value === '') return 'Not specified';
+                        for (let i = 0; i < maturityConfig.steps.length; i++) {
+                            const qs = maturityConfig.steps[i].questions || [];
+                            for (let j = 0; j < qs.length; j++) {
+                                if (qs[j].id === qid) {
+                                    const opts = qs[j].options || [];
+                                    const opt = opts.find(o => o.value === value);
+                                    return opt ? opt.label : String(value);
+                                }
+                            }
+                        }
+                        return String(value);
+                    };
+
+                    const summaryText = (() => {
+                        const segmentLabel = getOptionLabel('segment', exportPayload.context.segment);
+                        const geoLabel = getOptionLabel('geo', exportPayload.context.geo);
+                        const sizeLabel = getOptionLabel('size', exportPayload.context.size);
+                        const prioLabel = getOptionLabel('tension', exportPayload.context.priorityArea);
+
+                        const dimLines = dimRanking.map(d => `- ${d.label}: ${d.score}/100`).join('\n');
+                        const needsLines = (steps.needs && steps.needs.length) ? steps.needs.map(n => `- ${n}`).join('\n') : '- No dominant blocker surfaced from your inputs.';
+                        const bricksLines = (steps.bricks && steps.bricks.length) ? steps.bricks.map(b => `- ${b}`).join('\n') : '- Brick 1 (Diagnostic)\n- Brick 2 (Programme design)';
+                        const refLines = (refs && refs.length) ? refs.map(r => `- ${r.title}: ${r.text} (${r.ref.source.name})`).join('\n') : '- Reference points not available';
+
+                        return [
+                            'CVA | AI for Energy — AI maturity self-check',
+                            `Date: ${new Date().toISOString().slice(0, 10)}`,
+                            '',
+                            'Context:',
+                            `- Organisation type: ${segmentLabel}`,
+                            `- Primary geography: ${geoLabel}`,
+                            `- Company size (employees): ${sizeLabel}`,
+                            `- Priority area: ${prioLabel}`,
+                            '',
+                            'Results:',
+                            `- Overall: ${scores.overall}/100`,
+                            `- ${levelNames[level] || ('Level ' + level)}`,
+                            `- Archetype: ${archetype.name}`,
+                            '',
+                            'Dimension scores:',
+                            dimLines,
+                            '',
+                            'Priority gaps (based on lowest dimension):',
+                            needsLines,
+                            '',
+                            'Typical CVA path:',
+                            bricksLines,
+                            '',
+                            'Public reference points shown:',
+                            refLines
+                        ].join('\n');
+                    })();
 
                     resultsEl.innerHTML = `
                         <div class="maturity-results-card">
@@ -4069,26 +4305,52 @@
 
                                 <div class="maturity-mini-card">
                                     <div class="maturity-mini-title">Your priority gaps (actionable)</div>
-                                    <div class="maturity-mini-text">Based on your lowest-scoring dimension, here is what typically blocks scaling.</div>
+                                    <div class="maturity-mini-text">Based on your lowest‑scoring dimension, here is what typically blocks scaling.</div>
                                     <ul class="content-list" style="margin-top: 8px;">
                                         ${needsList}
                                     </ul>
                                 </div>
 
                                 <div class="maturity-mini-card">
-                                    <div class="maturity-mini-title">Next step</div>
-                                    <div class="maturity-mini-text">If you want a COMEX-grade diagnostic on 2–3 core processes, request a scoping call.</div>
+                                    <div class="maturity-mini-title">Recommended CVA path</div>
+                                    <div class="maturity-mini-text">Bricks that typically fit your profile:</div>
+                                    <ul class="content-list" style="margin-top: 8px;">
+                                        ${bricksList}
+                                    </ul>
+                                    <div class="maturity-ref" style="margin-top: 10px;">
+                                        Brick 1 benchmarks current initiatives and selects 1–2 programme‑grade priorities. Brick 2 designs governance and the operating model. Brick 3 industrialises delivery. Brick 4 scales.
+                                    </div>
                                     <div style="margin-top: 12px;">
-                                        <a href="index.html#start"><button class="btn-primary btn-small" style="width: 100%;">Request a scoping call →</button></a>
+                                        <a href="index.html#start"><button class="btn-primary btn-small" style="width: 100%;">Book a Brick 1 diagnostic →</button></a>
                                     </div>
                                 </div>
 
                                 ${focusBlock}
+
+                                ${refCards}
                             </div>
 
                             <div class="maturity-export">
-                                <button class="btn-secondary" id="maturityHomeBtn" type="button">Back to the main page</button>
                                 <button class="btn-secondary" id="maturityResetBtn" type="button">Reset assessment</button>
+                            </div>
+
+                            <div class="maturity-details">
+                                <details>
+                                    <summary>Sources, definitions & scoring</summary>
+                                    <p style="margin-top: 10px; font-size: 12px; color: var(--gray-600); line-height: 1.7;">
+                                        “Reference points” are based on public surveys with their own scopes and samples — treat them as directional, not as a certified percentile.
+                                    </p>
+                                    <ul class="maturity-source-list">
+                                        ${sourcesList}
+                                    </ul>
+                                    <p style="margin-top: 14px; font-weight: 800; color: var(--navy);">Scoring rules (transparent)</p>
+                                    <ul class="maturity-source-list">
+                                        ${scoringList}
+                                    </ul>
+                                    <p style="margin-top: 10px; font-size: 12px; color: var(--gray-500); line-height: 1.7;">
+                                        Notes: This tool runs locally in your browser. It does not send your answers to CVA. This is not legal advice.
+                                    </p>
+                                </details>
                             </div>
                         </div>
                     `;
@@ -4106,8 +4368,65 @@
                         });
                     });
 
-                    resultsEl.querySelector('#maturityHomeBtn')?.addEventListener('click', () => {
-                        window.location.href = 'index.html';
+                    // Results actions
+const promptFallback = () => {
+                            // Last resort: show a native prompt so users can manually copy (works on iOS too)
+                            window.prompt('Copy the text below:', text);
+                        };
+
+                        try {
+                            if (navigator.clipboard && navigator.clipboard.writeText) {
+                                await navigator.clipboard.writeText(text);
+                                notify();
+                                return;
+                            }
+                            throw new Error('Clipboard API not available');
+                        } catch (err) {
+                            try {
+                                const ta = document.createElement('textarea');
+                                ta.value = text;
+                                ta.setAttribute('readonly', '');
+                                ta.style.position = 'fixed';
+                                ta.style.top = '0';
+                                ta.style.left = '0';
+                                ta.style.opacity = '0';
+                                document.body.appendChild(ta);
+                                ta.focus();
+                                ta.select();
+
+                                const ok = document.execCommand('copy');
+                                document.body.removeChild(ta);
+
+                                if (ok) {
+                                    notify();
+                                    return;
+                                }
+                            } catch (e) {
+                                // ignore
+                            }
+                            promptFallback();
+                        }
+                    });
+const blob = new Blob([json], { type: 'application/json' });
+                        const url = URL.createObjectURL(blob);
+                        const filename = `cva-ai-energy-maturity-${new Date().toISOString().slice(0,10)}.json`;
+
+                        // iOS Safari: download attribute is not consistently honoured.
+                        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+                        if (isIOS) {
+                            window.open(url, '_blank');
+                            setTimeout(() => URL.revokeObjectURL(url), 4000);
+                            return;
+                        }
+
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        setTimeout(() => URL.revokeObjectURL(url), 4000);
                     });
 
                     resultsEl.querySelector('#maturityResetBtn')?.addEventListener('click', () => {
@@ -4156,7 +4475,6 @@
                     safeScrollIntoView(resultsEl, { behavior: 'smooth', block: 'start' });
                 }
             }
-
 function validateCurrentStep() {
                 const step = maturityConfig.steps[state.stepIndex];
                 const missing = [];
@@ -4200,10 +4518,35 @@ function validateCurrentStep() {
                 }
             });
 
-            // First load
-            loadSaved();
-            renderStepper();
-            renderStep();
+// First load
+try {
+    loadSaved();
+
+    // Sanity check (protect against stale or corrupted saved state)
+    if (typeof state.stepIndex !== 'number' || state.stepIndex < 0 || state.stepIndex >= maturityConfig.steps.length) {
+        state.stepIndex = 0;
+    }
+    if (!state.answers || typeof state.answers !== 'object') {
+        state.answers = {};
+    }
+
+    renderStepper();
+    renderStep();
+} catch (e) {
+    console.error('Maturity tool init failed, resetting state:', e);
+    state.stepIndex = 0;
+    state.answers = {};
+    if (canUseStorage) {
+        try { localStorage.removeItem(storageKey); } catch (err) { /* ignore */ }
+    }
+    try {
+        renderStepper();
+        renderStep();
+    } catch (err2) {
+        // Last-resort fallback so the page is never blank
+        formEl.innerHTML = '<div class="maturity-q"><div class="maturity-q-help">This assessment could not be loaded on your browser. Please reload the page, or try a more recent Safari/Chrome version.</div></div>';
+    }
+}
         })();
 
     </script>
