@@ -1,193 +1,903 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CVA | AI Maturity Assessment</title>
+    <title>CVA | AI for Energy — AI Maturity Assessment</title>
+    <meta name="description" content="A 6-minute AI maturity self-check for energy companies: benchmarking adoption, data readiness, and industrialisation capability.">
     
-    <!-- Fonts -->
+    <meta property="og:title" content="CVA | AI for Energy — AI Maturity Assessment">
+    <meta property="og:description" content="A 6-minute strategic self-check. Evidence-based questions, transparent scoring, instant archetype analysis.">
+    <meta property="og:type" content="website">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS with CVA Custom Config -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        cva: {
-                            navy: '#0B2438',
-                            teal: '#00A1BF',
-                            tealLight: '#00C6C6',
-                            surface: '#F8FAFC',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['DM Sans', 'sans-serif'],
-                        serif: ['Instrument Serif', 'serif'],
-                    },
-                    boxShadow: {
-                        'card': '0 20px 50px -10px rgba(11, 36, 56, 0.12)'
-                    }
-                }
-            }
-        }
-    </script>
-
     <style>
-        body { background-color: #F8FAFC; color: #0B2438; }
-        .score-ring { background: conic-gradient(var(--c-teal) calc(var(--score) * 1%), #E2E8F0 0); }
-        .fade-in { animation: fadeIn 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        :root {
+            /* CVA Corporate Palette */
+            --navy: #0B2438;        /* Dark Petrol/Navy */
+            --navy-light: #183B56;  /* Lighter Navy for interactions */
+            --teal: #008080;        /* Primary Accent (Teal/Cyan) */
+            --teal-light: #20B2AA;  /* Secondary Accent */
+            --teal-faint: #E0F2F1;  /* Very light teal for backgrounds */
+            --gray-bg: #F4F6F8;     /* Light Gray for section backgrounds */
+            --gray-border: #E2E8F0; /* Border color */
+            --text-main: #1D1D1B;   /* Main text */
+            --text-muted: #64748B;  /* Muted text */
+            --white: #FFFFFF;
+            
+            /* Spacing & Layout */
+            --container-width: 1280px;
+            --header-height: 80px;
+            --radius-card: 16px;
+            --radius-btn: 8px;
+        }
+
+        /* --- Reset & Base --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--gray-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .serif-font {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+        }
+
+        /* --- Components --- */
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            border-radius: var(--radius-btn);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--teal);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(0, 128, 128, 0.2);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--teal-light);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--teal);
+            color: var(--teal);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--teal-faint);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(1);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: transparent;
+            z-index: 1001;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--teal);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Navigation (Simplified for this page) */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--header-height);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gray-border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-content {
+            width: 100%;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--navy);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .logo span { color: var(--teal); }
+        
+        .nav-back {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--navy); }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 160px 32px 80px;
+            background: var(--navy);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-accent {
+            position: absolute;
+            top: -50%; left: -10%;
+            width: 60%; height: 200%;
+            background: radial-gradient(circle, rgba(0,128,128,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--teal-light);
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: clamp(40px, 5vw, 56px);
+            line-height: 1.1;
+            margin-bottom: 24px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-sub {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        /* --- Main Assessment Container --- */
+        .assessment-wrapper {
+            max-width: var(--container-width);
+            margin: -60px auto 80px;
+            padding: 0 32px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        /* Left Side: The Tool */
+        .tool-card {
+            background: var(--white);
+            border-radius: var(--radius-card);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            padding: 40px;
+            border: 1px solid var(--gray-border);
+        }
+
+        .tool-header {
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--gray-border);
+            padding-bottom: 24px;
+        }
+
+        .tool-progress-text {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--teal);
+            margin-bottom: 8px;
+        }
+
+        .step-title {
+            font-size: 28px;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .step-subtitle {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        /* Right Side: Context (Sidebar) */
+        .context-card {
+            background: #E8EEF2; /* Slightly darker gray for context distinction */
+            border-radius: var(--radius-card);
+            padding: 32px;
+            border: 1px solid var(--gray-border);
+            position: sticky;
+            top: 100px;
+        }
+
+        .context-header {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .value-list {
+            list-style: none;
+        }
+
+        .value-list li {
+            margin-bottom: 20px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .value-list li::before {
+            content: "•";
+            color: var(--teal);
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        .value-heading {
+            display: block;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+
+        .value-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* --- Form Elements --- */
+        .form-group {
+            background: var(--white); /* White bg inside */
+            border: 1px solid var(--gray-border);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .form-group:focus-within {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px rgba(0, 128, 128, 0.1);
+        }
+
+        .question-label {
+            display: block;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .question-help {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        /* Custom Inputs */
+        select.custom-select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--gray-border);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: var(--navy);
+            background-color: var(--white);
+            cursor: pointer;
+        }
+
+        /* Checkbox Styling */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid var(--gray-border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .checkbox-label:hover {
+            background: var(--teal-faint);
+            border-color: var(--teal);
+        }
+
+        .checkbox-label input {
+            margin-top: 3px;
+            accent-color: var(--teal);
+            transform: scale(1.1);
+        }
+        
+        .checkbox-label span {
+            font-size: 13px;
+            color: var(--navy);
+            font-weight: 500;
+        }
+        
+        /* Highlight checked state via JS logic or :has */
+        .checkbox-label:has(input:checked) {
+            background: var(--teal-faint);
+            border-color: var(--teal);
+        }
+
+        /* Form Actions */
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gray-border);
+        }
+
+        .privacy-note {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        /* --- RESULTS SECTION STYLING (The "Engine" Output) --- */
+        .results-container {
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Results Header: Dark Navy "Slide Header" style */
+        .results-header-card {
+            background: var(--navy);
+            color: var(--white);
+            border-radius: var(--radius-card);
+            padding: 32px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .score-circle {
+            width: 160px; height: 160px;
+            border-radius: 50%;
+            /* Conic gradient set via inline style in JS */
+            padding: 8px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .score-inner {
+            background: var(--navy);
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .score-number {
+            font-family: 'Instrument Serif', serif;
+            font-size: 48px;
+            line-height: 1;
+        }
+
+        .score-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--teal-light);
+            margin-top: 4px;
+        }
+
+        .archetype-info h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+
+        .archetype-desc {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+        }
+
+        /* Dimensions Grid */
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .dimension-card {
+            background: var(--white);
+            padding: 16px 20px;
+            border: 1px solid var(--gray-border);
+            border-radius: 12px;
+        }
+
+        .dim-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .dim-bar-bg {
+            height: 6px;
+            background: var(--gray-border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .dim-bar-fill {
+            height: 100%;
+            background: var(--teal);
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+
+        /* "Swimlanes" / Action Cards */
+        .action-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .action-card {
+            background: var(--white);
+            border: 1px solid var(--gray-border);
+            border-radius: var(--radius-card);
+            padding: 24px;
+            height: 100%;
+        }
+
+        .action-header {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .action-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 12px;
+            font-family: 'Instrument Serif', serif;
+        }
+
+        .action-body {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .action-list li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 16px;
+        }
+        .action-list li::before {
+            content: "→";
+            position: absolute; left: 0; color: var(--teal);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: var(--navy);
+            color: rgba(255,255,255,0.4);
+            font-size: 12px;
+        }
+
+        /* --- Utilities --- */
+        .hidden { display: none !important; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .layout-grid { grid-template-columns: 1fr; }
+            .context-card { position: static; margin-bottom: 32px; order: -1; }
+            .results-header-card { grid-template-columns: 1fr; text-align: center; justify-items: center; gap: 24px; }
+            .checkbox-group { grid-template-columns: 1fr; }
+            .dimensions-grid { grid-template-columns: 1fr; }
+            .action-cards { grid-template-columns: 1fr; }
+            .hero-title { font-size: 36px; }
+        }
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body>
 
-    <!-- Navbar (Identical to Index) -->
-    <nav class="fixed w-full z-[1000] bg-cva-navy/95 backdrop-blur-md shadow-lg border-b border-transparent">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3 group">
-                <span class="font-sans font-extrabold text-2xl tracking-tight text-white group-hover:text-cva-teal transition-colors">CVA</span>
-                <span class="h-5 w-[1px] bg-white/20"></span>
-                <span class="text-sm font-semibold tracking-wide text-white/80 uppercase">AI for Energy</span>
-            </a>
-            <div class="flex items-center gap-6">
-                <span class="hidden md:inline text-xs text-white/50 uppercase tracking-widest font-bold">Assessment Tool v2.1</span>
-                <a href="index.html" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded transition-all">Exit</a>
-            </div>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="logo">CVA <span>AI for Energy</span></a>
+            <a href="index.html" class="nav-back">← Back to Overview</a>
         </div>
     </nav>
 
-    <!-- Header -->
-    <header class="pt-32 pb-20 bg-cva-navy text-center px-6">
-        <h1 class="font-serif text-4xl md:text-5xl text-white mb-4">Maturity Check</h1>
-        <p class="text-white/60 max-w-xl mx-auto text-lg font-light">
-            Measure your readiness to industrialise AI. <br>
-            <span class="text-cva-teal font-medium">Business-centric. No technical jargon.</span>
-        </p>
-    </header>
+    <section class="hero">
+        <div class="hero-bg-accent"></div>
+        <div class="hero-tag">Strategy & Operations</div>
+        <h1 class="hero-title">Benchmark your AI maturity</h1>
+        <p class="hero-sub">A 6-minute, evidence-based self-check to position your organization against energy sector peers and identify industrialisation gaps.</p>
+        <a href="#assessment" class="btn btn-primary" onclick="document.getElementById('assessment').scrollIntoView({behavior: 'smooth'})">Start Assessment</a>
+    </section>
 
-    <!-- Main Tool -->
-    <main class="flex-grow -mt-10 px-6 pb-24 relative z-10">
-        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden min-h-[500px]">
+    <div class="assessment-wrapper" id="assessment">
+        <div class="layout-grid">
             
-            <!-- Stepper -->
-            <div class="bg-gray-50 border-b border-gray-200 p-6 flex items-center justify-between" id="stepperContainer">
-                <div class="text-xs font-bold text-cva-teal uppercase tracking-widest" id="stepLabel">Context</div>
-                <div class="flex gap-2" id="stepperDots"></div>
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-progress-text" id="progressText">Introduction</div>
+                    <h2 class="step-title" id="stepTitle">Context & Profile</h2>
+                    <p class="step-subtitle" id="stepSubtitle">Help us select the relevant peer benchmarks.</p>
+                </div>
+
+                <form id="maturityForm" onsubmit="return false;">
+                    </form>
+
+                <div class="form-actions" id="formActions">
+                    <button class="btn btn-secondary" id="backBtn" disabled>Back</button>
+                    <button class="btn btn-primary" id="nextBtn">Next Step →</button>
+                </div>
+
+                <div class="privacy-note">
+                    <span style="color: var(--teal);">🔒</span> Runs locally in your browser. No data is sent to CVA servers.
+                </div>
             </div>
 
-            <!-- Content -->
-            <div class="p-8 md:p-12">
-                <div id="assessmentForm" class="fade-in"></div>
-                <div id="resultsView" class="hidden fade-in"></div>
-            </div>
-
-            <!-- Footer -->
-            <div class="bg-white border-t border-gray-100 p-6 flex justify-between items-center" id="formFooter">
-                <button id="backBtn" class="text-sm font-bold text-gray-400 hover:text-cva-navy transition-colors disabled:opacity-0">← Back</button>
-                <button id="nextBtn" class="px-8 py-3 bg-cva-teal hover:bg-cva-tealLight text-white font-bold rounded-xl shadow-lg transition-transform hover:-translate-y-0.5">
-                    Next Step
-                </button>
+            <div class="context-card">
+                <div class="context-header">Assessment Output</div>
+                <ul class="value-list">
+                    <li>
+                        <span class="value-heading">Maturity Level (1-5)</span>
+                        <span class="value-desc">Calibrated against energy sector standards for industrialised AI.</span>
+                    </li>
+                    <li>
+                        <span class="value-heading">Strategic Archetype</span>
+                        <span class="value-desc">Characterizes your current operating mode (e.g., "Pilot Factory" vs "Scaled Operator").</span>
+                    </li>
+                    <li>
+                        <span class="value-heading">Actionable Priorities</span>
+                        <span class="value-desc">Three specific governance or delivery actions to unlock the next level.</span>
+                    </li>
+                </ul>
             </div>
         </div>
-    </main>
 
-    <!-- Logic -->
+        <div id="resultsContainer" class="hidden" style="margin-top: 40px;">
+            </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Corporate Value Associates (CVA). All rights reserved.<br>
+        This tool provides a strategic estimation based on self-reported data.</p>
+    </footer>
+
     <script>
-        const config = {
+        // --- CONFIGURATION & CONTENT ---
+        // Keeps the exact logic and scoring requested by user
+        const maturityConfig = {
+            version: '1.1',
+            dimensions: [
+                { id: 'portfolio', label: 'Adoption & Impact', weight: 0.25 },
+                { id: 'data', label: 'Data Readiness', weight: 0.20 },
+                { id: 'delivery', label: 'Delivery & Monitoring', weight: 0.20 },
+                { id: 'governance', label: 'Governance & Risk', weight: 0.25 },
+                { id: 'people', label: 'People & Partners', weight: 0.10 }
+            ],
             steps: [
                 {
-                    title: "Context",
+                    id: 'context',
+                    title: 'Your Context',
+                    subtitle: 'Used only to select the closest public peer reference points (no scoring).',
+                    scored: false,
                     questions: [
-                        { id: 'role', label: "Your Role", type: 'select', options: ['Executive / Board', 'Business Unit Lead', 'Data/AI Lead', 'Strategy/Innovation'] },
-                        { id: 'sector', label: "Sector", type: 'select', options: ['DSO / TSO', 'Utility (Gen + Retail)', 'Renewables / IPP', 'Energy Services'] }
-                    ]
-                },
-                {
-                    title: "Adoption & Value",
-                    desc: "Do you have AI in production, and does it generate cash?",
-                    dimension: 'adoption',
-                    questions: [
-                        { 
-                            id: 'stage', 
-                            label: "Operational Reality", 
-                            help: "Be honest about what is actually running in day-to-day processes.",
-                            type: 'radio',
+                        {
+                            id: 'segment',
+                            label: 'Organisation type',
+                            help: 'Pick the closest option. This affects the benchmark references shown.',
+                            type: 'select',
+                            required: true,
                             options: [
-                                { val: 0, text: "No active AI. We are at the 'Slide' stage." },
-                                { val: 1, text: "Pilot Factory. Many POCs, but nothing industrialised." },
-                                { val: 3, text: "Islands of AI. A few live models, but fragile maintenance." },
-                                { val: 5, text: "Industrialised. AI embedded in core processes (e.g., Asset Mgt) with SLAs." }
+                                { value: 'utility', label: 'Utility or network operator (DSO/TSO / integrated)' },
+                                { value: 'ipp', label: 'IPP platform / renewables developer / investor' },
+                                { value: 'esco', label: 'ESCO / energy services' },
+                                { value: 'other', label: 'Other energy player' }
                             ]
                         },
-                        { 
-                            id: 'value', 
-                            label: "Value Tracking", 
-                            help: "Can you prove the ROI to the CFO?",
-                            type: 'radio',
+                        {
+                            id: 'geo',
+                            label: 'Primary geography',
+                            help: 'Used to select regional peer points.',
+                            type: 'select',
+                            required: true,
                             options: [
-                                { val: 0, text: "No measurement. We assume it works." },
-                                { val: 2, text: "Technical metrics only (Accuracy, F1 Score)." },
-                                { val: 5, text: "P&L Impact. We track FTEs saved, OPEX reduced, or Margin generated." }
+                                { value: 'na', label: 'North America' },
+                                { value: 'eu', label: 'Europe' },
+                                { value: 'mea', label: 'Middle East & Africa' },
+                                { value: 'apac', label: 'Asia-Pacific' },
+                                { value: 'global', label: 'Multi-region / Global' }
+                            ]
+                        },
+                         {
+                            id: 'tension',
+                            label: 'Top AI priority area (next 12 months)',
+                            help: 'Pick the area where you need measurable business impact first.',
+                            type: 'select',
+                            required: true,
+                            options: [
+                                { value: 'grid', label: 'Grid planning and connection backlog' },
+                                { value: 'fleet', label: 'Fleet performance and risk steering' },
+                                { value: 'flex', label: 'Flexibility and trading routines' },
+                                { value: 'billing', label: 'Billing and customer operations' },
+                                { value: 'origination', label: 'Origination and asset sourcing' },
+                                { value: 'other', label: 'Other / not sure' }
                             ]
                         }
                     ]
                 },
                 {
-                    title: "Risk & Governance",
-                    desc: "Who decides, who controls, who is responsible?",
-                    dimension: 'governance',
+                    id: 'portfolio',
+                    title: 'Adoption & Impact',
+                    subtitle: 'What is live today, how widely it is used, and whether impact is measured.',
+                    scored: true,
                     questions: [
-                        { 
-                            id: 'decision', 
-                            label: "Decision Rights", 
-                            help: "If a model fails, who is accountable?",
-                            type: 'radio',
+                        {
+                            id: 'deployment_stage',
+                            dimension: 'portfolio',
+                            label: 'Which statement best describes AI today in your organisation?',
+                            help: 'Choose the most accurate based on day-to-day work (not aspirations).',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
                             options: [
-                                { val: 0, text: "Unclear. It's the 'Data Team's fault'." },
-                                { val: 3, text: "Shared. Business owns the decision, IT owns the tool." },
-                                { val: 5, text: "Codified. Clear matrices for validation, deployment, and kill-switch." }
+                                { value: 'none', label: 'No active AI pilots in daily operations', points: 0 },
+                                { value: 'pilots', label: 'A few pilots, but nothing in daily operations', points: 1 },
+                                { value: 'limited_prod', label: '1–2 AI solutions used in operations (limited scope)', points: 2 },
+                                { value: 'some_prod', label: '3–5 AI solutions used in operations', points: 3 },
+                                { value: 'scaled', label: 'AI used across several core processes with monitoring', points: 4 }
                             ]
                         },
-                        { 
-                            id: 'risk', 
-                            label: "Control Framework", 
-                            help: "Do you treat AI like a critical industrial asset?",
-                            type: 'radio',
+                        {
+                            id: 'prod_domains',
+                            dimension: 'portfolio',
+                            label: 'Where is AI already used in day-to-day operations?',
+                            help: 'Select all that apply. Only count areas where AI outputs are embedded into a live workflow.',
+                            type: 'checkbox',
+                            required: true,
+                            maxPoints: 4,
                             options: [
-                                { val: 0, text: "Ad-hoc. We check output manually sometimes." },
-                                { val: 5, text: "Systematic. Automated guardrails, drift monitoring, and audit trails." }
+                                { value: 'asset_maint', label: 'Asset maintenance & field ops', points: 1 },
+                                { value: 'grid_planning', label: 'Grid planning / connection studies', points: 1 },
+                                { value: 'realtime_ops', label: 'Real-time ops / control room', points: 1 },
+                                { value: 'trading', label: 'Trading / dispatch optimisation', points: 1 },
+                                { value: 'customer_ops', label: 'Customer ops / billing', points: 1 },
+                                { value: 'backoffice', label: 'Back office (finance, HR)', points: 1 }
+                            ]
+                        },
+                        {
+                            id: 'value_tracking',
+                            dimension: 'portfolio',
+                            label: 'Do you measure business impact for AI solutions?',
+                            help: 'Measured KPIs with a baseline (before/after), reviewed at least quarterly.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No formal measurement', points: 0 },
+                                { value: 'some', label: 'Measured for a few AI solutions', points: 2 },
+                                { value: 'most', label: 'Measured for most production solutions', points: 3 },
+                                { value: 'all', label: 'Portfolio view of impact across all solutions', points: 4 }
                             ]
                         }
                     ]
                 },
                 {
-                    title: "Industrial Capability",
-                    desc: "Can you build, deploy, and maintain reliably?",
-                    dimension: 'delivery',
+                    id: 'data',
+                    title: 'Data Foundation',
+                    subtitle: 'Platforms, ownership, quality, and access.',
+                    scored: true,
                     questions: [
-                        { 
-                            id: 'data', 
-                            label: "Data Access", 
-                            help: "Is data a bottleneck?",
-                            type: 'radio',
+                        {
+                            id: 'data_platform',
+                            dimension: 'data',
+                            label: 'Shared data platform status',
+                            help: 'Consider SCADA/IoT, asset registers, commercial data.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
                             options: [
-                                { val: 0, text: "Painful. Weeks to get a CSV extract." },
-                                { val: 3, text: "Structured. Data Lake exists, but quality is uneven." },
-                                { val: 5, text: "Productised. Documented Data Products with SLAs." }
+                                { value: 'none', label: 'No shared enterprise data platform', points: 0 },
+                                { value: 'silos', label: 'Multiple silos / departmental platforms', points: 1 },
+                                { value: 'partial', label: 'Shared platform for core IT data', points: 3 },
+                                { value: 'integrated', label: 'Shared platform incl. OT/streaming data', points: 4 }
                             ]
                         },
-                        { 
-                            id: 'reliability', 
-                            label: "Maintenance & Updates", 
-                            help: "What happens when the model needs an update?",
-                            type: 'radio',
+                        {
+                            id: 'data_governance',
+                            dimension: 'data',
+                            label: 'Data ownership and quality',
+                            help: 'Named data owners + data quality KPIs for critical domains.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
                             options: [
-                                { val: 0, text: "Hero mode. One person knows how to fix it." },
-                                { val: 5, text: "Factory mode. Automated pipelines (CI/CD) and non-regression tests." }
+                                { value: 'none', label: 'No defined ownership / KPIs', points: 0 },
+                                { value: 'partial', label: 'Defined for a few domains only', points: 2 },
+                                { value: 'most', label: 'Defined for most key domains', points: 3 },
+                                { value: 'all', label: 'Defined for all key domains with review cadence', points: 4 }
+                            ]
+                        },
+                        {
+                            id: 'data_controls',
+                            dimension: 'data',
+                            label: 'Access controls for sensitive data',
+                            help: 'Data classification + role-based access controls.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No formal classification', points: 0 },
+                                { value: 'basic', label: 'Basic controls (partial coverage)', points: 2 },
+                                { value: 'policy', label: 'Formal policy + RBAC coverage', points: 3 },
+                                { value: 'audited', label: 'Controls + monitoring/audit logs', points: 4 }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'delivery',
+                    title: 'Industrialisation',
+                    subtitle: 'How reliably you can deploy and monitor.',
+                    scored: true,
+                    questions: [
+                        {
+                            id: 'lifecycle',
+                            dimension: 'delivery',
+                            label: 'Standard lifecycle (MLOps)',
+                            help: 'Documented process: build → validate → deploy → monitor.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No standard lifecycle (ad hoc)', points: 0 },
+                                { value: 'doc', label: 'Documented but inconsistent', points: 2 },
+                                { value: 'enforced', label: 'Documented and consistently applied', points: 4 }
+                            ]
+                        },
+                        {
+                            id: 'monitoring',
+                            dimension: 'delivery',
+                            label: 'Production Monitoring',
+                            help: 'Alerting on model performance/drift and incident response.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No monitoring beyond basic logs', points: 0 },
+                                { value: 'dashboards', label: 'Dashboards exist, limited alerting', points: 2 },
+                                { value: 'alerts', label: 'Dashboards + alerting + named owners', points: 3 },
+                                { value: 'slos', label: 'Service levels + alerting + incident response', points: 4 }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'governance',
+                    title: 'Governance',
+                    subtitle: 'Decision rights, risk controls, and people.',
+                    scored: true,
+                    questions: [
+                         {
+                            id: 'gov_model',
+                            dimension: 'governance',
+                            label: 'Who approves what goes live?',
+                            help: 'Decision rights regarding production use cases and model risk.',
+                            type: 'select',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'none', label: 'No defined governance model', points: 0 },
+                                { value: 'informal', label: 'Informal governance', points: 1 },
+                                { value: 'defined', label: 'Defined governance (roles/committees)', points: 3 },
+                                { value: 'enforced', label: 'Defined and enforced (incl. risk/legal/IT)', points: 4 }
+                            ]
+                        },
+                        {
+                            id: 'operating_elements',
+                            dimension: 'people',
+                            label: 'Operating model elements',
+                            help: 'Select all that apply (max 4 points).',
+                            type: 'checkbox',
+                            required: true,
+                            maxPoints: 4,
+                            options: [
+                                { value: 'exec_sponsor', label: 'Named executive sponsor', points: 1 },
+                                { value: 'coe', label: 'Dedicated AI team / CoE', points: 1 },
+                                { value: 'squads', label: 'Cross-functional squads in business lines', points: 1 },
+                                { value: 'training', label: 'Role-based AI training', points: 1 },
+                                { value: 'partners', label: 'Defined partner ecosystem', points: 1 }
                             ]
                         }
                     ]
@@ -195,152 +905,361 @@
             ]
         };
 
-        let currentStep = 0;
-        let answers = {};
+        // --- STATE MANAGEMENT ---
+        const state = {
+            stepIndex: 0,
+            answers: {}
+        };
+
+        const elements = {
+            progressBar: document.getElementById('progressBar'),
+            stepTitle: document.getElementById('stepTitle'),
+            stepSubtitle: document.getElementById('stepSubtitle'),
+            progressText: document.getElementById('progressText'),
+            form: document.getElementById('maturityForm'),
+            backBtn: document.getElementById('backBtn'),
+            nextBtn: document.getElementById('nextBtn'),
+            resultsContainer: document.getElementById('resultsContainer'),
+            toolCard: document.querySelector('.tool-card'),
+            contextCard: document.querySelector('.context-card')
+        };
+
+        // --- RENDER FUNCTIONS ---
 
         function renderStep() {
-            const step = config.steps[currentStep];
-            const container = document.getElementById('assessmentForm');
-            const dots = document.getElementById('stepperDots');
+            const step = maturityConfig.steps[state.stepIndex];
             
-            // Render Dots
-            dots.innerHTML = config.steps.map((_, i) => 
-                `<div class="w-2 h-2 rounded-full transition-colors ${i === currentStep ? 'bg-cva-teal' : 'bg-gray-200'}"></div>`
-            ).join('');
+            // Update Headers
+            elements.stepTitle.innerText = step.title;
+            elements.stepSubtitle.innerText = step.subtitle || '';
+            elements.progressText.innerText = `Step ${state.stepIndex + 1} of ${maturityConfig.steps.length}`;
             
-            document.getElementById('stepLabel').innerText = step.title;
+            // Update Progress Bar
+            const progress = ((state.stepIndex) / (maturityConfig.steps.length)) * 100;
+            elements.progressBar.style.width = `${progress}%`;
 
-            let html = `
-                <div class="mb-8">
-                    <h2 class="font-serif text-3xl text-cva-navy mb-2">${step.title}</h2>
-                    ${step.desc ? `<p class="text-gray-500">${step.desc}</p>` : ''}
-                </div>
-                <div class="space-y-8">
-            `;
-
+            // Render Form
+            elements.form.innerHTML = '';
+            
             step.questions.forEach(q => {
-                html += `<div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
-                    <label class="block text-sm font-bold text-cva-navy uppercase tracking-wide mb-2">${q.label}</label>
-                    ${q.help ? `<p class="text-xs text-gray-500 mb-4 italic">${q.help}</p>` : ''}
-                `;
+                const group = document.createElement('div');
+                group.className = 'form-group';
+                
+                const label = document.createElement('label');
+                label.className = 'question-label';
+                label.innerText = q.label;
+                
+                const help = document.createElement('div');
+                help.className = 'question-help';
+                help.innerText = q.help || '';
+
+                group.appendChild(label);
+                if(q.help) group.appendChild(help);
 
                 if (q.type === 'select') {
-                    html += `<select id="${q.id}" class="w-full p-3 rounded-lg border border-gray-300 bg-white" onchange="saveAnswer('${q.id}', this.value)">
-                        <option value="">Select...</option>
-                        ${q.options.map(o => `<option value="${o}" ${answers[q.id] === o ? 'selected' : ''}>${o}</option>`).join('')}
-                    </select>`;
-                } else if (q.type === 'radio') {
-                    html += `<div class="space-y-3">`;
-                    q.options.forEach(opt => {
-                        const isChecked = answers[q.id] == opt.val ? 'checked' : '';
-                        html += `
-                            <label class="flex items-start gap-3 cursor-pointer group">
-                                <input type="radio" name="${q.id}" value="${opt.val}" ${isChecked} class="mt-1 accent-cva-teal" onchange="saveAnswer('${q.id}', ${opt.val})">
-                                <span class="text-sm text-gray-700 group-hover:text-cva-navy transition-colors">${opt.text}</span>
-                            </label>
-                        `;
-                    });
-                    html += `</div>`;
-                }
-                html += `</div>`;
-            });
-            html += `</div>`;
-            container.innerHTML = html;
-
-            document.getElementById('backBtn').disabled = currentStep === 0;
-            document.getElementById('nextBtn').innerText = currentStep === config.steps.length - 1 ? "Analyze" : "Next";
-        }
-
-        window.saveAnswer = (id, val) => { answers[id] = val; };
-
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            // Validate
-            const step = config.steps[currentStep];
-            const missing = step.questions.some(q => answers[q.id] === undefined);
-            if (missing) { alert("Please answer all questions to get an accurate result."); return; }
-
-            if (currentStep < config.steps.length - 1) {
-                currentStep++;
-                renderStep();
-            } else {
-                showResults();
-            }
-        });
-
-        document.getElementById('backBtn').addEventListener('click', () => {
-            if (currentStep > 0) { currentStep--; renderStep(); }
-        });
-
-        function calculateScore() {
-            let total = 0;
-            let max = 0;
-            // Simple scoring logic based on radio values (0, 3, 5)
-            // Steps 1, 2, 3 have scored questions. Step 0 is context.
-            for (let i = 1; i < config.steps.length; i++) {
-                config.steps[i].questions.forEach(q => {
-                    total += parseInt(answers[q.id] || 0);
-                    max += 5;
-                });
-            }
-            return Math.round((total / max) * 100);
-        }
-
-        function showResults() {
-            const score = calculateScore();
-            let archetype, advice, priority;
-
-            if (score < 40) {
-                archetype = "The Pilot Factory";
-                advice = "You have energy but no industrial traction. You are stuck in POC mode.";
-                priority = "Stop launching new pilots. Pick ONE use case, sanctify the data, and push it to production with a real SLA.";
-            } else if (score < 75) {
-                archetype = "The Builder";
-                advice = "You can build, but you struggle to scale safely. Risk is increasing.";
-                priority = "Formalise governance. Define who owns the 'Kill Switch' and implement automated non-regression testing.";
-            } else {
-                archetype = "The Industrial Player";
-                advice = "AI is becoming a core asset. The challenge is now portfolio optimization.";
-                priority = "Focus on reuse. Build a 'Feature Store' to accelerate new use cases and monitor financial ROI per model.";
-            }
-
-            const html = `
-                <div class="text-center fade-in">
-                    <div class="inline-block p-1 px-3 rounded bg-cva-navy text-white text-xs font-bold uppercase tracking-widest mb-6">Results</div>
-                    <h2 class="font-serif text-4xl text-cva-navy mb-2">You are: ${archetype}</h2>
-                    <div class="text-6xl font-bold text-cva-teal mb-6">${score}<span class="text-2xl text-gray-400">/100</span></div>
+                    const select = document.createElement('select');
+                    select.className = 'custom-select';
+                    select.dataset.id = q.id;
                     
-                    <div class="bg-gray-50 rounded-xl p-8 border border-gray-200 text-left mb-8">
-                        <h3 class="font-bold text-cva-navy mb-2">Our Diagnosis</h3>
-                        <p class="text-gray-600 mb-6 text-sm">${advice}</p>
+                    // Default option
+                    const defOpt = document.createElement('option');
+                    defOpt.value = "";
+                    defOpt.text = "Select an option...";
+                    defOpt.disabled = true;
+                    defOpt.selected = !state.answers[q.id];
+                    select.appendChild(defOpt);
+
+                    q.options.forEach(opt => {
+                        const o = document.createElement('option');
+                        o.value = opt.value;
+                        o.text = opt.label;
+                        if (state.answers[q.id] === opt.value) o.selected = true;
+                        select.appendChild(o);
+                    });
+
+                    select.addEventListener('change', (e) => {
+                        state.answers[q.id] = e.target.value;
+                    });
+                    group.appendChild(select);
+                
+                } else if (q.type === 'checkbox') {
+                    const container = document.createElement('div');
+                    container.className = 'checkbox-group';
+                    const currentVals = state.answers[q.id] || [];
+
+                    q.options.forEach(opt => {
+                        const lbl = document.createElement('label');
+                        lbl.className = 'checkbox-label';
                         
-                        <h3 class="font-bold text-cva-teal mb-2">The Expert's Priority</h3>
-                        <div class="flex gap-4 items-start">
-                            <span class="text-2xl">👉</span>
-                            <p class="text-cva-navy font-medium leading-relaxed">${priority}</p>
+                        const input = document.createElement('input');
+                        input.type = 'checkbox';
+                        input.value = opt.value;
+                        input.checked = currentVals.includes(opt.value);
+                        
+                        input.addEventListener('change', (e) => {
+                            let arr = state.answers[q.id] || [];
+                            if(e.target.checked) {
+                                arr.push(e.target.value);
+                            } else {
+                                arr = arr.filter(v => v !== e.target.value);
+                            }
+                            state.answers[q.id] = arr;
+                        });
+
+                        const span = document.createElement('span');
+                        span.innerText = opt.label;
+
+                        lbl.appendChild(input);
+                        lbl.appendChild(span);
+                        container.appendChild(lbl);
+                    });
+                    group.appendChild(container);
+                }
+
+                elements.form.appendChild(group);
+            });
+
+            // Buttons State
+            elements.backBtn.disabled = state.stepIndex === 0;
+            elements.nextBtn.innerText = state.stepIndex === maturityConfig.steps.length - 1 ? 'See Results' : 'Next Step →';
+            
+            // Scroll to top of form
+            elements.toolCard.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }
+
+        function validateStep() {
+            const step = maturityConfig.steps[state.stepIndex];
+            for (let q of step.questions) {
+                if (q.required) {
+                    const ans = state.answers[q.id];
+                    if (!ans || (Array.isArray(ans) && ans.length === 0)) {
+                        alert(`Please answer: ${q.label}`);
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        // --- SCORING ENGINE ---
+        function calculateResults() {
+            let scores = {};
+            let maxScores = {};
+            
+            // Initialize
+            maturityConfig.dimensions.forEach(d => {
+                scores[d.id] = 0;
+                maxScores[d.id] = 0;
+            });
+
+            // Iterate steps/questions
+            maturityConfig.steps.forEach(step => {
+                if (!step.scored) return;
+                step.questions.forEach(q => {
+                    const dim = q.dimension;
+                    if (!dim) return;
+                    
+                    const answer = state.answers[q.id];
+                    const maxP = q.maxPoints || 4;
+                    maxScores[dim] += maxP;
+
+                    let earned = 0;
+                    if (q.type === 'select') {
+                        const opt = q.options.find(o => o.value === answer);
+                        if (opt) earned = opt.points;
+                    } else if (q.type === 'checkbox') {
+                        const ansArr = answer || [];
+                        let raw = 0;
+                        ansArr.forEach(val => {
+                            const opt = q.options.find(o => o.value === val);
+                            if (opt) raw += opt.points;
+                        });
+                        earned = Math.min(raw, maxP);
+                    }
+                    scores[dim] += earned;
+                });
+            });
+
+            // Normalize to 100
+            let dimResults = {};
+            let weightedSum = 0;
+            
+            maturityConfig.dimensions.forEach(d => {
+                const raw = scores[d.id];
+                const max = maxScores[d.id] || 1;
+                const normalized = Math.round((raw / max) * 100);
+                dimResults[d.id] = normalized;
+                weightedSum += normalized * d.weight;
+            });
+
+            const overall = Math.round(weightedSum);
+            
+            // Logic: Gating based on deployment stage
+            const stage = state.answers['deployment_stage'];
+            let level = 1;
+            if (overall > 20) level = 2;
+            if (overall > 40) level = 3;
+            if (overall > 60) level = 4;
+            if (overall > 80) level = 5;
+
+            // Downgrade if no production
+            if ((stage === 'none' || stage === 'pilots') && level > 2) {
+                level = 2; // Capped at Experimenter
+            }
+
+            return { overall, dimResults, level };
+        }
+
+        function getArchetype(level, dims) {
+            // Simplified logic based on CVA personas
+            if (level === 1) return {
+                name: "Observer",
+                desc: "AI is not yet operational. Focus is on identifying the first high-value wedge and establishing basic data governance."
+            };
+            if (level === 2) return {
+                name: "Experimenter",
+                desc: "Activity is driven by pilots. The challenge is moving from 'Proof of Concept' to 'Proof of Value' with a production lifecycle."
+            };
+            if (level === 3) {
+                if (dims.governance < 50) return {
+                    name: "Wild West Scaler",
+                    desc: "Adoption is growing faster than governance. High risk of technical debt and unmanaged model risks."
+                };
+                return {
+                    name: "Structured Builder",
+                    desc: "Foundations are in place. The focus is now on industrialising the delivery pipeline to scale velocity."
+                };
+            }
+            if (level === 4) return {
+                name: "Industrialised Operator",
+                desc: "AI is embedded in core processes. Focus shifts to portfolio optimization and advanced risk management."
+            };
+            return {
+                name: "AI-Native Leader",
+                desc: "AI is a core competitive differentiator with a mature operating model."
+            };
+        }
+
+        function renderResults(results) {
+            const arch = getArchetype(results.level, results.dimResults);
+            
+            // Hide Form, Show Results
+            elements.toolCard.classList.add('hidden');
+            elements.contextCard.classList.add('hidden'); // Hide sidebar on results
+            elements.resultsContainer.classList.remove('hidden');
+            
+            // 1. Header Card (Score + Archetype)
+            // Color logic for ring
+            const color = results.overall < 40 ? '#FAA055' : '#008080'; // Orange or Teal
+            
+            let html = `
+                <div class="results-header-card">
+                    <div class="score-circle" style="background: conic-gradient(${color} ${results.overall}%, rgba(255,255,255,0.1) 0);">
+                        <div class="score-inner">
+                            <span class="score-number">${results.overall}</span>
+                            <span class="score-label">Maturity Score</span>
                         </div>
                     </div>
-
-                    <div class="flex justify-center gap-4">
-                        <button onclick="location.href='index.html#start'" class="px-8 py-3 bg-cva-navy text-white font-bold rounded-xl shadow-lg hover:bg-cva-blue transition-colors">
-                            Discuss this Score
-                        </button>
+                    <div class="archetype-info">
+                        <h3>Archetype: ${arch.name}</h3>
+                        <p class="archetype-desc">${arch.desc}</p>
                     </div>
                 </div>
             `;
 
-            document.getElementById('assessmentForm').classList.add('hidden');
-            document.getElementById('formFooter').classList.add('hidden');
-            document.getElementById('stepperContainer').classList.add('hidden');
+            // 2. Dimensions Grid
+            html += `<div class="dimensions-grid">`;
+            maturityConfig.dimensions.forEach(d => {
+                const val = results.dimResults[d.id];
+                html += `
+                    <div class="dimension-card">
+                        <div class="dim-header">
+                            <span>${d.label}</span>
+                            <span>${val}/100</span>
+                        </div>
+                        <div class="dim-bar-bg">
+                            <div class="dim-bar-fill" style="width: ${val}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+
+            // 3. Action Cards (Swimlanes)
+            const tension = state.answers['tension'];
+            const recs = getRecommendations(results.dimResults, tension);
             
-            const rv = document.getElementById('resultsView');
-            rv.innerHTML = html;
-            rv.classList.remove('hidden');
+            html += `
+                <div class="action-cards">
+                    <div class="action-card">
+                        <div class="action-header">Primary Focus</div>
+                        <div class="action-title">${recs.focusTitle}</div>
+                        <div class="action-body">${recs.focusText}</div>
+                    </div>
+                    <div class="action-card">
+                        <div class="action-header">Priority Actions</div>
+                        <div class="action-title">Next 90 Days</div>
+                        <ul class="action-list action-body">
+                            ${recs.actions.map(a => `<li>${a}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 32px; text-align: center;">
+                    <a href="index.html#start" class="btn btn-primary">Request Deep-Dive Scoping Call</a>
+                    <button class="btn btn-secondary" onclick="location.reload()" style="margin-left: 16px;">Restart Assessment</button>
+                </div>
+            `;
+
+            elements.resultsContainer.innerHTML = html;
+            elements.progressBar.style.width = '100%';
         }
 
-        // Init
+        function getRecommendations(dims, tension) {
+            // Simple logic engine for demo
+            let focusTitle = "Consolidate Foundations";
+            let focusText = "Your scores indicate gaps in data governance or delivery. Before adding more use cases, stabilize the core platform.";
+            
+            if (dims.portfolio < 30) {
+                focusTitle = "Prove Value First";
+                focusText = "Don't build a platform for empty shelves. Focus on one high-value use case (e.g., " + (tension || 'your priority area') + ") and build just enough foundation to support it.";
+            } else if (dims.governance < dims.delivery) {
+                focusTitle = "Secure the Framework";
+                focusText = "You have delivery velocity but lack control. This creates technical debt. Focus on decision rights and risk gates.";
+            }
+
+            const actions = [
+                "Define clear ownership for the '" + (tension || 'priority') + "' data domain.",
+                "Establish a quarterly business value review for all AI pilots.",
+                "Implement a standard 'Model Registry' to track what is running where."
+            ];
+
+            return { focusTitle, focusText, actions };
+        }
+
+        // --- EVENTS ---
+        elements.nextBtn.addEventListener('click', () => {
+            if (validateStep()) {
+                if (state.stepIndex < maturityConfig.steps.length - 1) {
+                    state.stepIndex++;
+                    renderStep();
+                } else {
+                    const res = calculateResults();
+                    renderResults(res);
+                }
+            }
+        });
+
+        elements.backBtn.addEventListener('click', () => {
+            if (state.stepIndex > 0) {
+                state.stepIndex--;
+                renderStep();
+            }
+        });
+
+        // Initialize
         renderStep();
+
     </script>
 </body>
 </html>
-
-
