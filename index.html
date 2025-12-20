@@ -389,13 +389,17 @@
             max-height: 0; overflow: hidden; opacity: 0;
             transition: all 0.5s ease;
         }
-        .brick.active .brick-details { max-height: 300px; opacity: 1; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--gray-200); }
+        .brick.active .brick-details { max-height: 500px; opacity: 1; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--gray-200); }
         
         .brick-footer {
             margin-top: auto; padding-top: 16px; 
             font-size: 12px; font-weight: 700; color: var(--teal); 
             display: flex; align-items: center; gap: 4px;
         }
+
+        .brick-details .detail-section { margin-bottom: 16px; }
+        .brick-details .detail-title { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+        .brick-details .detail-text { font-size: 13px; color: var(--gray-500); line-height: 1.6; }
 
         /* --- Portfolio (Matrix) --- */
         .portfolio { 
@@ -439,6 +443,10 @@
             opacity: 0; transform: translateY(10px); transition: all 0.3s ease;
         }
         .detail-panel.visible { opacity: 1; transform: translateY(0); }
+        
+        .detail-row { margin-bottom: 12px; }
+        .detail-label { font-size: 11px; font-weight: 700; color: var(--teal-light); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+        .detail-value { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.5; }
 
         /* --- Proof & References --- */
         .proof { padding: 140px 0; background: white; }
@@ -450,7 +458,7 @@
             border: 1px solid var(--gray-200);
         }
         .proof-card h4 { font-size: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-        .proof-card p { font-size: 14px; color: var(--gray-500); margin-bottom: 16px; }
+        .proof-card p { font-size: 14px; color: var(--gray-500); margin-bottom: 16px; line-height: 1.6; }
         .tags-row { display: flex; flex-wrap: wrap; gap: 8px; }
         .mini-tag { font-size: 10px; padding: 4px 8px; background: white; border: 1px solid var(--gray-300); border-radius: 4px; color: var(--gray-700); }
 
@@ -461,12 +469,42 @@
         .ref-card {
             background: white; padding: 40px; border-radius: var(--radius-md);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: transform 0.3s; cursor: default;
+            transition: all 0.3s ease; cursor: pointer;
+            border: 1px solid transparent;
         }
         .ref-card:hover { transform: translateY(-5px); }
-        .ref-metrics { display: flex; gap: 16px; margin: 16px 0 24px; }
+        .ref-card.active { border-color: var(--teal); }
+        .ref-card h4 { font-size: 16px; margin-bottom: 8px; }
+        .ref-card .ref-context { font-size: 12px; color: var(--gray-500); margin-bottom: 16px; }
+        .ref-metrics { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0 20px; }
         .metric { background: var(--off-white); padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; color: var(--navy); border: 1px solid var(--gray-200); }
         .metric span { color: var(--teal); margin-right: 4px; }
+        .ref-card .ref-desc { font-size: 13px; color: var(--gray-700); line-height: 1.6; }
+        
+        .ref-details { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--gray-200); }
+        .ref-card.active .ref-details { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .ref-details ul { margin-bottom: 16px; }
+        .ref-details li { font-size: 13px; color: var(--gray-700); margin-bottom: 8px; padding-left: 20px; position: relative; }
+        .ref-details li::before { content: '→'; position: absolute; left: 0; color: var(--teal); }
+        .ref-details .ref-foot { font-size: 12px; color: var(--gray-500); font-style: italic; }
+        
+        .ref-card .expand-hint { margin-top: 16px; font-size: 12px; color: var(--teal); font-weight: 600; }
+
+        /* Outcomes Card */
+        .outcomes-card {
+            grid-column: 1 / -1;
+            background: white; padding: 40px; border-radius: var(--radius-md);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid var(--gray-200);
+        }
+        .outcomes-card h4 { font-size: 18px; margin-bottom: 8px; }
+        .outcomes-card .outcomes-sub { font-size: 13px; color: var(--gray-500); margin-bottom: 24px; }
+        .outcomes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 20px; }
+        .outcome-item { background: var(--off-white); padding: 20px; border-radius: 12px; border: 1px solid var(--gray-200); }
+        .outcome-kpi { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+        .outcome-label { font-size: 12px; color: var(--gray-500); line-height: 1.5; }
+        .outcomes-disclaimer { font-size: 12px; color: var(--gray-500); line-height: 1.6; padding: 16px; background: var(--gray-100); border-radius: 8px; }
 
         /* --- CTA Section --- */
         .cta-section { padding: 120px 0; background: white; }
@@ -514,6 +552,7 @@
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
             .grid-3, .ref-grid { grid-template-columns: 1fr; }
+            .outcomes-grid { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 600px) {
@@ -521,6 +560,7 @@
             .bricks-container { grid-template-columns: 1fr; }
             .cta-box { padding: 32px 20px; }
             .btn-primary { width: 100%; justify-content: center; }
+            .outcomes-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -638,6 +678,7 @@
         </div>
     </section>
 
+    <!-- SECTION 1: Programme Architecture - ENRICHED from old version -->
     <section id="offer" class="offer">
         <div class="section-container">
             <div class="section-header">
@@ -650,15 +691,22 @@
                 <div class="brick" onclick="toggleBrick(this)">
                     <div class="brick-head b1"></div>
                     <div class="brick-content">
-                        <span class="brick-badge">Diagnostic</span>
-                        <h3>1. AI Radar & Diagnostic</h3>
-                        <p>Rapid inventory of data foundations and selection of 1-2 programme-grade priorities.</p>
+                        <span class="brick-badge">Standalone</span>
+                        <h3>1. AI Diagnostic & Benchmark Radar</h3>
+                        <p>A rapid diagnostic on 2–3 core processes to select 1–2 programme-grade priorities.</p>
                         <div class="brick-details">
-                            <ul class="check-list" style="font-size: 13px;">
-                                <li>Baseline of initiatives</li>
-                                <li>Value/Feasibility mapping</li>
-                                <li>Shortlist of priorities</li>
-                            </ul>
+                            <div class="detail-section">
+                                <div class="detail-title">Full scope</div>
+                                <ul class="check-list" style="font-size: 13px;">
+                                    <li>Baseline of current initiatives and data foundations</li>
+                                    <li>Use case portfolio mapped by value and industrialisation readiness</li>
+                                    <li>Shortlist of 1–2 "programme-grade" priorities with a value hypothesis</li>
+                                </ul>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">What it enables</div>
+                                <div class="detail-text">Create alignment across Business, Data, IT and Risk on what to industrialise first. De-risk investments by focusing on mature, value-creating, process-embedded use cases.</div>
+                            </div>
                         </div>
                         <div class="brick-footer">View details +</div>
                     </div>
@@ -667,15 +715,22 @@
                 <div class="brick" onclick="toggleBrick(this)">
                     <div class="brick-head b2"></div>
                     <div class="brick-content">
-                        <span class="brick-badge">Core Design</span>
-                        <h3>2. Programme Design</h3>
-                        <p>Turn one priority into a steerable programme: target process, controls, governance.</p>
+                        <span class="brick-badge">Standalone</span>
+                        <h3>2. Programme Design & Governance</h3>
+                        <p>Turn one priority into a COMEX-steerable programme: target process, controls and governance.</p>
                         <div class="brick-details">
-                            <ul class="check-list" style="font-size: 13px;">
-                                <li>Target process redesign</li>
-                                <li>AI Operating Model</li>
-                                <li>Investment case</li>
-                            </ul>
+                            <div class="detail-section">
+                                <div class="detail-title">Full scope</div>
+                                <ul class="check-list" style="font-size: 13px;">
+                                    <li>Target process redesign (journeys, DIDA flows, controls)</li>
+                                    <li>AI operating model and governance (roles, routines, KPIs)</li>
+                                    <li>Industrialisation blueprint and investment logic</li>
+                                </ul>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">What it enables</div>
+                                <div class="detail-text">Move from "tool" logic to "process" logic with measurable outcomes. Secure compliance and risk management through a defined control framework.</div>
+                            </div>
                         </div>
                         <div class="brick-footer">View details +</div>
                     </div>
@@ -684,15 +739,22 @@
                 <div class="brick" onclick="toggleBrick(this)">
                     <div class="brick-head b3"></div>
                     <div class="brick-content">
-                        <span class="brick-badge">Execution</span>
-                        <h3>3. Orchestration</h3>
-                        <p>Mobilise execution capacity (partners) without losing governance and tracking.</p>
+                        <span class="brick-badge">With Partners</span>
+                        <h3>3. Execution Path Orchestration</h3>
+                        <p>Mobilise execution capacity when needed — without losing governance and value tracking.</p>
                         <div class="brick-details">
-                            <ul class="check-list" style="font-size: 13px;">
-                                <li>Make-or-buy logic</li>
-                                <li>Partner selection</li>
-                                <li>Quality gates & delivery</li>
-                            </ul>
+                            <div class="detail-section">
+                                <div class="detail-title">Full scope</div>
+                                <ul class="check-list" style="font-size: 13px;">
+                                    <li>Make-or-buy logic and vendor neutral selection support</li>
+                                    <li>Execution scoping, delivery model and quality gates</li>
+                                    <li>Alignment of partners with programme KPIs and controls</li>
+                                </ul>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">What it enables</div>
+                                <div class="detail-text">Accelerate build without turning CVA into an integrator. Protect value by aligning partners to the client's decision process.</div>
+                            </div>
                         </div>
                         <div class="brick-footer">View details +</div>
                     </div>
@@ -701,15 +763,22 @@
                 <div class="brick" onclick="toggleBrick(this)">
                     <div class="brick-head b4"></div>
                     <div class="brick-content">
-                        <span class="brick-badge">Scale</span>
-                        <h3>4. Run & Replicate</h3>
-                        <p>Secure value in run-mode and replicate across assets and geographies.</p>
+                        <span class="brick-badge">Optional</span>
+                        <h3>4. Run Support & Replication</h3>
+                        <p>Secure value in run and replicate what works across processes, assets and geographies.</p>
                         <div class="brick-details">
-                            <ul class="check-list" style="font-size: 13px;">
-                                <li>SmartPMO routines</li>
-                                <li>Benefits tracking</li>
-                                <li>Replication playbook</li>
-                            </ul>
+                            <div class="detail-section">
+                                <div class="detail-title">Full scope</div>
+                                <ul class="check-list" style="font-size: 13px;">
+                                    <li>SmartPMO routines for benefits and risk tracking</li>
+                                    <li>Operational governance cadence with COMEX visibility</li>
+                                    <li>Replication playbook and portfolio extension</li>
+                                </ul>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">What it enables</div>
+                                <div class="detail-text">Convert "go-live" into "value-in-run" with disciplined tracking. Turn a lighthouse into a portfolio, without programme drift.</div>
+                            </div>
                         </div>
                         <div class="brick-footer">View details +</div>
                     </div>
@@ -718,6 +787,7 @@
         </div>
     </section>
 
+    <!-- SECTION 2: Use Case Portfolio - ENRICHED from old version -->
     <section id="portfolio" class="portfolio">
         <div class="section-container">
             <div class="section-header" style="color: white;">
@@ -778,73 +848,175 @@
                     </div>
 
                     <div id="play-detail" class="detail-panel">
-                        <h4 id="detail-title" style="color:white; margin-bottom:8px;">Select a use case</h4>
-                        <p id="detail-desc" style="font-size:13px; color:rgba(255,255,255,0.8); line-height:1.5;">...</p>
+                        <h4 id="detail-title" style="color:white; margin-bottom:12px; font-size: 15px;">Select a use case</h4>
+                        <div class="detail-row">
+                            <div class="detail-label">Anchored process</div>
+                            <div class="detail-value" id="detail-process">...</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Primary buyers</div>
+                            <div class="detail-value" id="detail-buyers">...</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">CVA wedge</div>
+                            <div class="detail-value" id="detail-wedge">...</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- SECTION 3: Proof Points - ENRICHED from old version -->
     <section id="proof" class="proof">
         <div class="section-container">
             <div class="section-header">
                 <span class="tag">Proof Points</span>
                 <h2 class="section-title">Reference Snapshots</h2>
-                <p class="section-subtitle">Real-world examples of decision-centric programmes.</p>
+                <p class="section-subtitle">Market reality: AI building blocks exist. Industrialisation is the white space.</p>
             </div>
 
             <div class="grid-3">
                 <div class="proof-card">
                     <h4>◈ Distribution Grids</h4>
-                    <p>Forecasting and decision support to steer reinforcement connection journeys at scale.</p>
+                    <p>Grid operators increasingly rely on forecasting and decision support to steer reinforcement and connection journeys at scale.</p>
                     <div class="tags-row">
                         <span class="mini-tag">Forecasting</span>
-                        <span class="mini-tag">Predictive Maint.</span>
+                        <span class="mini-tag">Reinforcement optimisation</span>
+                        <span class="mini-tag">Predictive failures</span>
+                        <span class="mini-tag">Field assistance</span>
                     </div>
                 </div>
                 <div class="proof-card">
-                    <h4>◇ Flex Trading</h4>
-                    <p>End-to-end forecast-to-position routines for battery and renewable fleets.</p>
+                    <h4>◇ Flexibility & Forecasting</h4>
+                    <p>Forecasting, optimisation and automated dispatch are widely available — yet many players struggle to operationalise end-to-end forecast-to-position routines.</p>
                     <div class="tags-row">
-                        <span class="mini-tag">Dispatch</span>
-                        <span class="mini-tag">Portfolio Opt.</span>
+                        <span class="mini-tag">Flex forecasting</span>
+                        <span class="mini-tag">Portfolio optimisation</span>
+                        <span class="mini-tag">Dispatch routines</span>
                     </div>
                 </div>
                 <div class="proof-card">
-                    <h4>□ System Ops</h4>
-                    <p>Modernising control stacks and interoperability for TSOs.</p>
+                    <h4>□ System Operations</h4>
+                    <p>TSOs are modernising control stacks and interoperability — a prerequisite for moving AI from pilots to foundational infrastructure.</p>
                     <div class="tags-row">
-                        <span class="mini-tag">Control Room</span>
+                        <span class="mini-tag">Control modernisation</span>
                         <span class="mini-tag">Interoperability</span>
+                        <span class="mini-tag">System forecasting</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- SECTION 4: Selected CVA Outcomes - ENRICHED from old version -->
     <section class="references">
         <div class="section-container">
             <h3 style="margin-bottom: 32px; font-size: 24px;">Selected CVA Outcomes</h3>
             <div class="ref-grid">
-                <div class="ref-card">
-                    <h4>Cost & Customer Journey Optimization</h4>
-                    <p style="font-size: 13px; color:var(--gray-500); margin-bottom: 16px;">Large regulated organization • Multi-journey</p>
+                <div class="ref-card" onclick="toggleRef(this)">
+                    <h4>Cost & Customer Journey Optimisation</h4>
+                    <p class="ref-context">Large regulated organisation • Multi-journey programme</p>
                     <div class="ref-metrics">
-                        <div class="metric"><span>+24 pts</span> NPS</div>
-                        <div class="metric"><span>~20%</span> FTE Impact</div>
+                        <div class="metric"><span>+24%</span> Cost pressure</div>
+                        <div class="metric"><span>~20%</span> FTE impact target</div>
                     </div>
-                    <p style="font-size:14px; color:var(--gray-700);">Redesigned end-to-end journeys to unlock productivity through process redesign, automation and tighter controls.</p>
+                    <p class="ref-desc">A programme to redesign end-to-end journeys and unlock productivity through process redesign, automation and tighter controls.</p>
+                    <div class="ref-details">
+                        <ul>
+                            <li>AI-enabled automation & digitalisation of repetitive activities</li>
+                            <li>Process simplification to reduce manual workload and improve throughput</li>
+                            <li>Automated controls and fraud prevention levers</li>
+                            <li>Governance reinforced with clear KPIs and decision routines</li>
+                        </ul>
+                        <div class="ref-foot">Illustrative impact: significant workforce needs reduction, anchored in a portfolio of IT and non-IT levers.</div>
+                    </div>
+                    <div class="expand-hint">Tap to expand →</div>
                 </div>
                 
-                <div class="ref-card">
+                <div class="ref-card" onclick="toggleRef(this)">
                     <h4>Finance Data & Reporting Industrialisation</h4>
-                    <p style="font-size: 13px; color:var(--gray-500); margin-bottom: 16px;">Decentralized teams • ~40 entities</p>
+                    <p class="ref-context">Decentralised teams • ~40 entities</p>
                     <div class="ref-metrics">
-                        <div class="metric"><span>50%</span> Efficiency Gain</div>
-                        <div class="metric"><span>Real-time</span> Decisioning</div>
+                        <div class="metric"><span>~290</span> FTE</div>
+                        <div class="metric"><span>50%</span> Efficiency gain</div>
                     </div>
-                    <p style="font-size:14px; color:var(--gray-700);">Centralized data collection and organization to unlock self-serve decisioning and reduce reporting burden.</p>
+                    <p class="ref-desc">Centralise and industrialise data collection and organisation to unlock self-serve decisioning — not "more reporting".</p>
+                    <div class="ref-details">
+                        <ul>
+                            <li>A single governed access point and an integrated data catalogue</li>
+                            <li>Centralised structuring and enrichment to eliminate data duplication</li>
+                            <li>AI-enabled access for decision makers (personalised views, fewer report requests)</li>
+                            <li>Decision routines accelerated through "zero-based" simplification</li>
+                        </ul>
+                        <div class="ref-foot">Illustrative impact: material reduction in reporting effort and faster decision cycles.</div>
+                    </div>
+                    <div class="expand-hint">Tap to expand →</div>
+                </div>
+
+                <div class="ref-card" onclick="toggleRef(this)">
+                    <h4>Run IT Productivity Programme</h4>
+                    <p class="ref-context">High volumes • Cost control under pressure</p>
+                    <div class="ref-metrics">
+                        <div class="metric"><span>42%</span> Efficiency gain</div>
+                        <div class="metric">Incidents & support</div>
+                    </div>
+                    <p class="ref-desc">Identify disruptive levers beyond traditional sourcing and tooling optimisation to increase RTB productivity and reliability.</p>
+                    <div class="ref-details">
+                        <ul>
+                            <li>NLP/ML-driven ticket classification and routing</li>
+                            <li>Automated incident triage and alert reduction</li>
+                            <li>Root-cause analytics (data mining) and automated resolution patterns</li>
+                            <li>Targeted use of GenAI to automate parts of programming work</li>
+                        </ul>
+                        <div class="ref-foot">Illustrative impact: step-change in RTB productivity through redesigned routines + automation.</div>
+                    </div>
+                    <div class="expand-hint">Tap to expand →</div>
+                </div>
+
+                <div class="ref-card" onclick="toggleRef(this)">
+                    <h4>Onboarding & Lifecycle Management (incl. KYC)</h4>
+                    <p class="ref-context">Highly regulated • Multi-process journey redesign</p>
+                    <div class="ref-metrics">
+                        <div class="metric"><span>27→2</span> Processes</div>
+                        <div class="metric"><span>57%</span> Efficiency gain</div>
+                    </div>
+                    <p class="ref-desc">Reframe onboarding and lifecycle events as a continuous information journey, then industrialise with data-native decisioning and automation.</p>
+                    <div class="ref-details">
+                        <ul>
+                            <li>Optimised data model leveraging KYC utilities and digital ID where available</li>
+                            <li>Automated interpretation of legal documents (NLP/ML)</li>
+                            <li>GenAI-supported reviews of KYC summaries (human-controlled)</li>
+                            <li>Rule-based quality control, task orchestration and case routing</li>
+                        </ul>
+                        <div class="ref-foot">Illustrative impact: large efficiency uplift while preserving regulatory steps and controls.</div>
+                    </div>
+                    <div class="expand-hint">Tap to expand →</div>
+                </div>
+
+                <!-- Outcomes summary card -->
+                <div class="outcomes-card">
+                    <h4>Observed Outcomes (context-dependent)</h4>
+                    <p class="outcomes-sub">Orders of magnitude across CORE deployments</p>
+                    <div class="outcomes-grid">
+                        <div class="outcome-item">
+                            <div class="outcome-kpi">Up to +30 pts</div>
+                            <div class="outcome-label">NPS uplift on customer journeys</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-kpi">40–50%</div>
+                            <div class="outcome-label">End-to-end efficiency gains (FTE / cost)</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-kpi">20–35%</div>
+                            <div class="outcome-label">Investments redirected to "target-state" solutions</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-kpi">42–57%</div>
+                            <div class="outcome-label">Productivity gains in selected IT / compliance-heavy functions</div>
+                        </div>
+                    </div>
+                    <div class="outcomes-disclaimer">These are reference points observed across CVA programmes. Outcomes depend on starting point, scope and adoption. We use them to calibrate ambition and design credible programmes — not as generic promises.</div>
                 </div>
             </div>
         </div>
@@ -956,19 +1128,52 @@
             footer.textContent = element.classList.contains('active') ? 'Close details -' : 'View details +';
         }
 
-        // 4. Matrix Interaction
+        // 4. Matrix Interaction - ENRICHED USE CASE DATA from OLD version
         const playData = {
-            A: { title: "A. Network Reinforcement", desc: "Process: Grid investment planning. Buyers: DSO/TSO COO, Asset Director. Wedge: Turn fragmented tools into a COMEX-steerable capex process." },
-            B: { title: "B. Asset Risk Steering", desc: "Process: Fleet-level capex timing. Buyers: Generation Leadership. Wedge: Design the 'risk cockpit' with decision rules." },
-            C: { title: "C. Forecast-to-Position", desc: "Process: Flexibility portfolio steering. Buyers: Trading, Flex Head. Wedge: Define governance so forecasts drive positions." },
-            D: { title: "D. Billing & Customer Ops", desc: "Process: Billing & Exceptions. Buyers: Retail COO. Wedge: Redesign process, define controls, steer change at scale." },
-            E: { title: "E. Asset Sourcing", desc: "Process: Origination & Screening. Buyers: Investment Committee. Wedge: Build the 'sourcing factory' with portfolio steering." },
-            F: { title: "F. Building Energy Opt.", desc: "Process: ESCO Service Delivery. Buyers: ESCO GM. Wedge: Translate optimisation into scalable service models." }
+            A: { 
+                title: "A. Network reinforcement and connection prioritisation cockpit", 
+                process: "Grid investment planning and connection backlog governance",
+                buyers: "DSO/TSO COO, Strategy, Asset, Finance, Regulation",
+                wedge: "Turn fragmented tools into a COMEX-steerable capex and backlog decision process with controls, KPIs and regulatory-ready narratives"
+            },
+            B: { 
+                title: "B. Critical asset performance and risk steering for fleets", 
+                process: "Fleet-level capex timing, risk and availability decisions",
+                buyers: "COO, Asset Director, Nuclear/Generation leadership",
+                wedge: "Design the 'risk and performance cockpit' with decision rules, exception management and value tracking"
+            },
+            C: { 
+                title: "C. Forecast-to-position for flexibility and trading", 
+                process: "Flexibility portfolio steering from forecasting to market positions",
+                buyers: "Trading, Flexibility head, Portfolio management",
+                wedge: "Define governance and controls so forecasts reliably drive positions and dispatch decisions"
+            },
+            D: { 
+                title: "D. Billing and customer operations productivity", 
+                process: "Billing operations, customer care, controls, exception handling",
+                buyers: "Customer Ops, Retail COO, Finance controls",
+                wedge: "Redesign the process, define controls, and steer change at scale with measurable outcomes"
+            },
+            E: { 
+                title: "E. Asset sourcing and site screening", 
+                process: "Origination and early screening, connecting GIS, constraints and IC decisions",
+                buyers: "Development, Investment committee, Strategy, Finance",
+                wedge: "Build the end-to-end 'sourcing factory' with decision KPIs, controls and portfolio steering"
+            },
+            F: { 
+                title: "F. Building and campus energy optimisation", 
+                process: "Service delivery at scale: monitoring, optimisation, contract KPIs",
+                buyers: "ESCO GM, Operations, Sales and performance teams",
+                wedge: "Translate optimisation into scalable service models with KPI governance and margin protection"
+            }
         };
 
         function selectPlay(id) {
             // Reset UI
-            document.querySelectorAll('.core').forEach(el => el.style.strokeWidth = '2px');
+            document.querySelectorAll('.core').forEach(el => {
+                el.style.strokeWidth = '2px';
+                el.style.filter = 'none';
+            });
             document.querySelectorAll('.legend-item').forEach(el => el.classList.remove('active'));
             
             // Highlight Selected
@@ -981,12 +1186,35 @@
 
             // Show Details
             const panel = document.getElementById('play-detail');
-            document.getElementById('detail-title').textContent = playData[id].title;
-            document.getElementById('detail-desc').textContent = playData[id].desc;
+            const data = playData[id];
+            document.getElementById('detail-title').textContent = data.title;
+            document.getElementById('detail-process').textContent = data.process;
+            document.getElementById('detail-buyers').textContent = data.buyers;
+            document.getElementById('detail-wedge').textContent = data.wedge;
+            
             panel.classList.add('visible');
         }
 
-        // 5. Contact Form Logic
+        // 5. Reference Cards Toggle
+        function toggleRef(element) {
+            const wasActive = element.classList.contains('active');
+            
+            // Close all
+            document.querySelectorAll('.ref-card').forEach(c => {
+                c.classList.remove('active');
+                const hint = c.querySelector('.expand-hint');
+                if(hint) hint.textContent = 'Tap to expand →';
+            });
+            
+            // Open clicked if wasn't active
+            if(!wasActive) {
+                element.classList.add('active');
+                const hint = element.querySelector('.expand-hint');
+                if(hint) hint.textContent = 'Tap to collapse';
+            }
+        }
+
+        // 6. Contact Form Logic
         let selectedSegment = "";
         
         function setSegment(btn, seg) {
@@ -1002,7 +1230,7 @@
             const subject = `CVA Scoping Request - ${selectedSegment || 'General'}`;
             const body = `I would like to request a scoping call.\n\nSegment: ${selectedSegment}\nTension: ${tension}\nContext: ${context}`;
             
-            window.location.href = `mailto:contact@corporate-value.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = `mailto:thibaut.lacour@cva-france.fr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         }
     </script>
 </body>
