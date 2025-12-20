@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CVA | AI for Energy — AI maturity self-check</title>
-    <meta name="description" content="A 6-minute AI maturity self-check for energy companies: adoption & impact, data readiness, delivery & monitoring, governance & risk.">
+    <title>CVA | AI Maturity Assessment</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS (Heavily customized via config) -->
+    <!-- Tailwind CSS with CVA Custom Config -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -20,12 +19,9 @@
                     colors: {
                         cva: {
                             navy: '#0B2438',
-                            blue: '#1F2B4F',
                             teal: '#00A1BF',
                             tealLight: '#00C6C6',
                             surface: '#F8FAFC',
-                            glass: 'rgba(255, 255, 255, 0.95)',
-                            glassDark: 'rgba(11, 36, 56, 0.95)'
                         }
                     },
                     fontFamily: {
@@ -33,9 +29,7 @@
                         serif: ['Instrument Serif', 'serif'],
                     },
                     boxShadow: {
-                        'glow': '0 0 20px rgba(0, 161, 191, 0.15)',
-                        'card': '0 20px 40px -5px rgba(0, 0, 0, 0.08)',
-                        'float': '0 30px 60px -10px rgba(0, 0, 0, 0.12)'
+                        'card': '0 20px 50px -10px rgba(11, 36, 56, 0.12)'
                     }
                 }
             }
@@ -43,578 +37,310 @@
     </script>
 
     <style>
-        body {
-            background-color: #F8FAFC;
-            color: #1F2B4F;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #F1F5F9; }
-        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
-
-        /* Progress Bar */
-        #progress-bar {
-            background: linear-gradient(90deg, #00A1BF, #00C6C6);
-            box-shadow: 0 0 10px rgba(0, 161, 191, 0.5);
-        }
-
-        /* Checkbox Custom Styling */
-        .custom-checkbox:checked + div {
-            border-color: #00A1BF;
-            background-color: rgba(0, 161, 191, 0.05);
-        }
-        .custom-checkbox:checked + div .check-icon {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Animation Utilities */
-        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        body { background-color: #F8FAFC; color: #0B2438; }
+        .score-ring { background: conic-gradient(var(--c-teal) calc(var(--score) * 1%), #E2E8F0 0); }
+        .fade-in { animation: fadeIn 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .score-ring {
-            background: conic-gradient(var(--c-teal) calc(var(--score) * 1%), rgba(255,255,255,0.1) 0);
-        }
     </style>
 </head>
-<body class="relative min-h-screen flex flex-col">
+<body class="flex flex-col min-h-screen">
 
-    <!-- Top Progress Bar -->
-    <div id="progress-bar" class="fixed top-0 left-0 h-1 z-[1001] w-0 transition-all duration-300 ease-out"></div>
-
-    <!-- Navigation (Consistent with Index) -->
-    <nav id="navbar" class="fixed w-full z-[1000] transition-all duration-300 border-b border-transparent bg-cva-navy/95 backdrop-blur-md shadow-lg">
+    <!-- Navbar (Identical to Index) -->
+    <nav class="fixed w-full z-[1000] bg-cva-navy/95 backdrop-blur-md shadow-lg border-b border-transparent">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-2 group">
+            <a href="index.html" class="flex items-center gap-3 group">
                 <span class="font-sans font-extrabold text-2xl tracking-tight text-white group-hover:text-cva-teal transition-colors">CVA</span>
-                <span class="h-4 w-[1px] bg-white/30"></span>
-                <span class="text-sm font-semibold tracking-wide text-white/80">AI for Energy</span>
+                <span class="h-5 w-[1px] bg-white/20"></span>
+                <span class="text-sm font-semibold tracking-wide text-white/80 uppercase">AI for Energy</span>
             </a>
-
-            <!-- Desktop Links -->
-            <div class="hidden md:flex items-center gap-8">
-                <a href="index.html#offer" class="text-sm font-medium text-white/80 hover:text-white transition-colors">Offer</a>
-                <a href="index.html#portfolio" class="text-sm font-medium text-white/80 hover:text-white transition-colors">Use Cases</a>
-                <a href="index.html#references" class="text-sm font-medium text-white/80 hover:text-white transition-colors">References</a>
-                <span class="text-sm font-bold text-cva-teal">Self-Check</span>
-                <a href="index.html#start" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white text-sm font-bold rounded-lg transition-all border border-white/10">
-                    Exit & Contact
-                </a>
+            <div class="flex items-center gap-6">
+                <span class="hidden md:inline text-xs text-white/50 uppercase tracking-widest font-bold">Assessment Tool v2.1</span>
+                <a href="index.html" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded transition-all">Exit</a>
             </div>
-
-            <!-- Mobile Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-white p-2" aria-label="Toggle menu">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white border-b border-gray-200 shadow-xl flex-col p-6 gap-4 md:hidden">
-            <a href="index.html#offer" class="text-cva-navy font-semibold">Offer</a>
-            <a href="index.html#portfolio" class="text-cva-navy font-semibold">Use Cases</a>
-            <a href="index.html#references" class="text-cva-navy font-semibold">References</a>
-            <a href="index.html" class="w-full text-center py-3 bg-gray-100 text-cva-navy font-bold rounded-lg">Exit Assessment</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="relative pt-32 pb-32 bg-cva-navy overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-[#0B2438] via-[#1F2B4F] to-[#113046]"></div>
-        <!-- Decor -->
-        <div class="absolute top-1/4 right-0 w-[600px] h-[600px] bg-cva-teal/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-6">
-                <span class="w-2 h-2 rounded-full bg-cva-teal animate-pulse"></span>
-                <span class="text-xs font-bold tracking-[0.2em] text-cva-tealLight uppercase">AI Maturity Self-Check</span>
-            </div>
-            
-            <h1 class="font-serif text-5xl md:text-6xl text-white mb-6 leading-tight">
-                Benchmark your AI maturity <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-cva-tealLight italic">in 6 minutes.</span>
-            </h1>
-            <p class="text-lg text-white/60 font-light max-w-2xl mx-auto mb-8">
-                Evidence-based questions to measure your adoption, data readiness, and governance against Energy sector peers.
-            </p>
-
-            <div class="flex flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-wider text-white/40">
-                <span class="px-3 py-1 border border-white/10 rounded-full">Use Cases</span>
-                <span class="px-3 py-1 border border-white/10 rounded-full">Data Foundations</span>
-                <span class="px-3 py-1 border border-white/10 rounded-full">Governance</span>
-                <span class="px-3 py-1 border border-white/10 rounded-full">People</span>
-            </div>
-        </div>
+    <!-- Header -->
+    <header class="pt-32 pb-20 bg-cva-navy text-center px-6">
+        <h1 class="font-serif text-4xl md:text-5xl text-white mb-4">Maturity Check</h1>
+        <p class="text-white/60 max-w-xl mx-auto text-lg font-light">
+            Measure your readiness to industrialise AI. <br>
+            <span class="text-cva-teal font-medium">Business-centric. No technical jargon.</span>
+        </p>
     </header>
 
-    <!-- Main Tool Section (Overlap Style) -->
-    <main class="relative z-20 -mt-20 pb-24 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid lg:grid-cols-12 gap-8 items-start">
-                
-                <!-- Main Assessment Card -->
-                <div class="lg:col-span-8">
-                    <div id="tool-card" class="bg-white rounded-2xl shadow-float border border-white/50 overflow-hidden min-h-[600px] relative transition-all duration-500">
-                        <!-- Progress Header -->
-                        <div class="bg-gray-50 border-b border-gray-100 p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <div>
-                                <div class="text-xs font-extrabold text-cva-teal uppercase tracking-widest mb-2" id="maturityTitle">Assessment in progress</div>
-                                <div class="flex items-center gap-4 text-sm text-gray-500 font-medium">
-                                    <span id="maturityProgressText">Step 1 of 5</span>
-                                    <span class="w-1 h-1 rounded-full bg-gray-300"></span>
-                                    <span class="text-cva-navy flex items-center gap-1">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                                        Private & Local
-                                    </span>
-                                </div>
-                            </div>
-                            
-                            <!-- Stepper Dots -->
-                            <div class="flex flex-wrap gap-2" id="maturityStepper">
-                                <!-- JS Injected -->
-                            </div>
-                        </div>
+    <!-- Main Tool -->
+    <main class="flex-grow -mt-10 px-6 pb-24 relative z-10">
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden min-h-[500px]">
+            
+            <!-- Stepper -->
+            <div class="bg-gray-50 border-b border-gray-200 p-6 flex items-center justify-between" id="stepperContainer">
+                <div class="text-xs font-bold text-cva-teal uppercase tracking-widest" id="stepLabel">Context</div>
+                <div class="flex gap-2" id="stepperDots"></div>
+            </div>
 
-                        <!-- Form Area -->
-                        <div class="p-6 md:p-10">
-                            <div id="maturityForm" class="space-y-8 fade-in">
-                                <!-- JS Injected -->
-                            </div>
+            <!-- Content -->
+            <div class="p-8 md:p-12">
+                <div id="assessmentForm" class="fade-in"></div>
+                <div id="resultsView" class="hidden fade-in"></div>
+            </div>
 
-                            <div id="maturityResults" class="hidden fade-in">
-                                <!-- JS Injected Results -->
-                            </div>
-                        </div>
-
-                        <!-- Footer Actions -->
-                        <div class="bg-white border-t border-gray-100 p-6 md:p-8 flex justify-between items-center" id="maturityFooter">
-                            <button id="maturityBackBtn" class="text-sm font-bold text-gray-400 hover:text-cva-navy transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
-                                ← Back
-                            </button>
-                            <div class="text-xs text-gray-300 hidden md:block" id="maturityFootnote">No data is sent to server</div>
-                            <button id="maturityNextBtn" class="px-8 py-3 bg-cva-teal hover:bg-cva-tealLight text-white font-bold rounded-xl shadow-lg hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-0.5">
-                                Next Step →
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sidebar Context -->
-                <div class="lg:col-span-4 space-y-6 lg:sticky lg:top-24">
-                    <!-- Value Prop Card -->
-                    <div class="bg-white/80 backdrop-blur border border-white rounded-2xl p-6 shadow-card">
-                        <h3 class="font-serif text-xl text-cva-navy mb-4">What you get</h3>
-                        <ul class="space-y-4">
-                            <li class="flex gap-3 text-sm text-gray-600 leading-relaxed">
-                                <span class="shrink-0 w-6 h-6 rounded-lg bg-cva-teal/10 text-cva-teal flex items-center justify-center font-bold text-xs">1</span>
-                                <span>A <strong>maturity level (1–5)</strong> aligned to Energy sector standards for industrialisation.</span>
-                            </li>
-                            <li class="flex gap-3 text-sm text-gray-600 leading-relaxed">
-                                <span class="shrink-0 w-6 h-6 rounded-lg bg-cva-teal/10 text-cva-teal flex items-center justify-center font-bold text-xs">2</span>
-                                <span>Your <strong>Archetype</strong> profile explaining what typically blocks scaling at your stage.</span>
-                            </li>
-                            <li class="flex gap-3 text-sm text-gray-600 leading-relaxed">
-                                <span class="shrink-0 w-6 h-6 rounded-lg bg-cva-teal/10 text-cva-teal flex items-center justify-center font-bold text-xs">3</span>
-                                <span>Actionable <strong>priorities</strong> for the next 8–12 weeks (Governance, Data, Delivery).</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Methodology Note -->
-                    <div class="bg-cva-navy text-white rounded-2xl p-6 shadow-card relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-10 -mt-10"></div>
-                        <h4 class="font-bold text-sm uppercase tracking-wide text-cva-teal mb-2">Methodology</h4>
-                        <p class="text-xs text-white/60 leading-relaxed">
-                            Based on CVA's CORE™ framework and "Data & AI Industrialisation" practice. Benchmarks derived from public IEA, Gartner, and industry reports (2024-2025).
-                        </p>
-                    </div>
-                </div>
+            <!-- Footer -->
+            <div class="bg-white border-t border-gray-100 p-6 flex justify-between items-center" id="formFooter">
+                <button id="backBtn" class="text-sm font-bold text-gray-400 hover:text-cva-navy transition-colors disabled:opacity-0">← Back</button>
+                <button id="nextBtn" class="px-8 py-3 bg-cva-teal hover:bg-cva-tealLight text-white font-bold rounded-xl shadow-lg transition-transform hover:-translate-y-0.5">
+                    Next Step
+                </button>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-cva-navy text-white py-12 border-t border-white/10 mt-auto">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start gap-8">
-            <div>
-                <div class="text-2xl font-bold font-sans tracking-tight mb-2">CVA</div>
-                <div class="text-sm text-white/50">Corporate Value Associates</div>
-                <div class="text-sm text-white/30 mt-1">AI for Energy Practice</div>
-            </div>
-            <div class="max-w-md text-right">
-                <p class="text-xs text-white/30 leading-relaxed mb-4">
-                    Disclaimer: This self-check is for informational purposes only. No client relationship is implied.
-                </p>
-                <a href="https://www.corporate-value.com" target="_blank" class="text-sm font-bold text-white hover:text-cva-teal transition-colors">www.corporate-value.com</a>
-                <div class="text-xs text-white/30 mt-2">© 2026 Corporate Value Associates</div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Client-Side Logic (Styling Updated for Tailwind) -->
+    <!-- Logic -->
     <script>
-        // Progress Bar
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById("progress-bar").style.width = scrolled + "%";
-        });
-
-        // Mobile Menu
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-        });
-
-        // --- AI MATURITY LOGIC ---
-        const maturityConfig = {
-            version: '1.1',
-            dimensions: [
-                { id: 'portfolio', label: 'Adoption & impact', weight: 0.25 },
-                { id: 'data', label: 'Data readiness', weight: 0.20 },
-                { id: 'delivery', label: 'Delivery & monitoring', weight: 0.20 },
-                { id: 'governance', label: 'Governance & risk', weight: 0.25 },
-                { id: 'people', label: 'People & partners', weight: 0.10 }
-            ],
+        const config = {
             steps: [
                 {
-                    id: 'context',
-                    title: 'Your context',
-                    subtitle: 'Used only to select the closest public peer reference points (no scoring).',
-                    scored: false,
+                    title: "Context",
                     questions: [
-                        { id: 'segment', label: 'Organisation type', help: 'Pick the closest option.', type: 'select', required: true, options: [ { value: 'utility', label: 'Utility or network operator' }, { value: 'ipp', label: 'IPP platform / investor' }, { value: 'esco', label: 'ESCO / energy services' }, { value: 'compute', label: 'Energy-to-compute ecosystem' }, { value: 'other', label: 'Other energy player' } ] },
-                        { id: 'geo', label: 'Primary geography', help: 'Used for benchmark selection.', type: 'select', required: true, options: [ { value: 'na', label: 'North America' }, { value: 'eu', label: 'Europe' }, { value: 'mea', label: 'Middle East & Africa' }, { value: 'apac', label: 'Asia-Pacific' }, { value: 'latam', label: 'Latin America' }, { value: 'global', label: 'Multi-region / Global' } ] },
-                        { id: 'tension', label: 'Top AI priority area', help: 'Tailors the "Where to start" guidance.', type: 'select', required: true, options: [ { value: 'grid', label: 'Grid planning & connection' }, { value: 'fleet', label: 'Fleet performance & risk' }, { value: 'flex', label: 'Flexibility & trading' }, { value: 'billing', label: 'Billing & customer ops' }, { value: 'origination', label: 'Origination & sourcing' }, { value: 'buildings', label: 'Building optimisation' }, { value: 'other', label: 'Other / Not sure' } ] }
+                        { id: 'role', label: "Your Role", type: 'select', options: ['Executive / Board', 'Business Unit Lead', 'Data/AI Lead', 'Strategy/Innovation'] },
+                        { id: 'sector', label: "Sector", type: 'select', options: ['DSO / TSO', 'Utility (Gen + Retail)', 'Renewables / IPP', 'Energy Services'] }
                     ]
                 },
                 {
-                    id: 'portfolio',
-                    title: 'AI adoption & impact',
-                    subtitle: 'Current penetration and value measurement.',
-                    scored: true,
+                    title: "Adoption & Value",
+                    desc: "Do you have AI in production, and does it generate cash?",
+                    dimension: 'adoption',
                     questions: [
-                        { id: 'deployment_stage', dimension: 'portfolio', label: 'Which best describes AI today?', help: 'In day-to-day operations (not aspirations).', type: 'select', required: true, maxPoints: 4, options: [ { value: 'none', label: 'No active AI pilots', points: 0 }, { value: 'pilots', label: 'Pilots only, not in ops', points: 1 }, { value: 'limited_prod', label: '1–2 solutions in ops', points: 2 }, { value: 'some_prod', label: '3–5 solutions in ops', points: 3 }, { value: 'scaled', label: 'Scaled across processes', points: 4 } ] },
-                        { id: 'prod_domains', dimension: 'portfolio', label: 'Where is AI used in ops?', help: 'Select all that apply.', type: 'checkbox', required: true, maxPoints: 4, options: [ { value: 'asset_maint', label: 'Asset Maint. & Field Ops', points: 1 }, { value: 'grid_planning', label: 'Grid Planning', points: 1 }, { value: 'realtime_ops', label: 'Real-time Ops / Control Room', points: 1 }, { value: 'trading', label: 'Trading / Dispatch', points: 1 }, { value: 'customer_ops', label: 'Customer Ops / Billing', points: 1 }, { value: 'commercial', label: 'Commercial / Origination', points: 1 }, { value: 'backoffice', label: 'Back Office (Fin/HR)', points: 1 } ] },
-                        { id: 'value_tracking', dimension: 'portfolio', label: 'Value tracking in production', help: 'Measured KPIs with a baseline.', type: 'select', required: true, maxPoints: 4, options: [ { value: 'none', label: 'No formal measurement', points: 0 }, { value: 'some', label: 'For a few solutions', points: 2 }, { value: 'most', label: 'For most solutions', points: 3 }, { value: 'all', label: 'Portfolio view', points: 4 } ] }
+                        { 
+                            id: 'stage', 
+                            label: "Operational Reality", 
+                            help: "Be honest about what is actually running in day-to-day processes.",
+                            type: 'radio',
+                            options: [
+                                { val: 0, text: "No active AI. We are at the 'Slide' stage." },
+                                { val: 1, text: "Pilot Factory. Many POCs, but nothing industrialised." },
+                                { val: 3, text: "Islands of AI. A few live models, but fragile maintenance." },
+                                { val: 5, text: "Industrialised. AI embedded in core processes (e.g., Asset Mgt) with SLAs." }
+                            ]
+                        },
+                        { 
+                            id: 'value', 
+                            label: "Value Tracking", 
+                            help: "Can you prove the ROI to the CFO?",
+                            type: 'radio',
+                            options: [
+                                { val: 0, text: "No measurement. We assume it works." },
+                                { val: 2, text: "Technical metrics only (Accuracy, F1 Score)." },
+                                { val: 5, text: "P&L Impact. We track FTEs saved, OPEX reduced, or Margin generated." }
+                            ]
+                        }
                     ]
                 },
                 {
-                    id: 'data',
-                    title: 'Data foundation',
-                    subtitle: 'Shared platforms and ownership.',
-                    scored: true,
+                    title: "Risk & Governance",
+                    desc: "Who decides, who controls, who is responsible?",
+                    dimension: 'governance',
                     questions: [
-                        { id: 'data_platform', dimension: 'data', label: 'Shared data platform', help: 'IT + OT integration.', type: 'select', required: true, maxPoints: 4, options: [ { value: 'none', label: 'No shared platform', points: 0 }, { value: 'silos', label: 'Silos / departmental', points: 1 }, { value: 'partial', label: 'Core IT shared (limited OT)', points: 3 }, { value: 'integrated', label: 'Integrated IT/OT platform', points: 4 } ] },
-                        { id: 'data_governance', dimension: 'data', label: 'Data ownership & quality', help: 'Named owners for critical domains.', type: 'select', required: true, maxPoints: 4, options: [ { value: 'none', label: 'No ownership / KPIs', points: 0 }, { value: 'partial', label: 'A few domains only', points: 2 }, { value: 'most', label: 'Most key domains', points: 3 }, { value: 'all', label: 'All key domains', points: 4 } ] }
+                        { 
+                            id: 'decision', 
+                            label: "Decision Rights", 
+                            help: "If a model fails, who is accountable?",
+                            type: 'radio',
+                            options: [
+                                { val: 0, text: "Unclear. It's the 'Data Team's fault'." },
+                                { val: 3, text: "Shared. Business owns the decision, IT owns the tool." },
+                                { val: 5, text: "Codified. Clear matrices for validation, deployment, and kill-switch." }
+                            ]
+                        },
+                        { 
+                            id: 'risk', 
+                            label: "Control Framework", 
+                            help: "Do you treat AI like a critical industrial asset?",
+                            type: 'radio',
+                            options: [
+                                { val: 0, text: "Ad-hoc. We check output manually sometimes." },
+                                { val: 5, text: "Systematic. Automated guardrails, drift monitoring, and audit trails." }
+                            ]
+                        }
                     ]
                 },
                 {
-                    id: 'delivery',
-                    title: 'Industrialisation',
-                    subtitle: 'Lifecycle, monitoring and reliability.',
-                    scored: true,
+                    title: "Industrial Capability",
+                    desc: "Can you build, deploy, and maintain reliably?",
+                    dimension: 'delivery',
                     questions: [
-                        { id: 'lifecycle', dimension: 'delivery', label: 'Standard lifecycle', help: 'Build → Validate → Deploy → Monitor.', type: 'select', required: true, maxPoints: 4, options: [ { value: 'none', label: 'Ad-hoc (Project based)', points: 0 }, { value: 'doc', label: 'Documented but optional', points: 2 }, { value: 'enforced', label: 'Enforced for production', points: 4 } ] },
-                        { id: 'mlops', dimension: 'delivery', label: 'MLOps Capabilities', help: 'Select all that apply.', type: 'checkbox', required: true, maxPoints: 4, options: [ { value: 'repo', label: 'Version Control', points: 1 }, { value: 'registry', label: 'Model Registry', points: 1 }, { value: 'deploy', label: 'CI/CD Pipelines', points: 1 }, { value: 'monitor', label: 'Performance Monitoring', points: 1 } ] },
-                        { id: 'monitoring', dimension: 'delivery', label: 'Production Monitoring', help: 'Alerts and response.', type: 'select', required: true, maxPoints: 4, options: [ { value: 'none', label: 'Basic logs only', points: 0 }, { value: 'dashboards', label: 'Dashboards (no alerts)', points: 2 }, { value: 'alerts', label: 'Alerting + Owners', points: 3 }, { value: 'slos', label: 'SLOs + Incident Response', points: 4 } ] }
-                    ]
-                },
-                {
-                    id: 'governance',
-                    title: 'Governance & Risk',
-                    subtitle: 'Decision rights and controls.',
-                    scored: true,
-                    questions: [
-                        { id: 'gov_model', dimension: 'governance', label: 'Approval governance', help: 'Who approves go-live?', type: 'select', required: true, maxPoints: 4, options: [ { value: 'none', label: 'No defined model', points: 0 }, { value: 'informal', label: 'Informal / Ad-hoc', points: 1 }, { value: 'defined', label: 'Defined, uneven enforcement', points: 3 }, { value: 'enforced', label: 'Enforced (Risk/IT/OT)', points: 4 } ] },
-                        { id: 'responsible_ai', dimension: 'governance', label: 'Risk controls (RAI)', help: 'Security, privacy, robustness.', type: 'select', required: true, maxPoints: 4, options: [ { value: 'none', label: 'No standard controls', points: 0 }, { value: 'project', label: 'Project-specific', points: 2 }, { value: 'standard', label: 'Standard control set', points: 3 }, { value: 'independent', label: 'Independent review / stress test', points: 4 } ] },
-                        { id: 'audit', dimension: 'governance', label: 'Auditability', help: 'Inventory and evidence logs.', type: 'select', required: true, maxPoints: 4, options: [ { value: 'not_ready', label: 'Not ready', points: 0 }, { value: 'planned', label: 'Planned', points: 1 }, { value: 'ready', label: 'Ready (Evidence packs)', points: 3 }, { value: 'audited', label: 'Audited', points: 4 } ] }
+                        { 
+                            id: 'data', 
+                            label: "Data Access", 
+                            help: "Is data a bottleneck?",
+                            type: 'radio',
+                            options: [
+                                { val: 0, text: "Painful. Weeks to get a CSV extract." },
+                                { val: 3, text: "Structured. Data Lake exists, but quality is uneven." },
+                                { val: 5, text: "Productised. Documented Data Products with SLAs." }
+                            ]
+                        },
+                        { 
+                            id: 'reliability', 
+                            label: "Maintenance & Updates", 
+                            help: "What happens when the model needs an update?",
+                            type: 'radio',
+                            options: [
+                                { val: 0, text: "Hero mode. One person knows how to fix it." },
+                                { val: 5, text: "Factory mode. Automated pipelines (CI/CD) and non-regression tests." }
+                            ]
+                        }
                     ]
                 }
             ]
         };
 
-        // Logic (State Management)
-        (function initMaturityTool() {
-            const stepperEl = document.getElementById('maturityStepper');
-            const formEl = document.getElementById('maturityForm');
-            const resultsEl = document.getElementById('maturityResults');
-            const backBtn = document.getElementById('maturityBackBtn');
-            const nextBtn = document.getElementById('maturityNextBtn');
-            const footer = document.getElementById('maturityFooter');
+        let currentStep = 0;
+        let answers = {};
+
+        function renderStep() {
+            const step = config.steps[currentStep];
+            const container = document.getElementById('assessmentForm');
+            const dots = document.getElementById('stepperDots');
             
-            const state = { stepIndex: 0, answers: {} };
+            // Render Dots
+            dots.innerHTML = config.steps.map((_, i) => 
+                `<div class="w-2 h-2 rounded-full transition-colors ${i === currentStep ? 'bg-cva-teal' : 'bg-gray-200'}"></div>`
+            ).join('');
             
-            // Helper: Safe HTML escaping
-            const escapeHtml = str => String(str ?? '').replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s]));
+            document.getElementById('stepLabel').innerText = step.title;
 
-            function renderStepper() {
-                stepperEl.innerHTML = maturityConfig.steps.map((s, idx) => `
-                    <div class="w-2.5 h-2.5 rounded-full transition-colors duration-300 ${idx === state.stepIndex ? 'bg-cva-teal ring-4 ring-cva-teal/20' : (idx < state.stepIndex ? 'bg-cva-navy' : 'bg-gray-200')}"></div>
-                `).join('');
-                document.getElementById('maturityProgressText').textContent = `Step ${state.stepIndex + 1} of ${maturityConfig.steps.length}`;
-                document.getElementById('maturityTitle').textContent = maturityConfig.steps[state.stepIndex].title;
-            }
+            let html = `
+                <div class="mb-8">
+                    <h2 class="font-serif text-3xl text-cva-navy mb-2">${step.title}</h2>
+                    ${step.desc ? `<p class="text-gray-500">${step.desc}</p>` : ''}
+                </div>
+                <div class="space-y-8">
+            `;
 
-            function renderStep() {
-                const step = maturityConfig.steps[state.stepIndex];
-                
-                // Form Generation with Tailwind Classes
-                let html = `
-                    <div class="space-y-1 mb-8">
-                        <h2 class="font-serif text-3xl text-cva-navy">${escapeHtml(step.title)}</h2>
-                        <p class="text-gray-500">${escapeHtml(step.subtitle || '')}</p>
-                    </div>
+            step.questions.forEach(q => {
+                html += `<div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                    <label class="block text-sm font-bold text-cva-navy uppercase tracking-wide mb-2">${q.label}</label>
+                    ${q.help ? `<p class="text-xs text-gray-500 mb-4 italic">${q.help}</p>` : ''}
                 `;
 
-                step.questions.forEach(q => {
-                    html += `
-                        <div class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-100 hover:border-cva-teal/30 transition-colors">
-                            <label class="block text-sm font-bold text-cva-navy uppercase tracking-wide mb-2" for="${q.id}">
-                                ${escapeHtml(q.label)} ${q.required ? '<span class="text-cva-teal">*</span>' : ''}
+                if (q.type === 'select') {
+                    html += `<select id="${q.id}" class="w-full p-3 rounded-lg border border-gray-300 bg-white" onchange="saveAnswer('${q.id}', this.value)">
+                        <option value="">Select...</option>
+                        ${q.options.map(o => `<option value="${o}" ${answers[q.id] === o ? 'selected' : ''}>${o}</option>`).join('')}
+                    </select>`;
+                } else if (q.type === 'radio') {
+                    html += `<div class="space-y-3">`;
+                    q.options.forEach(opt => {
+                        const isChecked = answers[q.id] == opt.val ? 'checked' : '';
+                        html += `
+                            <label class="flex items-start gap-3 cursor-pointer group">
+                                <input type="radio" name="${q.id}" value="${opt.val}" ${isChecked} class="mt-1 accent-cva-teal" onchange="saveAnswer('${q.id}', ${opt.val})">
+                                <span class="text-sm text-gray-700 group-hover:text-cva-navy transition-colors">${opt.text}</span>
                             </label>
-                            ${q.help ? `<p class="text-xs text-gray-500 mb-4">${escapeHtml(q.help)}</p>` : ''}
-                            ${q.type === 'checkbox' ? renderCheckbox(q) : renderSelect(q)}
-                        </div>
-                    `;
-                });
-
-                formEl.innerHTML = html;
-                
-                // Buttons State
-                backBtn.disabled = state.stepIndex === 0;
-                backBtn.style.opacity = state.stepIndex === 0 ? '0.5' : '1';
-                nextBtn.textContent = (state.stepIndex === maturityConfig.steps.length - 1) ? 'See Results →' : 'Next Step →';
-                
-                // Bind Events
-                bindInputs();
-                
-                // View Management
-                formEl.classList.remove('hidden');
-                resultsEl.classList.add('hidden');
-                footer.classList.remove('hidden');
-            }
-
-            function renderSelect(q) {
-                const val = state.answers[q.id] || '';
-                const opts = q.options.map(o => `<option value="${o.value}" ${o.value === val ? 'selected' : ''}>${escapeHtml(o.label)}</option>`).join('');
-                return `
-                    <div class="relative">
-                        <select id="${q.id}" data-qid="${q.id}" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-cva-navy font-medium focus:border-cva-teal focus:ring-2 focus:ring-cva-teal/20 outline-none appearance-none transition-shadow cursor-pointer">
-                            <option value="" disabled ${!val ? 'selected' : ''}>Select an option...</option>
-                            ${opts}
-                        </select>
-                        <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-cva-teal">▼</div>
-                    </div>
-                `;
-            }
-
-            function renderCheckbox(q) {
-                const vals = state.answers[q.id] || [];
-                return `
-                    <div class="grid md:grid-cols-2 gap-3">
-                        ${q.options.map(o => `
-                            <label class="cursor-pointer relative group">
-                                <input type="checkbox" data-qid="${q.id}" value="${o.value}" ${vals.includes(o.value) ? 'checked' : ''} class="custom-checkbox sr-only">
-                                <div class="p-4 rounded-xl border border-gray-200 bg-white hover:border-cva-teal/50 transition-all flex items-start gap-3 h-full group-hover:shadow-sm">
-                                    <div class="w-5 h-5 rounded border border-gray-300 flex items-center justify-center shrink-0 mt-0.5 check-icon bg-white">
-                                        <div class="w-2.5 h-2.5 bg-cva-teal rounded-sm opacity-0 transition-opacity"></div>
-                                    </div>
-                                    <span class="text-sm text-gray-700 font-medium select-none">${escapeHtml(o.label)}</span>
-                                </div>
-                            </label>
-                        `).join('')}
-                    </div>
-                `;
-            }
-
-            function bindInputs() {
-                formEl.querySelectorAll('select').forEach(el => {
-                    el.addEventListener('change', e => {
-                        state.answers[e.target.dataset.qid] = e.target.value;
+                        `;
                     });
-                });
-                formEl.querySelectorAll('input[type="checkbox"]').forEach(el => {
-                    el.addEventListener('change', e => {
-                        const qid = e.target.dataset.qid;
-                        const checkboxes = formEl.querySelectorAll(`input[data-qid="${qid}"]:checked`);
-                        state.answers[qid] = Array.from(checkboxes).map(c => c.value);
-                    });
+                    html += `</div>`;
+                }
+                html += `</div>`;
+            });
+            html += `</div>`;
+            container.innerHTML = html;
+
+            document.getElementById('backBtn').disabled = currentStep === 0;
+            document.getElementById('nextBtn').innerText = currentStep === config.steps.length - 1 ? "Analyze" : "Next";
+        }
+
+        window.saveAnswer = (id, val) => { answers[id] = val; };
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            // Validate
+            const step = config.steps[currentStep];
+            const missing = step.questions.some(q => answers[q.id] === undefined);
+            if (missing) { alert("Please answer all questions to get an accurate result."); return; }
+
+            if (currentStep < config.steps.length - 1) {
+                currentStep++;
+                renderStep();
+            } else {
+                showResults();
+            }
+        });
+
+        document.getElementById('backBtn').addEventListener('click', () => {
+            if (currentStep > 0) { currentStep--; renderStep(); }
+        });
+
+        function calculateScore() {
+            let total = 0;
+            let max = 0;
+            // Simple scoring logic based on radio values (0, 3, 5)
+            // Steps 1, 2, 3 have scored questions. Step 0 is context.
+            for (let i = 1; i < config.steps.length; i++) {
+                config.steps[i].questions.forEach(q => {
+                    total += parseInt(answers[q.id] || 0);
+                    max += 5;
                 });
             }
+            return Math.round((total / max) * 100);
+        }
 
-            function computeScore() {
-                let totalScore = 0;
-                let maxTotal = 0;
-                let dimScores = {};
+        function showResults() {
+            const score = calculateScore();
+            let archetype, advice, priority;
 
-                maturityConfig.steps.forEach(step => {
-                    if (!step.scored) return;
-                    step.questions.forEach(q => {
-                        let points = 0;
-                        const ans = state.answers[q.id];
+            if (score < 40) {
+                archetype = "The Pilot Factory";
+                advice = "You have energy but no industrial traction. You are stuck in POC mode.";
+                priority = "Stop launching new pilots. Pick ONE use case, sanctify the data, and push it to production with a real SLA.";
+            } else if (score < 75) {
+                archetype = "The Builder";
+                advice = "You can build, but you struggle to scale safely. Risk is increasing.";
+                priority = "Formalise governance. Define who owns the 'Kill Switch' and implement automated non-regression testing.";
+            } else {
+                archetype = "The Industrial Player";
+                advice = "AI is becoming a core asset. The challenge is now portfolio optimization.";
+                priority = "Focus on reuse. Build a 'Feature Store' to accelerate new use cases and monitor financial ROI per model.";
+            }
+
+            const html = `
+                <div class="text-center fade-in">
+                    <div class="inline-block p-1 px-3 rounded bg-cva-navy text-white text-xs font-bold uppercase tracking-widest mb-6">Results</div>
+                    <h2 class="font-serif text-4xl text-cva-navy mb-2">You are: ${archetype}</h2>
+                    <div class="text-6xl font-bold text-cva-teal mb-6">${score}<span class="text-2xl text-gray-400">/100</span></div>
+                    
+                    <div class="bg-gray-50 rounded-xl p-8 border border-gray-200 text-left mb-8">
+                        <h3 class="font-bold text-cva-navy mb-2">Our Diagnosis</h3>
+                        <p class="text-gray-600 mb-6 text-sm">${advice}</p>
                         
-                        if (q.type === 'checkbox') {
-                            (ans || []).forEach(v => {
-                                const opt = q.options.find(o => o.value === v);
-                                if(opt) points += opt.points;
-                            });
-                            points = Math.min(points, q.maxPoints); // Cap points
-                        } else {
-                            const opt = q.options.find(o => o.value === ans);
-                            if(opt) points = opt.points;
-                        }
-
-                        // Aggregate by dimension
-                        if (!dimScores[q.dimension]) dimScores[q.dimension] = { current: 0, max: 0 };
-                        dimScores[q.dimension].current += points;
-                        dimScores[q.dimension].max += q.maxPoints;
-                    });
-                });
-
-                // Weighted calculation
-                maturityConfig.dimensions.forEach(dim => {
-                    const ds = dimScores[dim.id];
-                    if (ds && ds.max > 0) {
-                        const dimPct = (ds.current / ds.max) * 100;
-                        totalScore += dimPct * dim.weight;
-                        dimScores[dim.id].final = Math.round(dimPct);
-                    } else {
-                        dimScores[dim.id] = { final: 0 };
-                    }
-                });
-
-                return { overall: Math.round(totalScore), details: dimScores };
-            }
-
-            function getArchetype(score) {
-                if (score < 20) return { name: "The Observer", desc: "Foundations are missing. Priority: Pick one wedge process." };
-                if (score < 40) return { name: "The Experimenter", desc: "Pilots exist but lack industrial roots. Priority: Define ownership." };
-                if (score < 60) return { name: "The Builder", desc: "Scaling is constrained by manual delivery. Priority: Standardize MLOps." };
-                if (score < 80) return { name: "The Industrialiser", desc: "Good traction. Priority: Strengthen governance to manage risk at scale." };
-                return { name: "The Operator", desc: "AI is a core capability. Priority: Optimise portfolio value." };
-            }
-
-            function renderResults() {
-                const scores = computeScore();
-                const archetype = getArchetype(scores.overall);
-                
-                // Color for ring
-                const ringColor = '#00A1BF'; // CVA Teal
-                
-                let dimsHtml = maturityConfig.dimensions.map(d => {
-                    const s = scores.details[d.id]?.final || 0;
-                    return `
-                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                            <div class="flex justify-between items-end mb-2">
-                                <span class="text-xs font-bold uppercase text-gray-500">${d.label}</span>
-                                <span class="font-bold text-cva-navy">${s}/100</span>
-                            </div>
-                            <div class="h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
-                                <div class="h-full bg-cva-teal rounded-full" style="width: ${s}%"></div>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-
-                resultsEl.innerHTML = `
-                    <div class="grid md:grid-cols-12 gap-8 items-center">
-                        <!-- Score Card -->
-                        <div class="md:col-span-5 bg-cva-navy text-white p-8 rounded-2xl text-center shadow-2xl relative overflow-hidden">
-                            <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10"></div>
-                            
-                            <h3 class="font-serif text-2xl mb-6">Your Maturity Profile</h3>
-                            
-                            <div class="relative w-40 h-40 mx-auto mb-6 flex items-center justify-center">
-                                <!-- Conic Gradient Ring -->
-                                <div class="absolute inset-0 rounded-full score-ring" style="--score: ${scores.overall}; --c-teal: ${ringColor}; padding: 3px;">
-                                    <div class="bg-cva-navy w-full h-full rounded-full"></div>
-                                </div>
-                                <div class="relative z-10 flex flex-col items-center">
-                                    <span class="text-5xl font-serif">${scores.overall}</span>
-                                    <span class="text-xs font-bold text-cva-teal uppercase tracking-widest mt-1">/ 100</span>
-                                </div>
-                            </div>
-
-                            <div class="bg-white/10 rounded-xl p-4 border border-white/10">
-                                <div class="text-xs font-bold text-cva-teal uppercase tracking-widest mb-1">Archetype</div>
-                                <div class="text-xl font-bold">${archetype.name}</div>
-                            </div>
-                        </div>
-
-                        <!-- Details -->
-                        <div class="md:col-span-7 space-y-6">
-                            <div>
-                                <h4 class="font-bold text-cva-navy text-lg mb-2">Analysis</h4>
-                                <p class="text-gray-600 text-sm leading-relaxed">${archetype.desc}</p>
-                            </div>
-                            
-                            <div class="grid grid-cols-2 gap-3">
-                                ${dimsHtml}
-                            </div>
-                            
-                            <div class="pt-4 border-t border-gray-100">
-                                <div class="text-xs font-bold text-cva-teal uppercase tracking-widest mb-3">Recommended Next Step</div>
-                                <div class="flex flex-col sm:flex-row gap-3">
-                                    <button onclick="window.location.href='index.html#start'" class="flex-1 px-4 py-3 bg-cva-navy hover:bg-cva-blue text-white text-sm font-bold rounded-xl transition-colors text-center">
-                                        Request Scoping Call
-                                    </button>
-                                    <button onclick="location.reload()" class="px-4 py-3 bg-white border border-gray-200 hover:border-cva-teal text-cva-navy text-sm font-bold rounded-xl transition-colors">
-                                        Retake Test
-                                    </button>
-                                </div>
-                            </div>
+                        <h3 class="font-bold text-cva-teal mb-2">The Expert's Priority</h3>
+                        <div class="flex gap-4 items-start">
+                            <span class="text-2xl">👉</span>
+                            <p class="text-cva-navy font-medium leading-relaxed">${priority}</p>
                         </div>
                     </div>
-                `;
 
-                // Show Results View
-                formEl.classList.add('hidden');
-                footer.classList.add('hidden');
-                resultsEl.classList.remove('hidden');
-                
-                // Hide steps in header
-                document.getElementById('maturityTitle').textContent = "Assessment Complete";
-                document.getElementById('maturityStepper').classList.add('hidden');
-            }
+                    <div class="flex justify-center gap-4">
+                        <button onclick="location.href='index.html#start'" class="px-8 py-3 bg-cva-navy text-white font-bold rounded-xl shadow-lg hover:bg-cva-blue transition-colors">
+                            Discuss this Score
+                        </button>
+                    </div>
+                </div>
+            `;
 
-            nextBtn.addEventListener('click', () => {
-                const step = maturityConfig.steps[state.stepIndex];
-                // Simple validation
-                const missing = step.questions.filter(q => q.required && !state.answers[q.id]);
-                if (missing.length > 0) {
-                    alert('Please complete all required fields.');
-                    return;
-                }
+            document.getElementById('assessmentForm').classList.add('hidden');
+            document.getElementById('formFooter').classList.add('hidden');
+            document.getElementById('stepperContainer').classList.add('hidden');
+            
+            const rv = document.getElementById('resultsView');
+            rv.innerHTML = html;
+            rv.classList.remove('hidden');
+        }
 
-                if (state.stepIndex < maturityConfig.steps.length - 1) {
-                    state.stepIndex++;
-                    renderStepper();
-                    renderStep();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    renderResults();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-
-            backBtn.addEventListener('click', () => {
-                if (state.stepIndex > 0) {
-                    state.stepIndex--;
-                    renderStepper();
-                    renderStep();
-                }
-            });
-
-            // Init
-            renderStepper();
-            renderStep();
-        })();
+        // Init
+        renderStep();
     </script>
 </body>
 </html>
+
 
